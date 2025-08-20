@@ -22,6 +22,16 @@ export const iconNames = {
   warning: 'warning',
   error: 'error-outline',
   check: 'check-circle',
+  
+  // Ícones de login/acesso
+  'login': 'login',
+  'account-circle': 'account-circle',
+  'arrow-forward': 'arrow-forward',
+  'door-front': 'meeting-room',
+  'key': 'vpn-key',
+  'lock': 'lock',
+  'visibility': 'visibility',
+  'visibility-off': 'visibility-off',
 } as const;
 
 export const iconSizes = {

@@ -17,4 +17,7 @@ export const radius = {
   input: borderRadius.md,
   pill: borderRadius.full,
   container: borderRadius['2xl'],
+  sheet: {
+    top: borderRadius.xl, // Para cantos superiores do BottomSheet
+  },
 } as const;

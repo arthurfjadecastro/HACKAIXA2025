@@ -48,6 +48,27 @@ export const colors = {
     placeholder: '#999999',
   },
 
+  brand: {
+    orange: {
+      primary: '#F39200',
+    },
+  },
+
+  action: {
+    disabled: {
+      bg: '#D0E0E3',
+    },
+  },
+
+  surface: {
+    background: '#FFFFFF',
+    divider: '#EEEEEE',
+  },
+
+  link: {
+    default: '#005CA9',
+  },
+
   tabBar: {
     active: {
       background: '#FFFFFF',
