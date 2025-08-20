@@ -37,6 +37,8 @@ export interface ApiError {
 
 export interface RootStackParamList {
   Home: undefined;
+  ProductList: undefined;
+  ProductSimulator: { productId?: string };
 }
 
 // ========================================
