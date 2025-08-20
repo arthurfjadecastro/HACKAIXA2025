@@ -55,13 +55,4 @@ This command will:
 - **Functions**: Percentage of functions that were called
 - **Lines**: Percentage of lines of code that were executed
 
----
-*Generated automatically by `npm run test:coverage:report`*
 
-
----
-*Generated automatically by `npm run test:coverage:report`*
-
-
----
-*Generated automatically by `npm run test:coverage:report`*
