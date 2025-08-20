@@ -1,15 +1,20 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { Icon } from '@/design-system/icons';
 import { Text } from '@/design-system/components/Text/Text';
 import ActionCard from '@/design-system/components/ActionCard';
-import WelcomeHeroSVG from '@/design-system/components/WelcomeHeroSVG';
 import LoginBottomSheet from '@/design-system/components/LoginBottomSheet';
 import { colors, spacing } from '@/design-system/tokens';
+import { AppStackParamList } from '@/navigation/AppStack';
+
+type NavigationProps = NativeStackNavigationProp<AppStackParamList, 'Home'>;
 
 const HomeScreen: React.FC = () => {
+  const navigation = useNavigation<NavigationProps>();
   const [showLoginBottomSheet, setShowLoginBottomSheet] = useState(false);
 
   const handleOpenLogin = () => {
@@ -24,19 +29,13 @@ const HomeScreen: React.FC = () => {
     // Simular processo de login
     console.log('Login attempt:', { username, passwordLength: password.length });
     
-    Alert.alert(
-      'Login realizado!',
-      `Bem-vindo, ${username}!`,
-      [
-        {
-          text: 'OK',
-          onPress: () => {
-            setShowLoginBottomSheet(false);
-            // Aqui você pode navegar para a próxima tela ou atualizar o estado da aplicação
-          },
-        },
-      ]
-    );
+    // Fechar o modal
+    setShowLoginBottomSheet(false);
+    
+    // Navegar para ProductList após login bem-sucedido
+    setTimeout(() => {
+      navigation.navigate('ProductList');
+    }, 300); // Pequeno delay para a animação do modal
   };
 
   return (
@@ -49,9 +48,6 @@ const HomeScreen: React.FC = () => {
         end={{ x: 1, y: 0 }}
         style={styles.container}
       >
-        {/* Hero SVG decorativo */}
-        <WelcomeHeroSVG />
-        
         {/* Faixa de profundidade (overlay) */}
         <LinearGradient
           colors={['transparent', 'rgba(0, 74, 138, 0.88)']}

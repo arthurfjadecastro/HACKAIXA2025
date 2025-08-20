@@ -4,7 +4,7 @@ import { LottieAnimation } from '../LottieAnimation';
 
 jest.mock('lottie-react-native', () => {
   const React = require('react');
-  return React.forwardRef((props: any, ref: any) => {
+  return React.forwardRef((_: any, ref: any) => {
     const { View } = require('react-native');
     React.useImperativeHandle(ref, () => ({
       play: jest.fn(),

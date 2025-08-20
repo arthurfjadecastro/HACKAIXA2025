@@ -4,8 +4,9 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import BottomSheet from '@/design-system/components/BottomSheet';
 import BottomSheetHeader from '@/design-system/components/BottomSheetHeader';
@@ -13,6 +14,9 @@ import Divider from '@/design-system/components/Divider';
 import InputField from '@/design-system/components/InputField';
 import { Button } from '@/design-system/components/Button/Button';
 import { colors, spacing } from '@/design-system/tokens';
+import { AppStackParamList } from '@/navigation/AppStack';
+
+type NavigationProps = NativeStackNavigationProp<AppStackParamList>;
 
 interface LoginBottomSheetProps {
   visible: boolean;
@@ -25,6 +29,7 @@ const LoginBottomSheet: React.FC<LoginBottomSheetProps> = ({
   onClose,
   onLogin,
 }) => {
+  const navigation = useNavigation<NavigationProps>();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -43,12 +48,13 @@ const LoginBottomSheet: React.FC<LoginBottomSheetProps> = ({
       if (onLogin) {
         onLogin(username, password);
       } else {
-        // Simular login para demonstração
-        Alert.alert(
-          'Login',
-          `Usuário: ${username}\nSenha: ${'*'.repeat(password.length)}`,
-          [{ text: 'OK', onPress: onClose }]
-        );
+        // Fechar o modal primeiro
+        onClose();
+        
+        // Simular login bem-sucedido e navegar para ProductList
+        setTimeout(() => {
+          navigation.navigate('ProductList');
+        }, 300); // Delay pequeno para animação do modal
       }
     }
   };
