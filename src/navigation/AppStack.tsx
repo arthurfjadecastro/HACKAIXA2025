@@ -52,7 +52,7 @@ const AppStackNavigator: React.FC = () => {
         component={ProductListScreen}
         options={{ 
           title: 'Produtos de Empréstimo',
-          headerShown: true
+          headerShown: false
         }}
       />
       <Stack.Screen 
