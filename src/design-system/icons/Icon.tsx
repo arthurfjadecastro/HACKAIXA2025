@@ -6,6 +6,7 @@ export const iconNames = {
   home: 'home',
   back: 'arrow-back',
   close: 'close',
+  x: 'close',
   menu: 'menu',
   
   add: 'add',

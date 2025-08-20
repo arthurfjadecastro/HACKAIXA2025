@@ -1,28 +1,22 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 
 import { Icon } from '@/design-system/icons';
 
 const HomeScreen: React.FC = () => {
   return (
-    <LinearGradient
-      colors={['#005ca9', '#005fab', '#005fab', '#00a1d8', '#00b5e5']}
-      locations={[0, 0.05, 0.45, 0.82, 1]}
-      start={{ x: 0, y: 1 }}
-      end={{ x: 1, y: 0 }}
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <View style={styles.logoContainer}>
         <Icon name="x" size={120} color="#FFFFFF" />
       </View>
-    </LinearGradient>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#005ca9', // Mesma cor base da splash
     justifyContent: 'center',
     alignItems: 'center',
   },

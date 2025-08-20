@@ -26,6 +26,7 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-native": "0.79.5",
+    "react-native-linear-gradient": "^2.8.3",
     "react-native-safe-area-context": "^5.6.1",
     "react-native-screens": "^4.14.1",
     "react-native-vector-icons": "^10.3.0",
@@ -67,7 +68,12 @@
         "lines": 80
       }
     },
-    "coverageReporters": ["text", "text-summary", "lcov", "html"]
+    "coverageReporters": [
+      "text",
+      "text-summary",
+      "lcov",
+      "html"
+    ]
   },
   "private": true
 }
