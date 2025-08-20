@@ -10,7 +10,7 @@ export { spacing, padding, margin, gap } from '@/design-system/tokens/spacing';
 export { borderRadius, radius } from '@/design-system/tokens/radius';
 export { shadows } from '@/design-system/tokens/shadows';
 
-// Theme object completo
+
 export const theme = {
   colors,
   typography,
@@ -26,5 +26,5 @@ export const theme = {
   lineHeights,
 } as const;
 
-// Type para o tema (útil para TypeScript)
+
 export type Theme = typeof theme;

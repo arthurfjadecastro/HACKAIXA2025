@@ -9,7 +9,6 @@ module.exports = function(api) {
           root: ['./src'],
           alias: {
             '@': './src',
-            'react-native-linear-gradient': './src/utils/LinearGradient',
           },
         },
       ],

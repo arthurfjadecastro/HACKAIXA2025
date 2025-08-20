@@ -1,16 +1,14 @@
-import React from 'react';
-import { ViewStyle } from 'react-native';
-import ShimmerPlaceholder from 'react-native-shimmer-placeholder';
-import LinearGradient from 'react-native-linear-gradient';
+import React, { useEffect, useRef } from 'react';
+import { Animated, ViewStyle, View } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export interface SkeletonProps {
   width: number | string;
   height: number;
   variant?: 'rectangle' | 'circle' | 'line';
   style?: ViewStyle;
-  // Novas props para controlar a animação
   duration?: number;
-  shimmerColors?: string[];
+  shimmerColors?: [string, string, string];
 }
 
 export const Skeleton: React.FC<SkeletonProps> = ({
@@ -18,13 +16,31 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   height,
   variant = 'rectangle',
   style,
-  duration = 1500, // Duração um pouco mais lenta para efeito suave
+  duration = 1500,
   shimmerColors = [
-    '#E8EDF2', // Cor base mais suave
-    '#F4F7FA', // Cor clara do shimmer
-    '#E8EDF2'  // Volta para cor base
-  ], // Cores do gradiente shimmer mais refinadas
+    '#E8EDF2',
+    '#F4F7FA', 
+    '#E8EDF2'
+  ],
 }) => {
+  const animatedValue = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const startAnimation = () => {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(animatedValue, {
+            toValue: 1,
+            duration: duration,
+            useNativeDriver: false,
+          }),
+        ])
+      ).start();
+    };
+
+    startAnimation();
+  }, [animatedValue, duration]);
+
   const getVariantStyle = (): ViewStyle => {
     switch (variant) {
       case 'circle':
@@ -37,20 +53,45 @@ export const Skeleton: React.FC<SkeletonProps> = ({
     }
   };
 
+  const translateX = animatedValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [typeof width === 'number' ? -width * 1.2 : -100, typeof width === 'number' ? width * 1.2 : 100],
+  });
+
   return (
-    <ShimmerPlaceholder
-      LinearGradient={LinearGradient} // Componente de gradiente personalizado
-      visible={false} // false = mostra a animação
-      duration={duration} // Duração da animação
-      shimmerColors={shimmerColors} // Cores do gradiente
+    <View
       style={[
-        { width, height },
+        {
+          width,
+          height,
+          backgroundColor: shimmerColors[0],
+          overflow: 'hidden',
+        } as ViewStyle,
         getVariantStyle(),
         style,
       ]}
-      // Configurações da animação para efeito mais profissional
-      shimmerWidthPercent={1.2} // Largura da onda um pouco maior
-      location={[0.2, 0.5, 0.8]} // Posições do gradiente mais equilibradas
-    />
+    >
+      <Animated.View
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          transform: [{ translateX }],
+        }}
+      >
+        <LinearGradient
+          colors={shimmerColors}
+          start={{ x: 0, y: 0.5 }}
+          end={{ x: 1, y: 0.5 }}
+          locations={[0.2, 0.5, 0.8]}
+          style={{
+            flex: 1,
+            width: '200%',
+          }}
+        />
+      </Animated.View>
+    </View>
   );
 };
