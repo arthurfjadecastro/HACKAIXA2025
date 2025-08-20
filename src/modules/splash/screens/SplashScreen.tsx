@@ -4,7 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { LottieAnimation } from '@/design-system/components/LottieAnimation';
+import { LottieAnimation } from '@/modules/splash/components/LottieAnimation';
 import { SplashFallback } from '@/design-system/components/SplashFallback';
 import { AppStackParamList } from '@/navigation/AppStack';
 
@@ -79,8 +79,7 @@ const SplashScreen: React.FC = () => {
 
   const handleLottieFailure = () => {
     console.warn('Lottie animation failed to load, falling back to simple animation');
-    // Telemetria opcional
-    // logEvent('splash_lottie_failed');
+
     
     setUseLottie(false);
   };

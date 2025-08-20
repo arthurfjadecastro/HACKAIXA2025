@@ -1,4 +1,4 @@
-import { renderWithNavigation } from '@/utils/test-utils';
+import { renderWithNavigation } from '@/navigation/test-utils';
 import ProductList from './ProductList';
 
 describe('ProductList', () => {

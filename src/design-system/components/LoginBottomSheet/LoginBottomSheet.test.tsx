@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react-native';
-import { renderWithNavigation } from '@/utils/test-utils';
+import { renderWithNavigation } from '@/navigation/test-utils';
 import LoginBottomSheet from './LoginBottomSheet';
 
 describe('LoginBottomSheet', () => {
