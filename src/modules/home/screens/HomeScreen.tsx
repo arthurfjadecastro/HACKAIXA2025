@@ -7,7 +7,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Icon } from '@/design-system/icons';
 import { Text } from '@/design-system/components/Text/Text';
 import ActionCard from '@/design-system/components/ActionCard';
-import LoginBottomSheet from '@/design-system/components/LoginBottomSheet';
+import LoginBottomSheet from '@/modules/home/components/LoginBottomSheet';
 import { colors, spacing } from '@/design-system/tokens';
 import { AppStackParamList } from '@/navigation/AppStack';
 
