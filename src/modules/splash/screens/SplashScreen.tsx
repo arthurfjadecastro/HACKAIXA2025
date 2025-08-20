@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { LottieAnimation } from '@/modules/splash/components/LottieAnimation';
-import { SplashFallback } from '@/design-system/components/SplashFallback';
+import { SplashFallback } from '@/modules/splash/components/SplashFallback';
 import { AppStackParamList } from '@/navigation/AppStack';
 
 // Importar animação Lottie
