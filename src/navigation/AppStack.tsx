@@ -5,13 +5,13 @@ import { colors } from '@/design-system/tokens';
 import HomeScreen from '@/modules/home/screens/HomeScreen';
 import ProductListScreen from '@/modules/products/screens/ProductList';
 import ProductSimulatorScreen from '@/modules/products/screens/ProductSimulator';
-import CadastrarProdutosScreen from '@/modules/products/screens/CadastrarProdutos';
+import RegisterProductsScreen from '@/modules/products/screens/RegisterProducts';
 
 export type AppStackParamList = {
   Home: undefined;
   ProductList: undefined;
   ProductSimulator: { productId?: string };
-  CadastrarProdutos: undefined;
+  RegisterProducts: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -55,10 +55,10 @@ const AppStackNavigator: React.FC = () => {
         }}
       />
       <Stack.Screen 
-        name="CadastrarProdutos" 
-        component={CadastrarProdutosScreen}
+        name="RegisterProducts" 
+        component={RegisterProductsScreen}
         options={{ 
-          title: 'Cadastrar Produtos',
+          title: 'Register Products',
           headerShown: true
         }}
       />

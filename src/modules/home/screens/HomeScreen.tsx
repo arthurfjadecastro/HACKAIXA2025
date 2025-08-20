@@ -12,8 +12,8 @@ type NavigationProps = NativeStackNavigationProp<AppStackParamList, 'Home'>;
 const HomeScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProps>();
 
-  const handleCadastrarProdutos = () => {
-    navigation.navigate('CadastrarProdutos');
+  const handleRegisterProducts = () => {
+    navigation.navigate('RegisterProducts');
   };
 
   const handleListarProdutos = () => {
@@ -47,12 +47,12 @@ const HomeScreen: React.FC = () => {
 
           <View style={styles.buttonContainer}>
             <Button
-              title="Cadastrar Produtos"
+              title="Register Products"
               variant="primary"
               size="lg"
               fullWidth
               icon="add"
-              onPress={handleCadastrarProdutos}
+              onPress={handleRegisterProducts}
               style={styles.menuButton}
             />
 

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1755654424818" clover="3.2.0">
+  <project timestamp="1755654424818" name="All files">
+    <metrics statements="49" coveredstatements="33" conditionals="43" coveredconditionals="15" methods="10" coveredmethods="3" elements="102" coveredelements="51" complexity="0" loc="49" ncloc="49" packages="4" files="14" classes="14"/>
+    <package name="design-system.components">
+      <metrics statements="26" coveredstatements="12" conditionals="39" coveredconditionals="15" methods="7" coveredmethods="2"/>
+      <file name="Button.tsx" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\components\Button.tsx">
+        <metrics statements="5" coveredstatements="5" conditionals="21" coveredconditionals="12" methods="1" coveredmethods="1"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="38" count="3" type="stmt"/>
+        <line num="47" count="3" type="stmt"/>
+        <line num="55" count="3" type="stmt"/>
+        <line num="84" count="2" type="stmt"/>
+      </file>
+      <file name="Card.tsx" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\components\Card.tsx">
+        <metrics statements="4" coveredstatements="2" conditionals="2" coveredconditionals="0" methods="1" coveredmethods="0"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="18" count="0" type="stmt"/>
+        <line num="25" count="0" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+      </file>
+      <file name="Skeleton.tsx" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\components\Skeleton.tsx">
+        <metrics statements="13" coveredstatements="1" conditionals="11" coveredconditionals="0" methods="4" coveredmethods="0"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="26" count="0" type="stmt"/>
+        <line num="28" count="0" type="stmt"/>
+        <line num="29" count="0" type="stmt"/>
+        <line num="30" count="0" type="stmt"/>
+        <line num="41" count="0" type="stmt"/>
+        <line num="44" count="0" type="stmt"/>
+        <line num="45" count="0" type="cond" truecount="0" falsecount="4"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="49" count="0" type="stmt"/>
+        <line num="52" count="0" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="61" count="0" type="stmt"/>
+      </file>
+      <file name="Text.tsx" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\components\Text.tsx">
+        <metrics statements="4" coveredstatements="4" conditionals="5" coveredconditionals="3" methods="1" coveredmethods="1"/>
+        <line num="14" count="1" type="stmt"/>
+        <line num="22" count="4" type="cond" truecount="1" falsecount="1"/>
+        <line num="24" count="4" type="stmt"/>
+        <line num="30" count="4" type="stmt"/>
+      </file>
+      <file name="index.ts" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\components\index.ts">
+        <metrics statements="0" coveredstatements="0" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      </file>
+    </package>
+    <package name="design-system.icons">
+      <metrics statements="6" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+      <file name="Icon.tsx" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\icons\Icon.tsx">
+        <metrics statements="6" coveredstatements="4" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="5" count="2" type="stmt"/>
+        <line num="26" count="2" type="stmt"/>
+        <line num="43" count="2" type="stmt"/>
+        <line num="49" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="51" count="0" type="stmt"/>
+        <line num="61" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="design-system.tokens">
+      <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="colors.ts" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\tokens\colors.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+      </file>
+      <file name="index.ts" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\tokens\index.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="14" count="2" type="stmt"/>
+      </file>
+      <file name="radius.ts" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\tokens\radius.ts">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+      </file>
+      <file name="shadows.ts" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\tokens\shadows.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+      </file>
+      <file name="spacing.ts" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\tokens\spacing.ts">
+        <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="22" count="2" type="stmt"/>
+        <line num="30" count="2" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+      </file>
+      <file name="typography.ts" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\design-system\tokens\typography.ts">
+        <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="25" count="2" type="stmt"/>
+        <line num="38" count="2" type="stmt"/>
+        <line num="58" count="2" type="stmt"/>
+      </file>
+    </package>
+    <package name="modules.products.screens.CadastrarProdutos">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <file name="CadastrarProdutos.styles.ts" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\modules\products\screens\CadastrarProdutos\CadastrarProdutos.styles.ts">
+        <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="4" count="1" type="stmt"/>
+      </file>
+      <file name="CadastrarProdutos.tsx" path="C:\Users\arthu\Desktop\C150713_CAIXA\src\modules\products\screens\CadastrarProdutos\CadastrarProdutos.tsx">
+        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="4" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
