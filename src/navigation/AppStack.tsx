@@ -68,7 +68,7 @@ const AppStackNavigator: React.FC = () => {
         component={RegisterProductsScreen}
         options={{ 
           title: 'Register Products',
-          headerShown: true
+          headerShown: false
         }}
       />
     </Stack.Navigator>
