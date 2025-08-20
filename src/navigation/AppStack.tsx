@@ -7,6 +7,7 @@ import HomeScreen from '@/modules/home/screens/HomeScreen';
 import ProductListScreen from '@/modules/products/screens/ProductList';
 import ProductSimulatorScreen from '@/modules/products/screens/ProductSimulator';
 import RegisterProductsScreen from '@/modules/products/screens/RegisterProducts';
+import CreateProductScreen from '@/modules/products/screens/CreateProduct';
 
 export type AppStackParamList = {
   Splash: undefined;
@@ -14,6 +15,7 @@ export type AppStackParamList = {
   ProductList: undefined;
   ProductSimulator: { productId?: string };
   RegisterProducts: undefined;
+  CreateProduct: undefined;
 };
 
 const Stack = createNativeStackNavigator<AppStackParamList>();
@@ -68,6 +70,14 @@ const AppStackNavigator: React.FC = () => {
         component={RegisterProductsScreen}
         options={{ 
           title: 'Register Products',
+          headerShown: false
+        }}
+      />
+      <Stack.Screen 
+        name="CreateProduct" 
+        component={CreateProductScreen}
+        options={{ 
+          title: 'Cadastre um novo produto',
           headerShown: false
         }}
       />

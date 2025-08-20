@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle, useRef } from 'react';
 import {
   View,
   TextInput,
@@ -15,26 +15,60 @@ interface InputFieldProps {
   placeholder: string;
   value: string;
   onChangeText: (text: string) => void;
+  onBlur?: () => void;
   secureTextEntry?: boolean;
-  keyboardType?: 'default' | 'email-address' | 'numeric';
+  keyboardType?: 'default' | 'email-address' | 'numeric' | 'decimal-pad' | 'number-pad';
   autoCapitalize?: 'none' | 'sentences' | 'words' | 'characters';
+  error?: string | undefined;
+  helperText?: string;
+  testID?: string;
+  accessible?: boolean;
+  accessibilityLabel?: string;
+  returnKeyType?: 'done' | 'go' | 'next' | 'search' | 'send';
+  onSubmitEditing?: () => void;
 }
 
-const InputField: React.FC<InputFieldProps> = ({
+const InputField = forwardRef<TextInput, InputFieldProps>(({
   label,
   placeholder,
   value,
   onChangeText,
+  onBlur,
   secureTextEntry = false,
   keyboardType = 'default',
   autoCapitalize = 'none',
-}) => {
+  error,
+  helperText,
+  testID,
+  accessible = true,
+  accessibilityLabel,
+  returnKeyType = 'done',
+  onSubmitEditing,
+}, ref) => {
   const [isSecureTextVisible, setIsSecureTextVisible] = useState(secureTextEntry);
   const [isFocused, setIsFocused] = useState(false);
+  const inputRef = useRef<TextInput>(null);
+
+  useImperativeHandle(ref, () => ({
+    focus: () => inputRef.current?.focus(),
+    blur: () => inputRef.current?.blur(),
+    clear: () => inputRef.current?.clear(),
+  } as TextInput));
 
   const toggleSecureText = () => {
     setIsSecureTextVisible(!isSecureTextVisible);
   };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    onBlur?.();
+  };
+
+  const hasError = !!error;
 
   return (
     <View style={styles.container}>
@@ -43,18 +77,25 @@ const InputField: React.FC<InputFieldProps> = ({
         styles.inputContainer,
         isFocused && styles.inputContainerFocused,
         value.length > 0 && styles.inputContainerWithValue,
+        hasError && styles.inputContainerError,
       ]}>
         <TextInput
+          ref={inputRef}
           style={styles.input}
           placeholder={placeholder}
           placeholderTextColor={colors.component.placeholder}
           value={value}
           onChangeText={onChangeText}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           secureTextEntry={isSecureTextVisible}
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          returnKeyType={returnKeyType}
+          onSubmitEditing={onSubmitEditing}
+          testID={testID}
+          accessible={accessible}
+          accessibilityLabel={accessibilityLabel || label}
         />
         {secureTextEntry && (
           <TouchableOpacity
@@ -72,9 +113,22 @@ const InputField: React.FC<InputFieldProps> = ({
           </TouchableOpacity>
         )}
       </View>
+      {/* Helper Text ou Error */}
+      {helperText && (
+        <Text 
+          style={[
+            styles.helperText,
+            hasError && styles.errorText
+          ]}
+          testID={`${testID}-helper`}
+          accessibilityRole="text"
+        >
+          {helperText}
+        </Text>
+      )}
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -103,6 +157,10 @@ const styles = StyleSheet.create({
   inputContainerWithValue: {
     borderColor: colors.primary.light,
   },
+  inputContainerError: {
+    borderColor: colors.status.error,
+    borderWidth: 2,
+  },
   input: {
     flex: 1,
     fontSize: 16,
@@ -117,6 +175,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 16,
+  },
+  helperText: {
+    fontSize: 14,
+    color: colors.text.secondary,
+    marginTop: spacing[1],
+    lineHeight: 20,
+  },
+  errorText: {
+    color: colors.status.error,
   },
 });
 

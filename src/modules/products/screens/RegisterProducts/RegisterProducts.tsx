@@ -2,9 +2,13 @@ import React, { useState } from 'react';
 import { View, ScrollView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 import { Text, Button } from '@/design-system/components';
+import { AppStackParamList } from '@/navigation/AppStack';
 import { styles } from './RegisterProducts.styles';
+
+type NavigationProps = NativeStackNavigationProp<AppStackParamList>;
 
 interface ProductTemplate {
   id: string;
@@ -17,7 +21,7 @@ interface ProductTemplate {
 }
 
 const RegisterProducts: React.FC = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NavigationProps>();
   
   const [productTemplates, setProductTemplates] = useState<ProductTemplate[]>([
     {
@@ -70,8 +74,8 @@ const RegisterProducts: React.FC = () => {
   };
 
   const handleCreateNewProduct = () => {
-    // Aqui você pode navegar para o formulário de criação de produto
-    console.log('Criar novo produto');
+    // Navegar para o formulário de criação de produto
+    navigation.navigate('CreateProduct');
   };
 
   const selectedCount = productTemplates.filter(product => product.selected).length;
