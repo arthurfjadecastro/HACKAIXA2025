@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, ScrollView, TouchableOpacity } from 'react-native';
+import { View, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -9,6 +9,7 @@ import { AppStackParamList } from '@/navigation/AppStack';
 import { styles } from './RegisterProducts.styles';
 import { useProductManagement } from '@/modules/products/hooks/useProductManagement';
 import { useCreateProduct } from '@/hooks/useCreateProduct';
+import { useDeleteProduct } from '@/hooks/useDeleteProduct';
 
 type NavigationProps = NativeStackNavigationProp<AppStackParamList>;
 
@@ -26,6 +27,7 @@ const RegisterProducts: React.FC = () => {
   const navigation = useNavigation<NavigationProps>();
   const { products, toggleProductStatus } = useProductManagement();
   const { createProduct } = useCreateProduct();
+  const { deleteProduct } = useDeleteProduct();
 
   // Verificar se já existe um produto Consignado
   const existingConsignado = products.find(p => p.name === 'Consignado');
@@ -214,6 +216,30 @@ const RegisterProducts: React.FC = () => {
                     {item.active ? 'ATIVO' : 'INATIVO'}
                   </Text>
                 </View>
+                
+                {/* Botão de deletar - apenas para produtos cadastrados, não template */}
+                {!item.isTemplate && (
+                  <TouchableOpacity
+                    style={styles.deleteButton}
+                    onPress={() => {
+                      Alert.alert(
+                        'Excluir produto',
+                        `Tem certeza que deseja excluir "${item.name}"?`,
+                        [
+                          { text: 'Cancelar', style: 'cancel' },
+                          { 
+                            text: 'Excluir', 
+                            style: 'destructive', 
+                            onPress: () => deleteProduct(item.id) 
+                          }
+                        ]
+                      );
+                    }}
+                    hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                  >
+                    <Ionicons name="trash-outline" size={20} color="#F44336" />
+                  </TouchableOpacity>
+                )}
               </View>
               
               <View style={styles.productDetails}>

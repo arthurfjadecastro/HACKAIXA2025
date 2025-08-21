@@ -168,4 +168,14 @@ export const styles = StyleSheet.create({
   inactiveText: {
     color: '#F57C00',
   },
+  
+  // Botão de deletar
+  deleteButton: {
+    marginLeft: spacing[2],
+    padding: spacing[1],
+    borderRadius: 16,
+    backgroundColor: 'rgba(244, 67, 54, 0.1)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
