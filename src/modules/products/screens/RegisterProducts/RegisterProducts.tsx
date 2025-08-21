@@ -7,6 +7,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Text, Button } from '@/design-system/components';
 import { AppStackParamList } from '@/navigation/AppStack';
 import { styles } from './RegisterProducts.styles';
+import { useProductManagement } from '@/modules/products/hooks/useProductManagement';
+import { useCreateProduct } from '@/hooks/useCreateProduct';
 
 type NavigationProps = NativeStackNavigationProp<AppStackParamList>;
 
@@ -22,10 +24,15 @@ interface ProductTemplate {
 
 const RegisterProducts: React.FC = () => {
   const navigation = useNavigation<NavigationProps>();
-  
+  const { products, toggleProductStatus } = useProductManagement();
+  const { createProduct } = useCreateProduct();
+
+  // Verificar se já existe um produto Consignado
+  const existingConsignado = products.find(p => p.name === 'Consignado');
+
   const [productTemplates, setProductTemplates] = useState<ProductTemplate[]>([
     {
-      id: '1',
+      id: 'consignado-template',
       title: 'Consignado',
       icon: 'document-text-outline',
       interest: '1,36% a.m. (ou 18% a.a.)',
@@ -33,27 +40,37 @@ const RegisterProducts: React.FC = () => {
       normative: 'CO055',
       selected: false,
     },
-    {
-      id: '2',
-      title: 'Crédito Pessoal',
-      icon: 'person-outline',
-      interest: '1,55% a.m. (ou 19,5% a.a.)',
-      maxTerm: '48 meses',
-      normative: 'CO055',
-      selected: false,
-    },
-    {
-      id: '3',
-      title: 'Cheque Especial',
-      icon: 'card-outline',
-      interest: '1,79% a.m. (ou 19,5% a.a.)',
-      maxTerm: '72 meses',
-      normative: 'CO055',
-      selected: false,
-    },
   ]);
 
-  const handleGoBack = () => {
+  // Estado para controlar seleções dos produtos cadastrados
+  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+  
+  // Criar lista unificada: template + produtos cadastrados
+  const allItems = [
+    // Template Consignado (sempre presente)
+    {
+      id: 'consignado-template',
+      type: 'template' as const,
+      name: 'Consignado',
+      icon: 'document-text-outline',
+      juros: 1.36,
+      prazoMaximo: 32,
+      normativo: 'CO055',
+      active: existingConsignado?.active || false,
+      isTemplate: true,
+      selected: productTemplates[0]?.selected || false
+    },
+    // Produtos cadastrados (exceto Consignado que já está como template)
+    ...products
+      .filter(p => p.name !== 'Consignado')
+      .map(p => ({
+        ...p,
+        type: 'product' as const,
+        icon: 'briefcase-outline',
+        isTemplate: false,
+        selected: selectedProducts.includes(p.id)
+      }))
+  ];  const handleGoBack = () => {
     navigation.goBack();
   };
 
@@ -67,10 +84,57 @@ const RegisterProducts: React.FC = () => {
     );
   };
 
-  const handleSaveProducts = () => {
-    const selectedProducts = productTemplates.filter(product => product.selected);
-    console.log('Produtos selecionados:', selectedProducts);
-    // Aqui você pode implementar a lógica de salvamento
+  // Função unificada para lidar com seleção de qualquer item
+  const handleToggleItem = (itemId: string, isTemplate: boolean) => {
+    if (isTemplate) {
+      handleToggleProduct(itemId);
+    } else {
+      setSelectedProducts(prev => 
+        prev.includes(itemId)
+          ? prev.filter(id => id !== itemId)
+          : [...prev, itemId]
+      );
+    }
+  };
+
+  const handleSaveProducts = async () => {
+    // Processar template selecionado
+    const selectedTemplate = productTemplates.find(template => template.selected);
+    if (selectedTemplate) {
+      try {
+        const existingConsignado = products.find(p => p.name === 'Consignado');
+        
+        if (existingConsignado) {
+          await toggleProductStatus(existingConsignado.id);
+        } else {
+          await createProduct({
+            name: selectedTemplate.title,
+            juros: 1.36,
+            prazoMaximo: 32,
+            normativo: selectedTemplate.normative,
+          });
+        }
+        
+        // Desmarcar template
+        setProductTemplates(prev => 
+          prev.map(p => ({ ...p, selected: false }))
+        );
+      } catch (error) {
+        console.error('Erro ao processar template:', error);
+      }
+    }
+
+    // Processar produtos cadastrados selecionados
+    for (const productId of selectedProducts) {
+      try {
+        await toggleProductStatus(productId);
+      } catch (error) {
+        console.error('Erro ao processar produto:', error);
+      }
+    }
+    
+    // Limpar seleções de produtos
+    setSelectedProducts([]);
   };
 
   const handleCreateNewProduct = () => {
@@ -78,7 +142,9 @@ const RegisterProducts: React.FC = () => {
     navigation.navigate('CreateProduct');
   };
 
-  const selectedCount = productTemplates.filter(product => product.selected).length;
+  const selectedTemplateCount = productTemplates.filter(product => product.selected).length;
+  const selectedProductCount = selectedProducts.length;
+  const selectedCount = selectedTemplateCount + selectedProductCount;
 
   return (
     <View style={styles.container}>
@@ -111,43 +177,57 @@ const RegisterProducts: React.FC = () => {
           </View>
         </TouchableOpacity>
 
-        {/* Lista de Produtos Template */}
+        {/* Lista Unificada de Produtos */}
         <View style={styles.productsList}>
-          {productTemplates.map((product) => (
+          {allItems.map((item) => (
             <TouchableOpacity
-              key={product.id}
+              key={item.id}
               style={[
                 styles.productCard,
-                product.selected && styles.productCardSelected
+                item.selected && styles.productCardSelected
               ]}
-              onPress={() => handleToggleProduct(product.id)}
-              testID={`product-template-${product.id}`}
+              onPress={() => handleToggleItem(item.id, item.isTemplate)}
+              testID={`product-item-${item.id}`}
             >
               <View style={styles.productHeader}>
-                <View style={styles.productIconContainer}>
-                  <Ionicons 
-                    name={product.icon as any} 
-                    size={20} 
-                    color="#1976D2" 
-                  />
+                <View style={{ flexDirection: 'row', alignItems: 'center', flex: 1 }}>
+                  <View style={styles.productIconContainer}>
+                    <Ionicons 
+                      name={item.icon as any} 
+                      size={20} 
+                      color="#1976D2" 
+                    />
+                  </View>
+                  <Text style={styles.productTitle}>
+                    {item.name}
+                  </Text>
                 </View>
-                <Text style={styles.productTitle}>
-                  {product.title}
-                </Text>
+                {/* Badge de Status */}
+                <View style={[
+                  styles.statusBadge, 
+                  item.active ? styles.activeBadge : styles.inactiveBadge
+                ]}>
+                  <Text style={[
+                    styles.statusText,
+                    item.active ? styles.activeText : styles.inactiveText
+                  ] as any}>
+                    {item.active ? 'ATIVO' : 'INATIVO'}
+                  </Text>
+                </View>
               </View>
               
               <View style={styles.productDetails}>
                 <View style={styles.detailRow}>
                   <Text style={styles.detailLabel}>Juros</Text>
-                  <Text style={styles.detailValue}>{product.interest}</Text>
+                  <Text style={styles.detailValue}>{item.juros}% a.a.</Text>
                 </View>
                 <View style={styles.detailRow}>
                   <Text style={styles.detailLabel}>Prazo máximo</Text>
-                  <Text style={styles.detailValue}>{product.maxTerm}</Text>
+                  <Text style={styles.detailValue}>{item.prazoMaximo} meses</Text>
                 </View>
                 <View style={styles.detailRow}>
                   <Text style={styles.detailLabel}>Normativo</Text>
-                  <Text style={styles.detailValue}>{product.normative}</Text>
+                  <Text style={styles.detailValue}>{item.normativo}</Text>
                 </View>
               </View>
             </TouchableOpacity>
@@ -155,16 +235,17 @@ const RegisterProducts: React.FC = () => {
         </View>
       </ScrollView>
 
-      {/* Botão Salvar */}
-      <View style={styles.footer}>
-        <Button
-          title={`Salvar produto${selectedCount > 1 ? '(s)' : ''}`}
-          onPress={handleSaveProducts}
-          disabled={selectedCount === 0}
-          style={styles.saveButton}
-          testID="save-products-button"
-        />
-      </View>
+      {/* Botão de Ação */}
+      {selectedCount > 0 && (
+        <View style={styles.footer}>
+          <Button
+            title={`Aplicar alterações (${selectedCount} produto${selectedCount > 1 ? 's' : ''})`}
+            onPress={handleSaveProducts}
+            style={styles.saveButton}
+            testID="save-products-button"
+          />
+        </View>
+      )}
     </View>
   );
 };

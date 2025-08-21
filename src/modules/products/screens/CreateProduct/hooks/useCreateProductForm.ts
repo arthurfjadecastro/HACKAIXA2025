@@ -1,9 +1,10 @@
 import { useState, useRef } from 'react';
-import { ScrollView, Alert } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { FormData, FormErrors, FieldName, UseFormReturn } from '../types';
 import { validateField, validateForm, validateAllFields } from '../validations';
+import { useCreateProduct } from '@/hooks/useCreateProduct';
 
 const initialFormData: FormData = {
   name: '',
@@ -15,11 +16,11 @@ const initialFormData: FormData = {
 export const useCreateProductForm = (): UseFormReturn & { scrollViewRef: React.RefObject<ScrollView | null> } => {
   const navigation = useNavigation();
   const scrollViewRef = useRef<ScrollView>(null);
+  const { createProduct, loading: submitting } = useCreateProduct();
   
   const [formData, setFormData] = useState<FormData>(initialFormData);
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
-  const [isLoading, setIsLoading] = useState(false);
 
   const updateField = (fieldName: FieldName, value: string) => {
     setFormData(prev => ({ ...prev, [fieldName]: value }));
@@ -66,27 +67,22 @@ export const useCreateProductForm = (): UseFormReturn & { scrollViewRef: React.R
       return;
     }
 
-    // Processar envio
-    setIsLoading(true);
-    
-    try {
-      // Simular envio para API
-      await new Promise(resolve => setTimeout(resolve, 2000));
+    // Criar produto usando o novo sistema
+    const result = await createProduct({
+      name: formData.name,
+      juros: parseFloat(formData.interestRate),
+      prazoMaximo: parseInt(formData.maxTerm, 10),
+      normativo: formData.normative,
+    });
+
+    if (result.success) {
+      // Reset form após sucesso
+      setFormData(initialFormData);
+      setTouched({});
+      setErrors({});
       
-      Alert.alert(
-        'Sucesso!',
-        'Produto cadastrado com sucesso.',
-        [
-          {
-            text: 'OK',
-            onPress: () => navigation.goBack(),
-          },
-        ]
-      );
-    } catch (error) {
-      Alert.alert('Erro', 'Falha ao cadastrar produto. Tente novamente.');
-    } finally {
-      setIsLoading(false);
+      // Navegar de volta
+      navigation.goBack();
     }
   };
 
@@ -96,7 +92,7 @@ export const useCreateProductForm = (): UseFormReturn & { scrollViewRef: React.R
     formData,
     errors,
     touched,
-    isLoading,
+    isLoading: submitting,
     isFormValid,
     updateField,
     handleBlur,

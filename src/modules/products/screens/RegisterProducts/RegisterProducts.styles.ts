@@ -78,12 +78,14 @@ export const styles = StyleSheet.create({
   productCardSelected: {
     borderColor: colors.primary.main,
     borderWidth: 2,
+    backgroundColor: '#F0F7FF', // Fundo levemente azul quando selecionado
   },
   
   // Header do Card
   productHeader: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     marginBottom: spacing[3],
   },
   productIconContainer: {
@@ -140,5 +142,30 @@ export const styles = StyleSheet.create({
   },
   centerText: {
     textAlign: 'center',
+  },
+  
+  // Badge de Status
+  statusBadge: {
+    paddingHorizontal: spacing[2],
+    paddingVertical: spacing[1],
+    borderRadius: 8,
+    minWidth: 60,
+    alignItems: 'center',
+  },
+  activeBadge: {
+    backgroundColor: '#E8F5E8',
+  },
+  inactiveBadge: {
+    backgroundColor: '#FFF3E0',
+  },
+  statusText: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  activeText: {
+    color: '#2E7D32',
+  },
+  inactiveText: {
+    color: '#F57C00',
   },
 });
