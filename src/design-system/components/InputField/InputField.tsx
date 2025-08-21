@@ -104,6 +104,7 @@ const InputField = forwardRef<TextInput, InputFieldProps>(({
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
             accessibilityLabel={isSecureTextVisible ? "Mostrar senha" : "Ocultar senha"}
             accessibilityRole="button"
+            testID="password-toggle-button"
           >
             <Icon
               name={isSecureTextVisible ? 'visibility-off' : 'visibility'}

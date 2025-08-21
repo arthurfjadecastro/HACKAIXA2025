@@ -40,6 +40,7 @@ const BottomSheetHeader: React.FC<BottomSheetHeaderProps> = ({
           hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
           accessibilityLabel="Fechar"
           accessibilityRole="button"
+          testID="close-bottom-sheet"
         >
           <Icon 
             name="close" 

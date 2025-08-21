@@ -38,7 +38,7 @@ describe('LoginBottomSheet', () => {
       />
     );
     
-    const loginButton = getByTestId('login-button');
+    const loginButton = getByTestId('login-submit-button');
     expect(loginButton.props.accessibilityState.disabled).toBe(true);
   });
 
@@ -57,7 +57,7 @@ describe('LoginBottomSheet', () => {
     fireEvent.changeText(usernameInput, 'user@example.com');
     fireEvent.changeText(passwordInput, 'password123');
     
-    const loginButton = getByTestId('login-button');
+    const loginButton = getByTestId('login-submit-button');
     expect(loginButton.props.accessibilityState.disabled).toBe(false);
   });
 
@@ -76,7 +76,7 @@ describe('LoginBottomSheet', () => {
     fireEvent.changeText(usernameInput, 'user@example.com');
     fireEvent.changeText(passwordInput, 'password123');
     
-    const loginButton = getByTestId('login-button');
+    const loginButton = getByTestId('login-submit-button');
     fireEvent.press(loginButton);
     
     expect(mockOnLogin).toHaveBeenCalledWith('user@example.com', 'password123');

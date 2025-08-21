@@ -64,6 +64,7 @@ const LoginBottomSheet: React.FC<LoginBottomSheetProps> = ({
       visible={visible}
       onClose={onClose}
       height={Platform.OS === 'ios' ? 430 : 410}
+      testID="login-bottom-sheet"
     >
       <KeyboardAvoidingView
         style={styles.container}
@@ -89,6 +90,7 @@ const LoginBottomSheet: React.FC<LoginBottomSheetProps> = ({
             onChangeText={setUsername}
             keyboardType="email-address"
             autoCapitalize="none"
+            testID="username-input"
           />
 
           <InputField
@@ -97,6 +99,7 @@ const LoginBottomSheet: React.FC<LoginBottomSheetProps> = ({
             value={password}
             onChangeText={setPassword}
             secureTextEntry={true}
+            testID="password-input"
           />
         </View>
 
@@ -114,7 +117,7 @@ const LoginBottomSheet: React.FC<LoginBottomSheetProps> = ({
                 ? styles.ctaButtonDisabled 
                 : styles.ctaButtonEnabled
             }
-            testID="login-button"
+            testID="login-submit-button"
           />
         </View>
       </KeyboardAvoidingView>

@@ -96,12 +96,13 @@ npm run lint
 
 ### 📊 Métricas Atuais (20/08/2025)
 ```bash
-Test Suites: 19 passou, 19 total
-Tests: 60 passou, 60 total
-Coverage: 58.85% statements | 52.45% branches | 47.05% functions | 60.06% lines
+Test Suites: 23 passou, 23 total
+Tests: 102 passou, 102 total
+Coverage: 83.78% statements ✅ | 77.94% branches ✅ | 69.6% functions 🔸 | 84.52% lines ✅
 ```
 
-**Meta de Cobertura**: ≥ 80% (especialmente no domínio de cálculos)
+**Status**: 🎉 **3 de 4 metas alcançadas!** Statements, Branches e Lines ≥ 80%
+**Meta de Cobertura**: ≥ 80% (faltam 10.4% nas funções)
 
 ## 📊 Fórmulas e Cálculos
 

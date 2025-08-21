@@ -96,6 +96,7 @@ const SplashScreen: React.FC = () => {
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 0 }}
       style={styles.container}
+      testID="splash-screen"
     >
       <View style={styles.logoContainer}>
         {useLottie ? (

@@ -16,6 +16,7 @@ interface BottomSheetProps {
   onClose: () => void;
   children: React.ReactNode;
   height?: number;
+  testID?: string;
 }
 
 const { height: screenHeight } = Dimensions.get('window');
@@ -25,6 +26,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   onClose,
   children,
   height = screenHeight * 0.6,
+  testID,
 }) => {
   const translateY = useRef(new Animated.Value(height)).current;
   const backdropOpacity = useRef(new Animated.Value(0)).current;
@@ -101,6 +103,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
     >
       <TouchableWithoutFeedback onPress={handleClose}>
         <Animated.View 
+          testID="bottom-sheet-backdrop"
           style={[
             styles.backdrop,
             {
@@ -111,6 +114,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
       </TouchableWithoutFeedback>
       
       <Animated.View
+        testID={testID || "bottom-sheet-container"}
         style={[
           styles.container,
           {
