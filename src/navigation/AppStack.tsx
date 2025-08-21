@@ -7,6 +7,8 @@ import HomeScreen from '@/modules/home/screens/HomeScreen';
 import ProductListScreen from '@/modules/products/screens/ProductList';
 import ProductSimulatorScreen from '@/modules/products/screens/ProductSimulator';
 import LoanConfigurationScreen from '@/modules/products/screens/LoanConfiguration';
+import SimulationTransitionScreen from '@/modules/products/screens/SimulationTransition';
+import SimulationResultScreen from '@/modules/products/screens/SimulationResult';
 import RegisterProductsScreen from '@/modules/products/screens/RegisterProducts';
 import CreateProductScreen from '@/modules/products/screens/CreateProduct';
 
@@ -16,6 +18,8 @@ export type AppStackParamList = {
   ProductList: undefined;
   ProductSimulator: { productId?: string };
   LoanConfiguration: { productId: string; amount: string };
+  SimulationTransition: { productId: string; amount: string; months: number };
+  SimulationResult: { productId: string; amount: string; months: number; result: any };
   RegisterProducts: undefined;
   CreateProduct: undefined;
 };
@@ -72,6 +76,23 @@ const AppStackNavigator: React.FC = () => {
         component={LoanConfigurationScreen}
         options={{ 
           title: 'Configuração do Empréstimo',
+          headerShown: false
+        }}
+      />
+      <Stack.Screen 
+        name="SimulationTransition" 
+        component={SimulationTransitionScreen}
+        options={{ 
+          title: 'Simulando...',
+          headerShown: false,
+          gestureEnabled: false // Impede gesture de volta
+        }}
+      />
+      <Stack.Screen 
+        name="SimulationResult" 
+        component={SimulationResultScreen}
+        options={{ 
+          title: 'Resultado',
           headerShown: false
         }}
       />

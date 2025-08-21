@@ -21,13 +21,17 @@ const LoanConfiguration: React.FC = () => {
   const navigation = useNavigation<NavigationProps>();
   const { productId, amount } = route.params;
   
-  const [months, setMonths] = useState<number>(12);
+  // TODO: Buscar dados reais do produto
+  const productMaxMonths = 12; // Vem do produto
+  const productRateAm = 0.01; // 1% ao mês (vem do produto)
+  
+  const [months, setMonths] = useState<number>(Math.min(12, productMaxMonths));
   const [quote, setQuote] = useState<QuoteData | null>(null);
-  const [inputValue, setInputValue] = useState<string>('12');
+  const [inputValue, setInputValue] = useState<string>(Math.min(12, productMaxMonths).toString());
 
-  // Função simples de cálculo (MVP)
+  // Função de cálculo usando dados reais do produto
   const calculateQuote = (principal: number, monthsCount: number): QuoteData => {
-    const rateAm = 0.0136; // 1.36% ao mês
+    const rateAm = productRateAm; // Usar taxa real do produto
     const installment = principal * rateAm / (1 - Math.pow(1 + rateAm, -monthsCount));
     const total = installment * monthsCount;
     const rateAa = Math.pow(1 + rateAm, 12) - 1; // Taxa anual
@@ -62,20 +66,25 @@ const LoanConfiguration: React.FC = () => {
       months, 
       quote 
     });
-    // Próxima tela ou finalização
+    
+    navigation.navigate('SimulationTransition', {
+      productId,
+      amount,
+      months
+    });
   };
 
   const handleMonthsChange = (value: string) => {
     const numericValue = parseInt(value) || 0;
-    if (numericValue >= 3 && numericValue <= 72) {
+    if (numericValue >= 3 && numericValue <= productMaxMonths) {
       setMonths(numericValue);
       setInputValue(value);
     } else if (numericValue < 3) {
       setMonths(3);
       setInputValue('3');
-    } else if (numericValue > 72) {
-      setMonths(72);
-      setInputValue('72');
+    } else if (numericValue > productMaxMonths) {
+      setMonths(productMaxMonths);
+      setInputValue(productMaxMonths.toString());
     }
   };
 
@@ -88,7 +97,7 @@ const LoanConfiguration: React.FC = () => {
   };
 
   const increaseMonths = () => {
-    if (months < 72) {
+    if (months < productMaxMonths) {
       const newMonths = months + 1;
       setMonths(newMonths);
       setInputValue(newMonths.toString());
@@ -154,15 +163,15 @@ const LoanConfiguration: React.FC = () => {
 
             <TouchableOpacity 
               onPress={increaseMonths}
-              style={[styles.controlButton, months >= 72 && styles.controlButtonDisabled]}
-              disabled={months >= 72}
+              style={[styles.controlButton, months >= productMaxMonths && styles.controlButtonDisabled]}
+              disabled={months >= productMaxMonths}
             >
-              <Ionicons name="add" size={20} color={months >= 72 ? "#CCCCCC" : "#005CA9"} />
+              <Ionicons name="add" size={20} color={months >= productMaxMonths ? "#CCCCCC" : "#005CA9"} />
             </TouchableOpacity>
           </View>
 
           <View style={styles.limitsHelper}>
-            <Text style={styles.helperText}>Mín: 3 • Máx: 72</Text>
+            <Text style={styles.helperText}>Mín: 3 • Máx: {productMaxMonths}</Text>
           </View>
         </View>
 
@@ -186,7 +195,7 @@ const LoanConfiguration: React.FC = () => {
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Juros</Text>
             <Text style={styles.summaryValue}>
-              1,36% a.m.
+              {(productRateAm * 100).toFixed(2)}% a.m. (≈{((Math.pow(1 + productRateAm, 12) - 1) * 100).toFixed(1)}% a.a.)
             </Text>
           </View>
         </View>
