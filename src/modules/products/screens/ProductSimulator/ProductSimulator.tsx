@@ -27,7 +27,12 @@ const ProductSimulator: React.FC = () => {
 
   const handleContinue = () => {
     console.log('Continuar com valor:', amount);
-    // Próximo passo: navegar para a próxima tela
+    if (productId && amount) {
+      navigation.navigate('LoanConfiguration', { 
+        productId, 
+        amount 
+      });
+    }
   };
 
   const formatCurrency = (value: string) => {

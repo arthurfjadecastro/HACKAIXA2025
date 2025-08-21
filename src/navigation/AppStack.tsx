@@ -6,6 +6,7 @@ import SplashScreen from '@/modules/splash/screens/SplashScreen';
 import HomeScreen from '@/modules/home/screens/HomeScreen';
 import ProductListScreen from '@/modules/products/screens/ProductList';
 import ProductSimulatorScreen from '@/modules/products/screens/ProductSimulator';
+import LoanConfigurationScreen from '@/modules/products/screens/LoanConfiguration';
 import RegisterProductsScreen from '@/modules/products/screens/RegisterProducts';
 import CreateProductScreen from '@/modules/products/screens/CreateProduct';
 
@@ -14,6 +15,7 @@ export type AppStackParamList = {
   Home: undefined;
   ProductList: undefined;
   ProductSimulator: { productId?: string };
+  LoanConfiguration: { productId: string; amount: string };
   RegisterProducts: undefined;
   CreateProduct: undefined;
 };
@@ -62,6 +64,14 @@ const AppStackNavigator: React.FC = () => {
         component={ProductSimulatorScreen}
         options={{ 
           title: 'Simulador de Empréstimo',
+          headerShown: false
+        }}
+      />
+      <Stack.Screen 
+        name="LoanConfiguration" 
+        component={LoanConfigurationScreen}
+        options={{ 
+          title: 'Configuração do Empréstimo',
           headerShown: false
         }}
       />
