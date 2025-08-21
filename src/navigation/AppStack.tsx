@@ -62,7 +62,7 @@ const AppStackNavigator: React.FC = () => {
         component={ProductSimulatorScreen}
         options={{ 
           title: 'Simulador de Empréstimo',
-          headerShown: true
+          headerShown: false
         }}
       />
       <Stack.Screen 

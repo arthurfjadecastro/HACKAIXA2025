@@ -20,17 +20,47 @@ export const styles = StyleSheet.create({
     padding: spacing[2],
     marginRight: spacing[3],
   },
-  title: {
+  headerTitle: {
     flex: 1,
     color: colors.primary.main,
     fontSize: 20,
     fontWeight: '600',
   },
+  addButton: {
+    padding: spacing[2],
+    marginLeft: spacing[3],
+  },
   
   // Content
-  content: {
+  scrollView: {
     flex: 1,
     paddingHorizontal: spacing[4],
+  },
+  
+  // Empty state
+  emptyContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: spacing[12],
+  },
+  emptyTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: colors.text.secondary,
+    marginTop: spacing[4],
+    marginBottom: spacing[2],
+  },
+  emptySubtitle: {
+    fontSize: 14,
+    color: colors.text.secondary,
+    textAlign: 'center',
+    paddingHorizontal: spacing[6],
+  },
+  
+  // Products
+  productsContainer: {
+    paddingVertical: spacing[4],
   },
   
   // Botão Criar Novo Produto
@@ -167,6 +197,46 @@ export const styles = StyleSheet.create({
   },
   inactiveText: {
     color: '#F57C00',
+  },
+  
+  // Status badge
+  statusBadgeActive: {
+    backgroundColor: '#E8F5E8',
+  },
+  statusBadgeInactive: {
+    backgroundColor: '#FFF3E0',
+  },
+  statusTextActive: {
+    color: '#2E7D32',
+  },
+  statusTextInactive: {
+    color: '#F57C00',
+  },
+  
+  // Produto info
+  productInfo: {
+    flex: 1,
+  },
+  productTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: spacing[2],
+  },
+  productIcon: {
+    marginRight: spacing[2],
+  },
+  productName: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: colors.text.primary,
+    flex: 1,
+  },
+  
+  // Selection indicator
+  selectionIndicator: {
+    position: 'absolute',
+    top: spacing[2],
+    right: spacing[2],
   },
   
   // Botão de deletar

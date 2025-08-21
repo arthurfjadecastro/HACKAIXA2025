@@ -19,12 +19,7 @@ export const useProductManagement = () => {
         return;
       }
 
-      const updatedProduct = {
-        ...product,
-        active: !product.active
-      };
-
-      await productService.updateProduct(productId, updatedProduct);
+      await productService.updateProduct(productId, { active: !product.active });
       
       // Atualizar a lista local e global
       await refetch();
@@ -32,7 +27,7 @@ export const useProductManagement = () => {
       
       Alert.alert(
         'Sucesso', 
-        `Produto ${updatedProduct.active ? 'ativado' : 'desativado'} com sucesso!`
+        `Produto ${!product.active ? 'ativado' : 'desativado'} com sucesso!`
       );
     } catch (error) {
       console.error('Erro ao atualizar produto:', error);

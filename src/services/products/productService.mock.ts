@@ -1,23 +1,33 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Product, CreateProductRequest } from './productTypes';
-import productsData from './products.json';
+// import templateData from '@/data/products.json'; // Mantido para implementação futura
 
 const STORAGE_KEY = '@caixa:products';
 
 export const productService = {
-  // Utilitário para carregar produtos do storage
+  // Utilitário para carregar produtos cadastrados
   async getStoredProducts(): Promise<Product[]> {
     try {
       const stored = await AsyncStorage.getItem(STORAGE_KEY);
-      return stored ? JSON.parse(stored) : productsData;
+      return stored ? JSON.parse(stored) : [];
     } catch {
-      return productsData;
+      return [];
     }
   },
 
   // Utilitário para salvar produtos no storage
   async saveProducts(products: Product[]): Promise<void> {
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+  },
+
+  // READ - Listar produtos cadastrados
+  async getProducts(): Promise<Product[]> {
+    return new Promise((resolve) => {
+      setTimeout(async () => {
+        const products = await this.getStoredProducts();
+        resolve(products);
+      }, 800);
+    });
   },
 
   // CREATE - Criar novo produto
@@ -39,28 +49,30 @@ export const productService = {
       throw new Error('Normativo é obrigatório');
     }
 
-    const products = await this.getStoredProducts();
-    
-    // Verifica se já existe produto com mesmo nome
-    const existingProduct = products.find(p => 
-      p.name.toLowerCase() === data.name.toLowerCase()
+    // Verificar se já existe produto com o mesmo nome
+    const existingProducts = await this.getStoredProducts();
+    const nameExists = existingProducts.some(
+      p => p.name.toLowerCase() === data.name.toLowerCase()
     );
     
-    if (existingProduct) {
+    if (nameExists) {
       throw new Error('Já existe um produto com este nome');
     }
-    
+
+    // Criar novo produto
     const newProduct: Product = {
-      id: Date.now().toString(),
+      id: `product-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
       name: data.name.trim(),
-      juros: Number(data.juros),
-      prazoMaximo: Number(data.prazoMaximo),
+      juros: data.juros,
+      prazoMaximo: data.prazoMaximo,
       normativo: data.normativo.trim(),
-      active: true,
+      active: false, // Produtos são criados inativos por padrão
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
-    
+
+    // Salvar produto
+    const products = await this.getStoredProducts();
     const updatedProducts = [...products, newProduct];
     await this.saveProducts(updatedProducts);
     
@@ -102,6 +114,7 @@ export const productService = {
   async deleteProduct(id: string): Promise<void> {
     // Simular delay da API
     await new Promise(resolve => setTimeout(resolve, 500));
+    
     const products = await this.getStoredProducts();
     const updated = products.filter(p => p.id !== id);
     await this.saveProducts(updated);

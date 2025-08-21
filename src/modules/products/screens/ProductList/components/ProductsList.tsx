@@ -1,41 +1,60 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Product } from '@/services/products/productTypes';
 import { Card } from '@/design-system/components';
 import { colors, spacing } from '@/design-system/tokens';
+import { AppStackParamList } from '@/navigation/AppStack';
 
 interface ProductsListProps {
   products: Product[];
 }
 
+type NavigationProps = NativeStackNavigationProp<AppStackParamList>;
+
 export const ProductsList: React.FC<ProductsListProps> = ({ products }) => {
+  const navigation = useNavigation<NavigationProps>();
+
+  const handleProductPress = (product: Product) => {
+    if (product.active) {
+      navigation.navigate('ProductSimulator', { productId: product.id });
+    }
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Produtos Cadastrados ({products.length})</Text>
       
       {products.map((product) => (
-        <Card key={product.id} style={styles.productCard}>
-          <View style={styles.productHeader}>
-            <Text style={styles.productName}>{product.name}</Text>
-          </View>
-          
-          <View style={styles.productDetails}>
-            <View style={styles.detailRow}>
-              <Text style={styles.detailLabel}>Juros:</Text>
-              <Text style={styles.detailValue}>{product.juros}% a.a.</Text>
+        <TouchableOpacity
+          key={product.id}
+          onPress={() => handleProductPress(product)}
+          disabled={!product.active}
+        >
+          <Card style={styles.productCard}>
+            <View style={styles.productHeader}>
+              <Text style={styles.productName}>{product.name}</Text>
             </View>
             
-            <View style={styles.detailRow}>
-              <Text style={styles.detailLabel}>Prazo máximo:</Text>
-              <Text style={styles.detailValue}>{product.prazoMaximo} meses</Text>
+            <View style={styles.productDetails}>
+              <View style={styles.detailRow}>
+                <Text style={styles.detailLabel}>Juros:</Text>
+                <Text style={styles.detailValue}>{product.juros}% a.a.</Text>
+              </View>
+              
+              <View style={styles.detailRow}>
+                <Text style={styles.detailLabel}>Prazo máximo:</Text>
+                <Text style={styles.detailValue}>{product.prazoMaximo} meses</Text>
+              </View>
+              
+              <View style={styles.detailRow}>
+                <Text style={styles.detailLabel}>Normativo:</Text>
+                <Text style={styles.detailValue}>{product.normativo}</Text>
+              </View>
             </View>
-            
-            <View style={styles.detailRow}>
-              <Text style={styles.detailLabel}>Normativo:</Text>
-              <Text style={styles.detailValue}>{product.normativo}</Text>
-            </View>
-          </View>
-        </Card>
+          </Card>
+        </TouchableOpacity>
       ))}
     </View>
   );
