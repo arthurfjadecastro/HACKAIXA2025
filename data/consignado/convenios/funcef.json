@@ -1,0 +1,40 @@
+{
+  "id": "consignado_convenio_funcef",
+  "categoria": "CONSIGNADO",
+  "subtipo": "CONVENIO",
+  "nome_exibicao": "FUNCEF – Consignado",
+  "status_contratacao": "ATIVO",
+  "prazo": { "minimoMeses": 1, "maximoMeses": 96 },
+  "margem_consignavel_max": 30,
+  "canais_permitidos": ["AGENCIA", "AG_DIGITAL"],
+  "exige_validacao": { "remota": true, "presencial": true, "certificacao_digital": false },
+  "faixas": {
+    "A": {
+      "concessao_taxa_am": 1.56,
+      "renovacao_taxa_am": 1.56,
+      "condicoes_acesso": ["Agência/AgD (SIAPX, subsistema 08)", "Seguro prestamista"]
+    },
+    "B": {
+      "concessao_taxa_am": 1.61,
+      "renovacao_taxa_am": 1.61,
+      "condicoes_acesso": ["Canais automatizados/lotérica quando previstos", "Open Finance/Crédito salário"]
+    },
+    "C": {
+      "concessao_taxa_am": 1.66,
+      "renovacao_taxa_am": 1.75,
+      "condicoes_acesso": ["Sem requisitos adicionais"]
+    }
+  },
+  "portabilidade": {
+    "prospeccao_taxa_am_intervalo": [1.36, 1.42],
+    "retencao": "PERSONALIZADA_MESA"
+  },
+  "observacoes": [
+    "Sem desconto parcial (print informa NÃO).",
+    "Desaverbação via Agência/CLACV quando aplicável."
+  ],
+  "auditoria": {
+    "fonte": "Portal convênio (prints); 21/08/2025",
+    "atualizado_em": "2025-08-21T09:56:00-03:00"
+  }
+}

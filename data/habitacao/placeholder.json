@@ -1,0 +1,18 @@
+{
+  "id": "habitacao_placeholder",
+  "categoria": "HABITACAO",
+  "subtipo": "N/A",
+  "nome_exibicao": "Habitação (em breve)",
+  "status_contratacao": "EM_BREVE",
+  "prazo": { "minimoMeses": 0, "maximoMeses": 0 },
+  "margem_consignavel_max": null,
+  "canais_permitidos": ["AGENCIA", "AG_DIGITAL"],
+  "exige_validacao": { "remota": null, "presencial": null, "certificacao_digital": null },
+  "observacoes": [
+    "Categoria habilitada para cadastro de rascunhos. Simulação será liberada em breve."
+  ],
+  "auditoria": {
+    "fonte": "Roadmap produto",
+    "atualizado_em": "2025-08-21T09:40:00-03:00"
+  }
+}

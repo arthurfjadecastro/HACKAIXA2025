@@ -1,0 +1,40 @@
+{
+  "id": "consignado_inss",
+  "categoria": "CONSIGNADO",
+  "subtipo": "INSS",
+  "nome_exibicao": "INSS – Consignado",
+  "status_contratacao": "ATIVO",
+  "prazo": { "minimoMeses": 1, "maximoMeses": 96 },
+  "margem_consignavel_max": 35,
+  "canais_permitidos": ["AGENCIA", "AG_DIGITAL", "AUTOSERVICO_ATM_IBC_MBC", "LOTERICA"],
+  "exige_validacao": { "remota": true, "presencial": false, "certificacao_digital": false },
+  "faixas": {
+    "A": {
+      "concessao_taxa_am": 1.55,
+      "renovacao_taxa_am": 1.55,
+      "condicoes_acesso": ["Agência/AgD", "Seguro prestamista (quando aplicável)"]
+    },
+    "B": {
+      "concessao_taxa_am": 1.58,
+      "renovacao_taxa_am": 1.61,
+      "condicoes_acesso": ["Crédito salário", "Open Finance", "Canais automatizados/lotérica"]
+    },
+    "C": {
+      "concessao_taxa_am": 1.66,
+      "renovacao_taxa_am": 1.75,
+      "condicoes_acesso": ["Sem requisitos adicionais"]
+    }
+  },
+  "portabilidade": {
+    "prospeccao_taxa_am_intervalo": [1.36, 1.42],
+    "retencao": "PERSONALIZADA_MESA"
+  },
+  "observacoes": [
+    "Respeitar margem disponível do benefício.",
+    "Validar extrato de benefício/contracheque antes da simulação."
+  ],
+  "auditoria": {
+    "fonte": "Tabela interna de taxas; prints 21/08",
+    "atualizado_em": "2025-08-21T09:35:00-03:00"
+  }
+}
