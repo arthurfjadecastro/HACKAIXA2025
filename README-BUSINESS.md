@@ -81,7 +81,7 @@ npm test
 
 ### Executar com cobertura
 ```bash
-npm run test:coverage
+npm test -- --coverage
 ```
 
 ### Verificação de tipos
@@ -92,6 +92,13 @@ npm run type-check
 ### Lint do código
 ```bash
 npm run lint
+```
+
+### 📊 Métricas Atuais (20/08/2025)
+```bash
+Test Suites: 19 passou, 19 total
+Tests: 60 passou, 60 total
+Coverage: 58.85% statements | 52.45% branches | 47.05% functions | 60.06% lines
 ```
 
 **Meta de Cobertura**: ≥ 80% (especialmente no domínio de cálculos)
@@ -123,23 +130,24 @@ const novoSaldo = saldoDevedor - amortizacao;
 
 ```
 src/
-├── components/          # Componentes reutilizáveis
-│   ├── forms/          # Componentes de formulário
-│   ├── cards/          # Cards de produto e resumo
-│   └── tables/         # Tabela de memória
-├── screens/            # Telas principais
-│   ├── ProductList/    # Listagem de produtos
-│   ├── ProductForm/    # Cadastro de produto
-│   └── Simulation/     # Simulação de empréstimo
-├── services/           # API mock e storage
-│   ├── api/           # Contratos de API
-│   └── storage/       # AsyncStorage wrapper
-├── domain/             # Regras de negócio
-│   ├── calculations/   # Cálculos financeiros
-│   └── validations/   # Validações de dados
-├── hooks/              # Custom hooks
-├── types/              # Definições TypeScript
-└── utils/              # Utilitários e formatação
+├── components/               # Componentes específicos do domínio
+│   └── ArthurAvatar.tsx     # Avatar customizado
+├── modules/                 # Módulos organizados por contexto
+│   ├── home/               # Módulo da tela inicial
+│   │   ├── screens/        # HomeScreen
+│   │   └── components/     # LoginBottomSheet
+│   ├── products/           # Módulo de gestão de produtos
+│   │   └── screens/        # ProductList, RegisterProducts, ProductSimulator
+│   └── splash/             # Módulo de splash screen
+│       ├── screens/        # SplashScreen
+│       └── components/     # LottieAnimation, SplashFallback
+├── design-system/          # Sistema de design reutilizável
+│   ├── components/         # Button, Card, InputField, EmptyState, etc
+│   ├── tokens/             # Colors, spacing, typography, shadows
+│   └── icons/              # Sistema de ícones unificado
+└── navigation/             # Sistema de navegação
+    ├── AppStack.tsx        # Stack principal
+    └── test-utils.tsx      # Utilitários para testes
 ```
 
 ## 📱 Fluxo de Navegação
