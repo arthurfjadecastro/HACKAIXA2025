@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors, spacing } from '@/design-system/tokens';
+import { colors } from '@/design-system/tokens';
 
 export const styles = StyleSheet.create({
   container: {
@@ -11,26 +11,29 @@ export const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: spacing[4],
-    paddingTop: spacing[4],
-    paddingBottom: spacing[3],
+    paddingHorizontal: 20, // Espaçamento lateral otimizado
+    paddingTop: 16, // Padding top reduzido
+    paddingBottom: 20, // Padding bottom aumentado para mais respiro
     backgroundColor: colors.surface.background,
     borderBottomWidth: 1,
     borderBottomColor: colors.border.light,
+    minHeight: 64, // Altura mínima para melhor proporção
   },
   backButton: {
-    padding: spacing[2],
-    marginRight: spacing[3],
-    width: 44,
-    height: 44,
+    padding: 8, // Padding reduzido
+    marginRight: 16, // Margem direita otimizada
+    width: 40,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
+    borderRadius: 20, // Cantos arredondados para melhor visual
   },
   title: {
     flex: 1,
     color: colors.primary.main,
-    fontSize: 20,
+    fontSize: 18, // Fonte ligeiramente menor para melhor proporção
     fontWeight: '600',
+    lineHeight: 24, // Line height para melhor legibilidade
   },
   
   // Content
@@ -41,24 +44,33 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   contentContainer: {
-    paddingBottom: spacing[8],
+    paddingBottom: 32, // Padding bottom aumentado
   },
   form: {
-    paddingHorizontal: spacing[4],
-    paddingTop: spacing[6],
-    gap: spacing[6],
+    paddingHorizontal: 0, // Removido - padding será aplicado no FormContainer
+    paddingTop: 24, // Padding top otimizado
+    gap: 24, // Gap aumentado entre seções
   },
   
   // Footer
   footer: {
-    padding: spacing[4],
+    padding: 20, // Padding consistente
     backgroundColor: colors.surface.background,
     borderTopWidth: 1,
     borderTopColor: colors.border.light,
+    elevation: 4, // Sombra no Android
+    shadowColor: '#000', // Sombra no iOS
+    shadowOffset: {
+      width: 0,
+      height: -2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
   },
   submitButton: {
     width: '100%',
-    minHeight: 44,
+    minHeight: 48, // Altura mínima aumentada
+    borderRadius: 12, // Cantos arredondados
   },
   submitButtonEnabled: {
     backgroundColor: colors.brand.orange.primary,
