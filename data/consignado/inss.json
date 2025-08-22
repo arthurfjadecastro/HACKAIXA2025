@@ -34,7 +34,7 @@
     "Validar extrato de benefício/contracheque antes da simulação."
   ],
   "auditoria": {
-    "fonte": "Tabela interna de taxas; prints 21/08",
+    "fonte": "Tabela interna de taxas; 21/08",
     "atualizado_em": "2025-08-21T09:35:00-03:00"
   }
 }

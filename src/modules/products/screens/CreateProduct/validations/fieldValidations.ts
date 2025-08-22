@@ -81,3 +81,27 @@ export const validateNormative = (value: string): FieldValidation => {
   
   return { isValid: true };
 };
+
+export const validateCategoria = (value: string): FieldValidation => {
+  if (!value || value.trim() === '') {
+    return { isValid: false, error: 'Selecione uma categoria' };
+  }
+  
+  if (!['CONSIGNADO', 'HABITACAO'].includes(value)) {
+    return { isValid: false, error: 'Categoria inválida' };
+  }
+  
+  return { isValid: true };
+};
+
+export const validateSubtipo = (value: string): FieldValidation => {
+  if (!value || value.trim() === '') {
+    return { isValid: false, error: 'Selecione um subtipo' };
+  }
+  
+  if (!['INSS', 'CONVENIO', 'CLT_SUSPENSO', 'N/A'].includes(value)) {
+    return { isValid: false, error: 'Subtipo inválido' };
+  }
+  
+  return { isValid: true };
+};

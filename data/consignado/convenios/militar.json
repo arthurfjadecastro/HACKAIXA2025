@@ -30,12 +30,11 @@
     "retencao": "PERSONALIZADA_MESA"
   },
   "observacoes": [
-    "Matrícula militar pode ter 10 dígitos (ajustar máscara).",
     "Averbação online via ZetraSoft; pode exigir validação presencial.",
     "Manter parâmetros do convênio atualizados conforme aviso do portal."
   ],
   "auditoria": {
-    "fonte": "Portal convênio (prints); 21/08/2025",
+    "fonte": "Portal convênio; 21/08/2025",
     "atualizado_em": "2025-08-21T09:38:00-03:00"
   }
 }

@@ -1,0 +1,49 @@
+{
+  "id": "consignado_convenio_tjdft",
+  "categoria": "CONSIGNADO",
+  "subtipo": "CONVENIO",
+  "nome_exibicao": "TJDFT – Consignado",
+  "status_contratacao": "ATIVO",
+  "prazo": { "minimoMeses": 1, "maximoMeses": 144 },
+  "margem_consignavel_max": 30,
+  "canais_permitidos": ["AGENCIA", "AG_DIGITAL", "AUTOSERVICO_ATM_IBC_MBC"],
+  "faixas": {
+    "A": { "concessao_taxa_am": 1.55, "renovacao_taxa_am": 1.55 },
+    "B": { "concessao_taxa_am": 1.58, "renovacao_taxa_am": 1.61 },
+    "C": { "concessao_taxa_am": 1.66, "renovacao_taxa_am": 1.69 }
+  },
+  "portabilidade": {
+    "permite": true,
+    "prospeccao_taxa_am_intervalo": [1.55, 2.10],
+    "retencao": {
+      "permite": true,
+      "oferta_diferenciada": "TAXA_EQUALIZADA"
+    }
+  },
+  "exige_validacao": {
+    "remota": true,
+    "presencial": false,
+    "certificacao_digital": false
+  },
+  "valor_operacao": {
+    "minimo_reais": 500,
+    "maximo_reais": 600000
+  },
+  "particularidades": {
+    "permite_antecipacao_parcial": false,
+    "permite_desconto_parcial": false,
+    "antecipacao": "TOTAL",
+    "desconto": "TOTAL",
+    "exige_consulta_spc": true,
+    "modalidade_apuracao": "MARGEM_LIQUIDA",
+    "retencao": "PERSONALIZADA_MESA"
+  },
+  "observacoes": [
+    "Prazo diferenciado: até 144 meses para aposentados/pensionistas.",
+    "Validação remota obrigatória via ZetraSoft."
+  ],
+  "auditoria": {
+    "fonte": "Portal convênio; 21/08/2025",
+    "atualizado_em": "2025-08-21T09:44:00-03:00"
+  }
+}

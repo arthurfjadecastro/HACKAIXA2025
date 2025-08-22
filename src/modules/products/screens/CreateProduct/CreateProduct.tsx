@@ -3,19 +3,18 @@ import { ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CreateProductHeader, CreateProductForm, CreateProductFooter } from './components';
-import { useCreateProductForm } from './hooks/useCreateProductForm';
+import { useCreateProductForm } from './hooks/useCreateProductFormSimple';
 import { styles } from './CreateProduct.styles';
 
 const CreateProduct: React.FC = () => {
   const {
     formData,
-    errors,
     isLoading,
     isFormValid,
     updateField,
-    handleBlur,
     handleSubmit,
     scrollViewRef,
+    isConvenioAlreadyRegistered,
   } = useCreateProductForm();
 
   return (
@@ -31,9 +30,8 @@ const CreateProduct: React.FC = () => {
       >
         <CreateProductForm
           formData={formData}
-          errors={errors}
           updateField={updateField}
-          handleBlur={handleBlur}
+          isConvenioAlreadyRegistered={isConvenioAlreadyRegistered}
         />
       </ScrollView>
 

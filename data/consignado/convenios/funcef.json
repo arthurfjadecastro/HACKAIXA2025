@@ -1,5 +1,8 @@
 {
-  "id": "consignado_convenio_funcef",
+  "id": "consignado_convenio_fun  "auditoria": {
+    "fonte": "Portal convênio; 21/08/2025",
+    "atualizado_em": "2025-08-21T09:38:00-03:00"
+  },
   "categoria": "CONSIGNADO",
   "subtipo": "CONVENIO",
   "nome_exibicao": "FUNCEF – Consignado",
