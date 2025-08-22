@@ -217,7 +217,7 @@ export const useCreateProductForm = (): UseFormReturn & {
       
       // Se está selecionando categoria CONSIGNADO, define automaticamente o normativo
       if (fieldName === 'categoria' && value === 'CONSIGNADO') {
-        updatedData.normative = 'Resolução CAIXA CO055 - Crédito Consignado';
+        updatedData.normative = 'CO055 - Crédito Consignado';
       }
       
       return updatedData;

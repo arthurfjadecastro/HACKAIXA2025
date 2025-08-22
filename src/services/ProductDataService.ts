@@ -6,6 +6,7 @@ import commonRules from '../../data/consignado/_common_rules.json';
 import militarData from '../../data/consignado/convenios/militar.json';
 import funcefData from '../../data/consignado/convenios/funcef_new.json';
 import tjdftData from '../../data/consignado/convenios/tjdft_new.json';
+import inssData from '../../data/consignado/inss.json';
 
 // Serviço para carregar dados dos arquivos JSON
 class ProductDataService {
@@ -179,6 +180,8 @@ class ProductDataService {
   async loadConvenio(convenioNome: string): Promise<any> {
     try {
       switch (convenioNome.toLowerCase()) {
+        case 'inss':
+          return inssData;
         case 'militar':
           return militarData;
         case 'funcef':

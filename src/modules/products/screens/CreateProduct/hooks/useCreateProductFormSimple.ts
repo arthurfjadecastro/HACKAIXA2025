@@ -46,6 +46,7 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
       
       // Mapeia os nomes para identificar convênios específicos
       const convenioMatches = {
+        'inss': ['inss', 'aposentados', 'pensionistas'],
         'militar': ['militar', 'aeronáutica', 'comando'],
         'funcef': ['funcef'],
         'tjdft': ['tjdft', 'tribunal']
@@ -88,7 +89,7 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
       
       // Se está selecionando categoria CONSIGNADO, define automaticamente o normativo
       if (fieldName === 'categoria' && value === 'CONSIGNADO') {
-        updatedData.normative = 'Resolução CAIXA CO055 - Crédito Consignado';
+        updatedData.normative = 'CO055 - Crédito Consignado';
       }
       
       return updatedData;
@@ -97,6 +98,11 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
     // Se está selecionando um convênio específico, carrega os dados automaticamente
     if (fieldName === 'convenio_selected' && typeof value === 'string') {
       loadConvenioDataSimple(value);
+    }
+    
+    // Se está selecionando INSS como subtipo, carrega os dados automaticamente
+    if (fieldName === 'subtipo' && value === 'INSS') {
+      loadConvenioDataSimple('inss');
     }
   };
 

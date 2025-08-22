@@ -74,26 +74,44 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
           {[
             { value: 'INSS', label: 'INSS', description: 'Aposentados e pensionistas do INSS' },
             { value: 'CONVENIO', label: 'Convênio', description: 'Servidores públicos e militares' }
-          ].map(option => (
-            <TouchableOpacity
-              key={option.value}
-              style={[
-                formStyles.radioOption,
-                formData.subtipo === option.value && formStyles.radioOptionSelected
-              ]}
-              onPress={() => updateField('subtipo', option.value)}
-            >
-              <View style={formStyles.radioButton}>
-                {formData.subtipo === option.value && (
-                  <View style={formStyles.radioButtonSelected} />
-                )}
-              </View>
-              <View style={formStyles.radioContent}>
-                <Text style={formStyles.radioLabel}>{option.label}</Text>
-                <Text style={formStyles.radioDescription}>{option.description}</Text>
-              </View>
-            </TouchableOpacity>
-          ))}
+          ].map(option => {
+            const isSelected = formData.subtipo === option.value;
+            const isAlreadyRegistered = option.value === 'INSS' ? isConvenioAlreadyRegistered('inss') : false;
+            
+            return (
+              <TouchableOpacity
+                key={option.value}
+                style={[
+                  formStyles.radioOption,
+                  isSelected && formStyles.radioOptionSelected,
+                  isAlreadyRegistered && formStyles.radioOptionDisabled
+                ]}
+                onPress={() => !isAlreadyRegistered && updateField('subtipo', option.value)}
+                disabled={isAlreadyRegistered}
+              >
+                <View style={formStyles.radioButton}>
+                  {isSelected && (
+                    <View style={formStyles.radioButtonSelected} />
+                  )}
+                </View>
+                <View style={formStyles.radioContent}>
+                  <Text style={isAlreadyRegistered ? 
+                    { ...formStyles.radioLabel, color: '#999', opacity: 0.6 } : 
+                    formStyles.radioLabel
+                  }>
+                    {option.label}
+                    {isAlreadyRegistered && ' (Já cadastrado)'}
+                  </Text>
+                  <Text style={isAlreadyRegistered ? 
+                    { ...formStyles.radioDescription, color: '#999', opacity: 0.6 } : 
+                    formStyles.radioDescription
+                  }>
+                    {option.description}
+                  </Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </View>
     );
