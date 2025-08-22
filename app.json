@@ -25,6 +25,13 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "fonts": [
+      "./assets/fonts/caixa/CAIXAStd-Regular.ttf",
+      "./assets/fonts/caixa/CAIXAStd-SemiBold.ttf"
+    ]
   }
 }

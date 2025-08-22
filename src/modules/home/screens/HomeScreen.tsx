@@ -8,7 +8,7 @@ import { Icon } from '@/design-system/icons';
 import { Text } from '@/design-system/components/Text/Text';
 import ActionCard from '@/design-system/components/ActionCard';
 import LoginBottomSheet from '@/modules/home/components/LoginBottomSheet';
-import { colors, spacing } from '@/design-system/tokens';
+import { colors, spacing, fontFamilies } from '@/design-system/tokens';
 import { AppStackParamList } from '@/navigation/AppStack';
 
 type NavigationProps = NativeStackNavigationProp<AppStackParamList, 'Home'>;
@@ -121,6 +121,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: spacing[8],
     fontWeight: '600',
+    fontFamily: fontFamilies.caixaSemiBold, // 🎨 Usando fonte CAIXA SemiBold
   },
   actionsContainer: {
     flexDirection: 'row',
