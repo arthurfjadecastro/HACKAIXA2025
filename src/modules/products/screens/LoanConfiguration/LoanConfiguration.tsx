@@ -6,6 +6,8 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppStackParamList } from '@/navigation/AppStack';
 
 import { Text, Button } from '@/design-system/components';
+import { useProducts } from '@/hooks/useProducts';
+import ProductDataService from '@/services/ProductDataService';
 
 type RouteProps = RouteProp<AppStackParamList, 'LoanConfiguration'>;
 type NavigationProps = NativeStackNavigationProp<AppStackParamList>;
@@ -20,14 +22,101 @@ const LoanConfiguration: React.FC = () => {
   const route = useRoute<RouteProps>();
   const navigation = useNavigation<NavigationProps>();
   const { productId, amount } = route.params;
+  const { products } = useProducts();
+  const productService = ProductDataService.getInstance();
   
-  // TODO: Buscar dados reais do produto
-  const productMaxMonths = 12; // Vem do produto
-  const productRateAm = 0.01; // 1% ao mês (vem do produto)
+  // Estados para dados do produto
+  const [productData, setProductData] = useState<any>(null);
+  const [productMaxMonths, setProductMaxMonths] = useState<number>(12);
+  const [productMinMonths, setProductMinMonths] = useState<number>(3);
+  const [productRateAm, setProductRateAm] = useState<number>(0.01);
   
-  const [months, setMonths] = useState<number>(Math.min(12, productMaxMonths));
+  const [months, setMonths] = useState<number>(12);
   const [quote, setQuote] = useState<QuoteData | null>(null);
-  const [inputValue, setInputValue] = useState<string>(Math.min(12, productMaxMonths).toString());
+  const [inputValue, setInputValue] = useState<string>('12');
+
+  // Carregar dados do produto
+  useEffect(() => {
+    const loadProductData = async () => {
+      try {
+        console.log('🔍 Carregando dados do produto:', productId);
+        
+        // Primeiro, busca o produto na lista de produtos cadastrados
+        const registeredProduct = products.find(p => p.id === productId);
+        
+        if (registeredProduct) {
+          console.log('✅ Produto encontrado na lista:', registeredProduct.name);
+          
+          // Busca os dados completos baseado no productId
+          let detailedData = null;
+          
+          // Determina o tipo do produto baseado no ID ou nome
+          if (productId.includes('inss') || registeredProduct.name.toLowerCase().includes('inss')) {
+            detailedData = await productService.loadConvenio('inss');
+          } else if (productId.includes('militar') || registeredProduct.name.toLowerCase().includes('militar')) {
+            detailedData = await productService.loadConvenio('militar');
+          } else if (productId.includes('funcef') || registeredProduct.name.toLowerCase().includes('funcef')) {
+            detailedData = await productService.loadConvenio('funcef');
+          } else if (productId.includes('tjdft') || registeredProduct.name.toLowerCase().includes('tjdft')) {
+            detailedData = await productService.loadConvenio('tjdft');
+          } else if (productId.includes('habitacao') || registeredProduct.name.toLowerCase().includes('habitacao')) {
+            detailedData = await productService.loadHabitacao('sac');
+          } else if (productId.includes('outro') || registeredProduct.name.toLowerCase().includes('outro')) {
+            detailedData = await productService.loadOutroTemplate();
+          }
+          
+          if (detailedData) {
+            console.log('✅ Dados detalhados carregados:', detailedData.nome_exibicao);
+            setProductData(detailedData);
+            
+            // Define limites de prazo
+            const maxMonths = detailedData.prazo?.maximoMeses || registeredProduct.prazoMaximo || 96;
+            const minMonths = detailedData.prazo?.minimoMeses || 1;
+            
+            setProductMaxMonths(maxMonths);
+            setProductMinMonths(minMonths);
+            
+            // Define taxa de juros
+            let rate = 0.01; // Default 1% a.m.
+            if (detailedData.faixas?.A?.concessao_taxa_am) {
+              rate = detailedData.faixas.A.concessao_taxa_am / 100;
+            } else if (registeredProduct.juros) {
+              // Se o juros for > 10, assumimos que é percentual anual, senão é mensal
+              rate = registeredProduct.juros > 10 ? (registeredProduct.juros / 100) / 12 : registeredProduct.juros / 100;
+            }
+            setProductRateAm(rate);
+            
+            // Inicializa com valor máximo como padrão
+            const initialMonths = Math.min(maxMonths, maxMonths);
+            setMonths(initialMonths);
+            setInputValue(initialMonths.toString());
+            
+            console.log(`📊 Configurações do produto:
+              - Prazo: ${minMonths} a ${maxMonths} meses
+              - Taxa: ${(rate * 100).toFixed(2)}% a.m.
+              - Inicializando com: ${initialMonths} meses`);
+          } else {
+            console.warn('⚠️ Não foi possível determinar o tipo do produto');
+            // Usa dados básicos do produto registrado
+            setProductMaxMonths(registeredProduct.prazoMaximo || 96);
+            setProductMinMonths(1);
+            const rate = registeredProduct.juros > 10 ? (registeredProduct.juros / 100) / 12 : registeredProduct.juros / 100;
+            setProductRateAm(rate);
+            setMonths(registeredProduct.prazoMaximo || 96);
+            setInputValue((registeredProduct.prazoMaximo || 96).toString());
+          }
+        } else {
+          console.warn('⚠️ Produto não encontrado na lista de cadastrados');
+        }
+      } catch (error) {
+        console.error('❌ Erro ao carregar dados do produto:', error);
+      }
+    };
+
+    if (productId && products.length > 0) {
+      loadProductData();
+    }
+  }, [productId, products]);
 
   // Função de cálculo usando dados reais do produto
   const calculateQuote = (principal: number, monthsCount: number): QuoteData => {
@@ -76,12 +165,12 @@ const LoanConfiguration: React.FC = () => {
 
   const handleMonthsChange = (value: string) => {
     const numericValue = parseInt(value) || 0;
-    if (numericValue >= 3 && numericValue <= productMaxMonths) {
+    if (numericValue >= productMinMonths && numericValue <= productMaxMonths) {
       setMonths(numericValue);
       setInputValue(value);
-    } else if (numericValue < 3) {
-      setMonths(3);
-      setInputValue('3');
+    } else if (numericValue < productMinMonths) {
+      setMonths(productMinMonths);
+      setInputValue(productMinMonths.toString());
     } else if (numericValue > productMaxMonths) {
       setMonths(productMaxMonths);
       setInputValue(productMaxMonths.toString());
@@ -89,7 +178,7 @@ const LoanConfiguration: React.FC = () => {
   };
 
   const decreaseMonths = () => {
-    if (months > 3) {
+    if (months > productMinMonths) {
       const newMonths = months - 1;
       setMonths(newMonths);
       setInputValue(newMonths.toString());
@@ -146,10 +235,10 @@ const LoanConfiguration: React.FC = () => {
           <View style={styles.controlsRow}>
             <TouchableOpacity 
               onPress={decreaseMonths}
-              style={[styles.controlButton, months <= 3 && styles.controlButtonDisabled]}
-              disabled={months <= 3}
+              style={[styles.controlButton, months <= productMinMonths && styles.controlButtonDisabled]}
+              disabled={months <= productMinMonths}
             >
-              <Ionicons name="remove" size={20} color={months <= 3 ? "#CCCCCC" : "#005CA9"} />
+              <Ionicons name="remove" size={20} color={months <= productMinMonths ? "#CCCCCC" : "#005CA9"} />
             </TouchableOpacity>
 
             <TextInput
@@ -157,7 +246,7 @@ const LoanConfiguration: React.FC = () => {
               value={inputValue}
               onChangeText={handleMonthsChange}
               keyboardType="number-pad"
-              maxLength={2}
+              maxLength={3}
               textAlign="center"
             />
 
@@ -171,7 +260,7 @@ const LoanConfiguration: React.FC = () => {
           </View>
 
           <View style={styles.limitsHelper}>
-            <Text style={styles.helperText}>Mín: 3 • Máx: {productMaxMonths}</Text>
+            <Text style={styles.helperText}>Mín: {productMinMonths} • Máx: {productMaxMonths}</Text>
           </View>
         </View>
 
@@ -306,7 +395,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F0F0F0',
   },
   monthsInput: {
-    width: 80,
+    width: 100,
     height: 40,
     borderWidth: 1,
     borderColor: '#E0E0E0',
