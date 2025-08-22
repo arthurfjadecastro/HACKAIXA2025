@@ -92,15 +92,16 @@ const ProductSimulator: React.FC = () => {
         <View style={styles.headerSpacer} />
       </View>
 
+      {/* Título principal movido para abaixo do header */}
+      <View style={styles.titleContainer}>
+        <Text style={styles.mainTitle}>Valor do empréstimo</Text>
+      </View>
+
       <ScrollView 
         style={styles.content} 
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.titleContainer}>
-          <Text style={styles.mainTitle}>Valor do empréstimo</Text>
-        </View>
-
         <View style={styles.amountContainer}>
           <View style={styles.currencyContainer}>
             <Text style={styles.currencySymbol}>R$</Text>

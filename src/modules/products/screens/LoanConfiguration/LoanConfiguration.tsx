@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F4F8FB', // Mudado para branco gelo
     borderBottomWidth: 1,
     borderBottomColor: '#EEEEEE',
   },
@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
   footer: {
     paddingHorizontal: 16,
     paddingVertical: 16,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F4F8FB', // Mudado para branco gelo
   },
   continueButton: {
     backgroundColor: '#F7931E',

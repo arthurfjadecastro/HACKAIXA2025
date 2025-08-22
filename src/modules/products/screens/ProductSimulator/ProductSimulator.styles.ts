@@ -4,7 +4,7 @@ import { colors, spacing } from '@/design-system/tokens';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background.primary,
+    backgroundColor: '#F4F8FB', // Mudado para branco gelo
   },
   
   // Header
@@ -14,9 +14,8 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: colors.background.secondary,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border.light,
+    backgroundColor: '#F4F8FB', // Mudado para branco gelo
+    // Removido borderBottomWidth e borderBottomColor
   },
   backButton: {
     padding: 16,
@@ -42,16 +41,18 @@ export const styles = StyleSheet.create({
   contentContainer: {
     flexGrow: 1,
     justifyContent: 'center',
+    paddingTop: 32, // Reduzido o padding top
   },
   titleContainer: {
-    marginTop: 48,
-    marginBottom: 64,
+    paddingHorizontal: 16,
+    paddingTop: 24,
+    paddingBottom: 16,
   },
   mainTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#1565C0',
-    textAlign: 'center',
+    textAlign: 'left', // Mudado para esquerda
   },
   
   // Amount Input
@@ -110,7 +111,7 @@ export const styles = StyleSheet.create({
   footer: {
     paddingHorizontal: 16,
     paddingVertical: 16,
-    backgroundColor: colors.background.secondary,
+    backgroundColor: '#F4F8FB', // Mudado para branco gelo
   },
   continueButton: {
     backgroundColor: '#F7931E',
