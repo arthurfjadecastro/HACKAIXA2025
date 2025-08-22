@@ -1,10 +1,12 @@
 import React from 'react';
-import { View, ScrollView, SafeAreaView } from 'react-native';
+import { View, ScrollView, SafeAreaView, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { Button, WelcomeBanner, EmptyState, Skeleton } from '@/design-system/components';
+import { Button, WelcomeBanner, Skeleton } from '@/design-system/components';
+import { Text } from '@/design-system/components/Text/Text';
+import { Icon } from '@/design-system/icons';
 import { colors, spacing } from '@/design-system/tokens';
 import { AppStackParamList } from '@/navigation/AppStack';
 import { useProducts } from '@/hooks/useProducts';
@@ -47,7 +49,7 @@ const ProductList: React.FC = () => {
           </View>
 
           {/* Zona de conteúdo - Lista de produtos ou Empty state */}
-          <View style={{ flex: 1, justifyContent: hasProducts ? 'flex-start' : 'center' }}>
+          <View style={{ flex: 1, justifyContent: hasProducts ? 'flex-start' : 'center', paddingHorizontal: 24 }}>
             {loading ? (
               <View style={{ paddingHorizontal: spacing[6] }}>
                 <Skeleton width="100%" height={120} style={{ marginBottom: spacing[4] }} />
@@ -57,11 +59,23 @@ const ProductList: React.FC = () => {
             ) : hasProducts ? (
               <ProductsList products={activeProducts} />
             ) : (
-              <EmptyState
-                icon="add"
-                title="Você ainda não tem produtos cadastrados. Cadastre o primeiro e comece a simular agora."
-                subtitle="É rápido e leva menos de 1 minuto."
-              />
+              // Empty State customizado seguindo Figma
+              <View style={styles.emptyContainer}>
+                {/* Ícone central */}
+                <View style={styles.iconContainer}>
+                  <Icon name="add" size={32} color="rgba(255, 255, 255, 0.9)" />
+                </View>
+
+                {/* Texto principal */}
+                <Text style={styles.primaryText}>
+                  Você ainda não tem produtos cadastrados. Cadastre o primeiro e comece a simular agora.
+                </Text>
+
+                {/* Texto secundário */}
+                <Text style={styles.secondaryText}>
+                  É rápido e leva menos de 1 minuto.
+                </Text>
+              </View>
             )}
           </View>
 
@@ -88,5 +102,39 @@ const ProductList: React.FC = () => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  emptyContainer: {
+    alignItems: 'center',
+    paddingHorizontal: 24,
+    paddingVertical: 48,
+  },
+  iconContainer: {
+    width: 64,
+    height: 64,
+    backgroundColor: 'rgba(255, 255, 255, 0.15)',
+    borderRadius: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 32,
+  },
+  primaryText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    lineHeight: 24,
+    marginBottom: 8,
+    maxWidth: '90%',
+  },
+  secondaryText: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: 'rgba(255, 255, 255, 0.7)',
+    textAlign: 'center',
+    lineHeight: 18,
+    marginBottom: 32,
+  },
+});
 
 export default ProductList;
