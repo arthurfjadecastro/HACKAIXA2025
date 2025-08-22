@@ -18,6 +18,6 @@ export const radius = {
   pill: borderRadius.full,
   container: borderRadius['2xl'],
   sheet: {
-    top: borderRadius.xl, // Para cantos superiores do BottomSheet
+    top: borderRadius['3xl'], // 24px conforme Figma
   },
 } as const;
