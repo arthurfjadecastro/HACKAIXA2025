@@ -1,14 +1,13 @@
-import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Image, StatusBar } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { Icon } from '@/design-system/icons';
 import { Text } from '@/design-system/components/Text/Text';
 import ActionCard from '@/design-system/components/ActionCard';
 import LoginBottomSheet from '@/modules/home/components/LoginBottomSheet';
-import { colors, spacing } from '@/design-system/tokens';
+import { spacing } from '@/design-system/tokens';
 import { AppStackParamList } from '@/navigation/AppStack';
 
 type NavigationProps = NativeStackNavigationProp<AppStackParamList, 'Home'>;
@@ -17,30 +16,37 @@ const HomeScreen: React.FC = () => {
   const navigation = useNavigation<NavigationProps>();
   const [showLoginBottomSheet, setShowLoginBottomSheet] = useState(false);
 
-  const handleOpenLogin = () => {
-    setShowLoginBottomSheet(true);
-  };
+  // Auto-abre o BottomSheet após 1 segundo
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowLoginBottomSheet(true);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleCloseBottomSheet = () => {
     setShowLoginBottomSheet(false);
   };
 
+  const handleOpenLogin = () => {
+    setShowLoginBottomSheet(true);
+  };
+
   const handleLogin = (username: string, password: string) => {
-    // Simular processo de login
     console.log('Login attempt:', { username, passwordLength: password.length });
-    
-    // Fechar o modal
     setShowLoginBottomSheet(false);
     
-    // Navegar para ProductList após login bem-sucedido
     setTimeout(() => {
       navigation.navigate('ProductList');
-    }, 300); // Pequeno delay para a animação do modal
+    }, 300);
   };
 
   return (
     <>
-      {/* Base gradient */}
+      <StatusBar barStyle="light-content" backgroundColor="#005CA9" />
+      
+      {/* Gradiente de fundo */}
       <LinearGradient
         colors={['#005ca9', '#005fab', '#005fab', '#00a1d8', '#00b5e5']}
         locations={[0, 0.05, 0.45, 0.82, 1]}
@@ -48,36 +54,41 @@ const HomeScreen: React.FC = () => {
         end={{ x: 1, y: 0 }}
         style={styles.container}
       >
-        {/* Faixa de profundidade (overlay) */}
-        <LinearGradient
-          colors={['transparent', 'rgba(0, 74, 138, 0.88)']}
-          locations={[0.58, 1]}
-          style={styles.depthOverlay}
-        />
-
-        {/* Logo */}
-        <View style={styles.logoContainer}>
-          <Icon name="x" size={120} color="#FFFFFF" />
+        {/* Header com dados pessoais */}
+        <View style={styles.header}>
+          <View style={styles.userInfo}>
+            <Text style={styles.userName}>ARTHUR DE CASTRO</Text>
+            <Text style={styles.userCode}>C150713-2</Text>
+          </View>
+          <View style={styles.unitsInfo}>
+            <Text style={styles.unitText}>TEIA - BOX DE RELACIONAMENTO DIGITAL</Text>
+            <Text style={styles.unitText}>GECDI - GN CANAIS DIGITAIS</Text>
+          </View>
         </View>
 
-        {/* Conteúdo */}
-        <View style={styles.content}>
-          {/* Mensagem de boas-vindas */}
-          <Text variant="h2" color="inverse" style={styles.welcomeMessage}>
-            Que bom ter você aqui!
+        {/* Logo centralizada */}
+        <View style={styles.logoContainer}>
+          <Image 
+            source={require('../../../../assets/symbol_home.png')} 
+            style={styles.logo}
+            resizeMode="contain"
+          />
+        </View>
+
+        {/* Área de ação - Texto + Botão */}
+        <View style={styles.actionArea}>
+          {/* Overlay para contraste */}
+          <View style={styles.actionOverlay} />
+          
+          <Text style={styles.welcomeMessage}>
+            Bem‑vindo! Vamos começar?
           </Text>
-
-          {/* Ação principal */}
-          <View style={styles.actionsContainer}>
-            <ActionCard
-              icon="login"
-              title="Entrar"
-              onPress={handleOpenLogin}
-              testID="login-action-card"
-            />
-          </View>
-
-        
+          <ActionCard
+            icon="login"
+            title="Entrar"
+            onPress={handleOpenLogin}
+            testID="login-action-card"
+          />
         </View>
       </LinearGradient>
 
@@ -94,54 +105,74 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  depthOverlay: {
+  header: {
+    paddingTop: 44, // Status bar + padding
+    paddingHorizontal: spacing[4],
+    paddingBottom: spacing[3],
+  },
+  userInfo: {
+    marginBottom: spacing[2],
+  },
+  userName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#FFFFFF',
+    letterSpacing: 0.5,
+  },
+  userCode: {
+    fontSize: 14,
+    color: '#FFFFFF',
+    opacity: 0.9,
+  },
+  unitsInfo: {
+    marginTop: spacing[1],
+  },
+  unitText: {
+    fontSize: 11,
+    color: '#FFFFFF',
+    opacity: 0.8,
+    lineHeight: 14,
+  },
+  logoContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  logo: {
+    width: 200,
+    height: 200,
+  },
+  bottomInfo: {
+    alignItems: 'center',
+    paddingBottom: spacing[8],
+  },
+  actionArea: {
+    alignItems: 'center',
+    paddingHorizontal: 24, // space.xl conforme especificação
+    paddingBottom: 24, // space.xl - margem inferior safe-area
+    position: 'relative',
+    zIndex: 10, // Garante que fica acima do gradiente
+  },
+  actionOverlay: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    zIndex: 2,
-  },
-  logoContainer: {
-    position: 'absolute',
-    top: '15%',
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-    zIndex: 3,
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'flex-end',
-    paddingHorizontal: spacing[6],
-    paddingBottom: spacing[10],
-    zIndex: 3,
+    backgroundColor: 'rgba(0, 0, 0, 0.10)', // Overlay sutil 10% para contraste
+    borderRadius: 16, // Cantos suaves
   },
   welcomeMessage: {
+    fontSize: 18, // font.title conforme especificação
+    fontWeight: '600', // Semibold
+    fontFamily: 'Caixa-Std-Semibold', // Fonte institucional
+    color: 'rgba(255, 255, 255, 0.92)', // #FFFFFF com 92% opacidade
     textAlign: 'center',
-    marginBottom: spacing[8],
-    fontWeight: '600',
-  },
-  actionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    gap: spacing[4],
-    marginBottom: spacing[6],
-  },
-  secondaryButton: {
-    marginBottom: spacing[4],
-    borderColor: colors.text.inverse,
-  },
-  servicesLink: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: spacing[2],
-    paddingVertical: spacing[3],
-  },
-  servicesText: {
-    color: colors.text.inverse,
-    textDecorationLine: 'underline',
+    lineHeight: 26, // Line-height 26sp
+    maxWidth: '80%', // Largura máxima 80% da tela
+    marginTop: 24, // space.xl - espaçamento do fim da marca
+    marginBottom: 16, // space.l - espaçamento para o botão
+    zIndex: 11, // Acima do overlay
   },
 });
 
