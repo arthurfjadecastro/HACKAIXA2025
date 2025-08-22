@@ -4,10 +4,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { Button, WelcomeBanner, Skeleton } from '@/design-system/components';
+import { Button, HeroHeader, Skeleton } from '@/design-system/components';
 import { Text } from '@/design-system/components/Text/Text';
 import { Icon } from '@/design-system/icons';
-import { colors, spacing } from '@/design-system/tokens';
+import { spacing } from '@/design-system/tokens';
 import { AppStackParamList } from '@/navigation/AppStack';
 import { useProducts } from '@/hooks/useProducts';
 import { ProductsList } from './components/ProductsList';
@@ -40,63 +40,58 @@ const ProductList: React.FC = () => {
           contentContainerStyle={{ flexGrow: 1 }}
           showsVerticalScrollIndicator={false}
         >
-          {/* Zona de topo - Banner de boas-vindas */}
-          <View style={{ marginTop: spacing[4], marginBottom: spacing[6] }}>
-            <WelcomeBanner
-              userName="Arthur de Castro"
-              userTier="Singular"
-            />
-          </View>
+          {/* Hero Header com gradiente e card sobreposto */}
+          <HeroHeader
+            name="Arthur de Castro"
+            role="Cliente Singular"
+          >
+            <Text style={styles.instructionText}>
+              Escolha um produto e simule seu empréstimo de forma rápida e clara.
+            </Text>
+          </HeroHeader>
 
-          {/* Zona de conteúdo - Lista de produtos ou Empty state */}
-          <View style={{ flex: 1, justifyContent: hasProducts ? 'flex-start' : 'center', paddingHorizontal: 24 }}>
-            {loading ? (
-              <View style={{ paddingHorizontal: spacing[6] }}>
-                <Skeleton width="100%" height={120} style={{ marginBottom: spacing[4] }} />
-                <Skeleton width="100%" height={120} style={{ marginBottom: spacing[4] }} />
-                <Skeleton width="100%" height={120} />
+        {/* Zona de conteúdo - Lista de produtos ou Empty state */}
+        <View style={{ flex: 1, justifyContent: hasProducts ? 'flex-start' : 'center', marginTop: spacing[8] }}>
+          {loading ? (
+            <View style={{ paddingHorizontal: spacing[4] }}>
+              <Skeleton width="100%" height={120} style={{ marginBottom: spacing[4] }} />
+              <Skeleton width="100%" height={120} style={{ marginBottom: spacing[4] }} />
+              <Skeleton width="100%" height={120} />
+            </View>
+          ) : hasProducts ? (
+            <ProductsList products={activeProducts} />
+          ) : (
+            // Empty State customizado seguindo Figma
+            <View style={styles.emptyContainer}>
+              {/* Ícone central */}
+              <View style={styles.iconContainer}>
+                <Icon name="add" size={32} color="rgba(255, 255, 255, 0.9)" />
               </View>
-            ) : hasProducts ? (
-              <ProductsList products={activeProducts} />
-            ) : (
-              // Empty State customizado seguindo Figma
-              <View style={styles.emptyContainer}>
-                {/* Ícone central */}
-                <View style={styles.iconContainer}>
-                  <Icon name="add" size={32} color="rgba(255, 255, 255, 0.9)" />
-                </View>
 
-                {/* Texto principal */}
-                <Text style={styles.primaryText}>
-                  Você ainda não tem produtos cadastrados. Cadastre o primeiro e comece a simular agora.
-                </Text>
+              {/* Texto principal */}
+              <Text style={styles.primaryText}>
+                Você ainda não tem produtos cadastrados. Cadastre o primeiro e comece a simular agora.
+              </Text>
 
-                {/* Texto secundário */}
-                <Text style={styles.secondaryText}>
-                  É rápido e leva menos de 1 minuto.
-                </Text>
-              </View>
-            )}
-          </View>
+              {/* Texto secundário */}
+              <Text style={styles.secondaryText}>
+                É rápido e leva menos de 1 minuto.
+              </Text>
+            </View>
+          )}
+        </View>
 
-          {/* CTA principal - Cadastrar produto */}
-          <View style={{
-            paddingHorizontal: spacing[6],
-            paddingBottom: spacing[6],
-            marginTop: spacing[8],
-          }}>
-            <Button
-              title="Cadastrar produto"
-              variant="primary"
-              size="lg"
-              fullWidth
-              onPress={handleCadastrarProduto}
-              style={{
-                backgroundColor: colors.brand.orange.primary, // #F39200
-                borderRadius: 12,
-              }}
-            />
-          </View>
+        {/* CTA principal - Cadastrar produto */}
+        <View style={styles.ctaContainer}>
+          <Button
+            title="Cadastrar produto"
+            variant="primary"
+            size="lg"
+            fullWidth
+            onPress={handleCadastrarProduto}
+            style={styles.ctaButton}
+          />
+        </View>
         </ScrollView>
       </LinearGradient>
     </SafeAreaView>
@@ -104,6 +99,13 @@ const ProductList: React.FC = () => {
 };
 
 const styles = StyleSheet.create({
+  instructionText: {
+    fontSize: 16, // fonte maior conforme especificação
+    fontWeight: '400',
+    color: '#333333', // neutral-800 (cor mais escura para melhor contraste)
+    textAlign: 'center', // centralizado
+    lineHeight: 18,
+  },
   emptyContainer: {
     alignItems: 'center',
     paddingHorizontal: 24,
@@ -134,6 +136,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 18,
     marginBottom: 32,
+  },
+  ctaContainer: {
+    paddingHorizontal: spacing[4], // 16dp margens laterais
+    paddingBottom: spacing[6], // 24dp espaçamento inferior  
+    marginTop: spacing[6],
+  },
+  ctaButton: {
+    backgroundColor: '#F39200', // Laranja primário
+    borderRadius: 8,
+    minHeight: 48, // Altura mínima 48dp
   },
 });
 

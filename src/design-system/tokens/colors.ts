@@ -52,6 +52,12 @@ export const colors = {
     orange: {
       primary: '#F39200',
     },
+    blue: {
+      blue900: '#0A2B47',
+      blue800: '#1A4A6B',
+      blue700: '#2A5A7B',
+      blue400: '#4A9FC7',
+    },
   },
 
   action: {

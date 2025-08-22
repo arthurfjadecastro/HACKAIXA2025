@@ -38,20 +38,35 @@ const SimulationLoadingScreen: React.FC = () => {
   const handleAnimationFinish = () => {
     console.log('🎬 Animação finalizada - Status atual:', status);
     
-    // Simula resultado do cálculo
-    const mockResult = {
-      installment: 450.25,
-      total: 5403.00,
-      rate: 12.5,
-      schedule: [] // Array vazio por enquanto
+    // Calcular resultado real baseado nos parâmetros
+    const numericAmount = parseFloat(route.params?.amount?.replace(/\./g, '').replace(',', '.') || '0');
+    const months = route.params?.months || 96;
+    
+    // Taxa padrão para CONSIGNADO INSS: 1.56% a.m. (conforme dados reais)
+    const rateMonthly = 0.0156; // 1.56% a.m.
+    
+    // Cálculo usando Sistema Price
+    const installment = numericAmount * rateMonthly / (1 - Math.pow(1 + rateMonthly, -months));
+    const roundedInstallment = Math.round(installment * 100) / 100;
+    const total = roundedInstallment * months;
+    const totalInterest = total - numericAmount;
+    
+    const calculatedResult = {
+      installment: roundedInstallment,
+      total: total,
+      totalInterest: totalInterest,
+      rate: rateMonthly * 100, // Taxa mensal em %
+      rateAnnual: (Math.pow(1 + rateMonthly, 12) - 1) * 100, // Taxa anual em %
+      amortizationType: 'PRICE' as const,
+      schedule: [] // Será calculado na tela de resultado
     };
     
-    console.log('🚀 Navegando para resultado da simulação');
+    console.log('🚀 Navegando para resultado da simulação com dados corretos:', calculatedResult);
     navigation.navigate('SimulationResult', {
       productId: route.params?.productId,
       amount: route.params?.amount,
-      months: route.params?.months,
-      result: mockResult,
+      months: months,
+      result: calculatedResult,
     });
   };
 

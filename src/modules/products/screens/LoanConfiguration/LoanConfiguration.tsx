@@ -284,7 +284,7 @@ const LoanConfiguration: React.FC = () => {
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Juros</Text>
             <Text style={styles.summaryValue}>
-              {(productRateAm * 100).toFixed(2)}% a.m. (≈{((Math.pow(1 + productRateAm, 12) - 1) * 100).toFixed(1)}% a.a.)
+              {(productRateAm * 100).toFixed(2)}% a.m. ({((Math.pow(1 + productRateAm, 12) - 1) * 100).toFixed(1)}% a.a. efetiva)
             </Text>
           </View>
         </View>

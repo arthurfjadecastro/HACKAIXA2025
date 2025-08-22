@@ -2,6 +2,7 @@
   "id": "consignado_convenio_militar",
   "categoria": "CONSIGNADO",
   "subtipo": "CONVENIO",
+  "sistema_amortizacao": "PRICE",
   "nome_exibicao": "Militar – Consignado",
   "status_contratacao": "ATIVO",
   "prazo": { "minimoMeses": 1, "maximoMeses": 96 },

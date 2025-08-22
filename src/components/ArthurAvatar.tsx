@@ -8,7 +8,7 @@ interface ArthurAvatarProps {
 }
 
 const ArthurAvatar: React.FC<ArthurAvatarProps> = ({ 
-  size = 56, 
+  size = 64, 
   style,
   testID 
 }) => {
@@ -20,8 +20,7 @@ const ArthurAvatar: React.FC<ArthurAvatarProps> = ({
         height: size, 
         borderRadius: size / 2,
         overflow: 'hidden',
-        borderWidth: 2,
-        borderColor: 'rgba(255, 255, 255, 0.3)',
+        // Removendo borderWidth e borderColor para evitar borda dupla
       }, style]}
     >
       <Image 

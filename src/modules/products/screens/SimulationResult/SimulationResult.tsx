@@ -63,39 +63,39 @@ const SimulationResult: React.FC = () => {
         
         <View style={styles.summaryRow}>
           <Text style={styles.label}>Parcelas:</Text>
-          <Text style={styles.value}>{months}x de {formatCurrency(result.installment)}</Text>
+          <Text style={styles.value}>{months}x de {formatCurrency(loanSchedule.monthlyInstallment)}</Text>
         </View>
         
         <View style={styles.summaryRow}>
           <Text style={styles.label}>Sistema de amortização:</Text>
-          <Text style={styles.value}>Price (SAC)</Text>
+          <Text style={styles.value}>{result.amortizationType || 'Price'}</Text>
         </View>
         
         <View style={styles.summaryRow}>
           <Text style={styles.label}>Valor da parcela:</Text>
           <Text style={StyleSheet.flatten([styles.value, styles.highlightValue])}>
-            {formatCurrency(result.installment)}
+            {formatCurrency(loanSchedule.monthlyInstallment)}
           </Text>
         </View>
         
         <View style={styles.summaryRow}>
           <Text style={styles.label}>Total a pagar:</Text>
           <Text style={styles.value}>
-            {formatCurrency(result.total)}
+            {formatCurrency(loanSchedule.totalWithInterest)}
+          </Text>
+        </View>
+        
+        <View style={styles.summaryRow}>
+          <Text style={styles.label}>Total de juros:</Text>
+          <Text style={styles.value}>
+            {formatCurrency(loanSchedule.totalInterest)}
           </Text>
         </View>
         
         <View style={styles.summaryRow}>
           <Text style={styles.label}>Taxa de juros:</Text>
           <Text style={styles.value}>
-            {(result.rate).toFixed(2)}% a.m. (≈{((Math.pow(1 + result.rate/100, 12) - 1) * 100).toFixed(1)}% a.a.)
-          </Text>
-        </View>
-
-        <View style={styles.summaryRow}>
-          <Text style={styles.label}>Total das parcelas:</Text>
-          <Text style={styles.value}>
-            {formatCurrency(result.installment * months)} {/* Conferência: soma das parcelas */}
+            {(result.rate).toFixed(2)}% a.m. ({(result.rateAnnual || ((Math.pow(1 + result.rate/100, 12) - 1) * 100)).toFixed(1)}% a.a. efetiva)
           </Text>
         </View>
       </View>

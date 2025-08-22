@@ -3,6 +3,7 @@
   "nome_exibicao": "Template Genérico",
   "categoria_macro": "OUTRO",
   "subcategoria": "Serviço financeiro",
+  "sistema_amortizacao": "PRICE",
 
   "status": "ATIVO",
   "moeda": "BRL",

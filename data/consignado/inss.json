@@ -2,6 +2,7 @@
   "id": "consignado_inss",
   "categoria": "CONSIGNADO",
   "subtipo": "INSS",
+  "sistema_amortizacao": "PRICE",
   "nome_exibicao": "INSS – Consignado",
   "status_contratacao": "ATIVO",
   "prazo": { "minimoMeses": 1, "maximoMeses": 96 },
@@ -10,8 +11,8 @@
   "exige_validacao": { "remota": true, "presencial": false, "certificacao_digital": false },
   "faixas": {
     "A": {
-      "concessao_taxa_am": 1.55,
-      "renovacao_taxa_am": 1.55,
+      "concessao_taxa_am": 1.56,
+      "renovacao_taxa_am": 1.56,
       "condicoes_acesso": ["Agência/AgD", "Seguro prestamista (quando aplicável)"]
     },
     "B": {
@@ -30,6 +31,7 @@
     "retencao": "PERSONALIZADA_MESA"
   },
   "observacoes": [
+    "Sistema de amortização: PRICE (parcelas fixas)",
     "Respeitar margem disponível do benefício.",
     "Validar extrato de benefício/contracheque antes da simulação."
   ],

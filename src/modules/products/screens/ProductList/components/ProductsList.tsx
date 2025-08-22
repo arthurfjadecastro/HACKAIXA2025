@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Ionicons } from '@expo/vector-icons';
 import { Product } from '@/services/products/productTypes';
 import { Card } from '@/design-system/components';
 import { colors, spacing } from '@/design-system/tokens';
@@ -22,37 +23,76 @@ export const ProductsList: React.FC<ProductsListProps> = ({ products }) => {
     }
   };
 
+  const getProductIcon = (productName: string) => {
+    const name = productName.toLowerCase();
+    if (name.includes('consignado') || name.includes('inss')) {
+      return 'document-text';
+    } else if (name.includes('habitação') || name.includes('habitacao')) {
+      return 'home';
+    } else {
+      return 'create';
+    }
+  };
+
+  const getProductCategory = (productName: string) => {
+    const name = productName.toLowerCase();
+    if (name.includes('consignado') || name.includes('inss')) {
+      return 'Consignado';
+    } else if (name.includes('habitação') || name.includes('habitacao')) {
+      return 'Habitação';
+    } else {
+      return 'Produto criado pelo usuário';
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Produtos Cadastrados ({products.length})</Text>
-      
+    <View style={styles.container}>      
       {products.map((product) => (
         <TouchableOpacity
           key={product.id}
           onPress={() => handleProductPress(product)}
           disabled={!product.active}
+          style={styles.cardTouchable}
         >
           <Card style={styles.productCard}>
-            <View style={styles.productHeader}>
-              <Text style={styles.productName}>{product.name}</Text>
-            </View>
-            
-            <View style={styles.productDetails}>
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Juros:</Text>
-                <Text style={styles.detailValue}>{product.juros}% a.a.</Text>
+            <View style={styles.cardContent}>
+              {/* Ícone circular leading */}
+              <View style={styles.iconContainer}>
+                <Ionicons 
+                  name={getProductIcon(product.name) as any} 
+                  size={24} 
+                  color={colors.primary.main} 
+                />
               </View>
-              
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Prazo máximo:</Text>
-                <Text style={styles.detailValue}>{product.prazoMaximo} meses</Text>
-              </View>
-              
-              <View style={styles.detailRow}>
-                <Text style={styles.detailLabel}>Normativo:</Text>
-                <Text style={styles.detailValueLong} numberOfLines={2} ellipsizeMode="tail">
-                  {product.normativo}
+
+              {/* Conteúdo principal */}
+              <View style={styles.mainContent}>
+                {/* Título */}
+                <Text style={styles.productTitle}>
+                  {product.name}
                 </Text>
+                
+                {/* Categoria como subtítulo */}
+                <Text style={styles.productCategory}>
+                  {getProductCategory(product.name)}
+                </Text>
+                
+                {/* Subinformações */}
+                <View style={styles.productInfo}>
+                  <Text style={styles.infoItem}>
+                    Juros: {product.juros}% a.m.
+                  </Text>
+                  
+                  <Text style={styles.infoItem}>
+                    Prazo máximo: {product.prazoMaximo} meses
+                  </Text>
+                  
+                  {product.normativo && (
+                    <Text style={styles.infoItem}>
+                      Normativo: {product.normativo}
+                    </Text>
+                  )}
+                </View>
               </View>
             </View>
           </Card>
@@ -64,62 +104,59 @@ export const ProductsList: React.FC<ProductsListProps> = ({ products }) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: spacing[6],
-    paddingVertical: spacing[4],
+    paddingHorizontal: spacing[4], // 16dp margin lateral
   },
-  title: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: colors.text.inverse,
-    marginBottom: spacing[4],
-    textAlign: 'center',
+  cardTouchable: {
+    marginBottom: spacing[3], // 12dp espaçamento vertical
   },
   productCard: {
-    marginBottom: spacing[4],
-    padding: spacing[4],
+    backgroundColor: '#FFFFFF',
+    borderRadius: 12,
+    padding: spacing[4], // 16dp padding interno
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3, // Sombra leve (elevation 2-3)
   },
-  productHeader: {
-    marginBottom: spacing[3],
-  },
-  productName: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: colors.text.primary,
-    flex: 1,
-    flexWrap: 'wrap', // Permite quebra de linha
-    lineHeight: 22, // Melhor espaçamento entre linhas
-  },
-  productDetails: {
-    gap: spacing[2],
-  },
-  detailRow: {
+  cardContent: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start', // Mudado para flex-start para melhor alinhamento
-    flexWrap: 'wrap', // Permite quebra de linha
-    marginBottom: 2, // Pequeno espaçamento entre linhas
+    alignItems: 'center',
   },
-  detailLabel: {
-    fontSize: 14,
-    color: colors.text.secondary,
-    minWidth: 100, // Largura mínima para o label
-    marginRight: 8, // Espaçamento entre label e valor
+  iconContainer: {
+    width: 48,
+    height: 48,
+    backgroundColor: '#E6F0FA', // Container azul-claro
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: spacing[3], // 12dp
   },
-  detailValue: {
-    fontSize: 14,
-    color: colors.text.primary,
-    fontWeight: '600',
-    flex: 1, // Ocupa o espaço restante
-    textAlign: 'right', // Alinha à direita
-    flexWrap: 'wrap', // Permite quebra de texto
+  mainContent: {
+    flex: 1,
   },
-  detailValueLong: {
+  productTitle: {
+    fontSize: 16,
+    fontWeight: '600', // semibold
+    color: colors.text.primary, // neutral-900
+    marginBottom: spacing[1], // 4dp
+  },
+  productCategory: {
     fontSize: 14,
-    color: colors.text.primary,
-    fontWeight: '600',
-    flex: 1, // Ocupa o espaço restante
-    textAlign: 'right', // Alinha à direita
-    flexWrap: 'wrap', // Permite quebra de texto
-    lineHeight: 18, // Line height menor para textos longos
+    fontWeight: '400',
+    color: colors.text.secondary, // neutral-700
+    marginBottom: spacing[2], // 8dp
+  },
+  productInfo: {
+    gap: 4, // Espaçamento entre linhas
+  },
+  infoItem: {
+    fontSize: 14,
+    fontWeight: '400',
+    color: colors.text.secondary, // neutral-700
+    lineHeight: 18,
   },
 });

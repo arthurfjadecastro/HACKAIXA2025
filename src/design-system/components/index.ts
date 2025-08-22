@@ -10,3 +10,4 @@ export { default as Divider } from './Divider';
 export { default as InputField } from './InputField';
 export { default as WelcomeBanner } from './WelcomeBanner';
 export { default as EmptyState } from './EmptyState';
+export { default as HeroHeader } from './HeroHeader';
