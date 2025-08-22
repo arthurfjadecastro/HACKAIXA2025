@@ -36,33 +36,18 @@ export const lineHeights = {
 } as const;
 
 export const fontFamilies = {
-  // Fontes oficiais da CAIXA
-  caixa: Platform.select({
-    ios: 'CAIXAStd-Regular',
-    android: 'CAIXAStd-Regular',
-    default: 'CAIXAStd-Regular',
-  }),
-  
-  caixaSemiBold: Platform.select({
-    ios: 'CAIXAStd-SemiBold',
-    android: 'CAIXAStd-SemiBold', 
-    default: 'CAIXAStd-SemiBold',
-  }),
-
-  // Alias para compatibilidade e facilidade de uso
   primary: Platform.select({
-    ios: 'CAIXAStd-Regular',
-    android: 'CAIXAStd-Regular',
-    default: 'CAIXAStd-Regular',
+    ios: 'Avenir Next',
+    android: 'Roboto',
+    default: 'System',
   }),
   
-  primaryBold: Platform.select({
-    ios: 'CAIXAStd-SemiBold',
-    android: 'CAIXAStd-SemiBold',
-    default: 'CAIXAStd-SemiBold',
+  secondary: Platform.select({
+    ios: 'SF Pro Text',
+    android: 'Roboto',
+    default: 'System',
   }),
   
-  // Fallback para casos especiais
   monospace: Platform.select({
     ios: 'SF Mono',
     android: 'monospace',
@@ -75,70 +60,70 @@ export const typography = {
     fontSize: fontSizes['4xl'],
     fontWeight: fontWeights.bold,
     lineHeight: lineHeights['4xl'],
-    fontFamily: fontFamilies.caixaSemiBold,
+    fontFamily: fontFamilies.primary,
   } as TextStyle,
 
   h2: {
     fontSize: fontSizes['3xl'],
     fontWeight: fontWeights.bold,
     lineHeight: lineHeights['3xl'],
-    fontFamily: fontFamilies.caixaSemiBold,
+    fontFamily: fontFamilies.primary,
   } as TextStyle,
 
   h3: {
     fontSize: fontSizes['2xl'],
     fontWeight: fontWeights.semiBold,
     lineHeight: lineHeights['2xl'],
-    fontFamily: fontFamilies.caixaSemiBold,
+    fontFamily: fontFamilies.primary,
   } as TextStyle,
 
   h4: {
     fontSize: fontSizes.xl,
     fontWeight: fontWeights.semiBold,
     lineHeight: lineHeights.xl,
-    fontFamily: fontFamilies.caixaSemiBold,
+    fontFamily: fontFamilies.primary,
   } as TextStyle,
 
   h5: {
     fontSize: fontSizes.lg,
     fontWeight: fontWeights.semiBold,
     lineHeight: lineHeights.lg,
-    fontFamily: fontFamilies.caixaSemiBold,
+    fontFamily: fontFamilies.primary,
   } as TextStyle,
 
   body1: {
     fontSize: fontSizes.lg,
     fontWeight: fontWeights.regular,
     lineHeight: lineHeights.lg,
-    fontFamily: fontFamilies.caixa,
+    fontFamily: fontFamilies.secondary,
   } as TextStyle,
 
   body2: {
     fontSize: fontSizes.md,
     fontWeight: fontWeights.regular,
     lineHeight: lineHeights.md,
-    fontFamily: fontFamilies.caixa,
+    fontFamily: fontFamilies.secondary,
   } as TextStyle,
 
   button: {
     fontSize: fontSizes.lg,
     fontWeight: fontWeights.bold,
     lineHeight: lineHeights.lg,
-    fontFamily: fontFamilies.caixaSemiBold,
+    fontFamily: fontFamilies.primary,
   } as TextStyle,
 
   caption: {
     fontSize: fontSizes.sm,
     fontWeight: fontWeights.medium,
     lineHeight: lineHeights.sm,
-    fontFamily: fontFamilies.caixa,
+    fontFamily: fontFamilies.secondary,
   } as TextStyle,
 
   overline: {
     fontSize: fontSizes.xs,
     fontWeight: fontWeights.bold,
     lineHeight: lineHeights.xs,
-    fontFamily: fontFamilies.caixaSemiBold,
+    fontFamily: fontFamilies.primary,
     textTransform: 'uppercase',
   } as TextStyle,
 
@@ -146,7 +131,7 @@ export const typography = {
     fontSize: fontSizes.sm,
     fontWeight: fontWeights.medium,
     lineHeight: lineHeights.sm,
-    fontFamily: fontFamilies.caixa,
+    fontFamily: fontFamilies.secondary,
     opacity: 0.8,
   } as TextStyle,
 
@@ -154,6 +139,6 @@ export const typography = {
     fontSize: fontSizes['3xl'],
     fontWeight: fontWeights.bold,
     lineHeight: lineHeights['3xl'],
-    fontFamily: fontFamilies.caixaSemiBold,
+    fontFamily: fontFamilies.monospace,
   } as TextStyle,
 } as const;

@@ -1,12 +1,12 @@
 import { colors } from '@/design-system/tokens/colors';
-import { typography, fontWeights, fontSizes, lineHeights, fontFamilies } from '@/design-system/tokens/typography';
+import { typography, fontWeights, fontSizes, lineHeights } from '@/design-system/tokens/typography';
 import { spacing, padding, margin, gap } from '@/design-system/tokens/spacing';
 import { borderRadius, radius } from '@/design-system/tokens/radius';
 import { shadows } from '@/design-system/tokens/shadows';
 import { elevation } from '@/design-system/tokens/elevation';
 
 export { colors } from '@/design-system/tokens/colors';
-export { typography, fontWeights, fontSizes, lineHeights, fontFamilies } from '@/design-system/tokens/typography';
+export { typography, fontWeights, fontSizes, lineHeights } from '@/design-system/tokens/typography';
 export { spacing, padding, margin, gap } from '@/design-system/tokens/spacing';
 export { borderRadius, radius } from '@/design-system/tokens/radius';
 export { shadows } from '@/design-system/tokens/shadows';
@@ -27,7 +27,6 @@ export const theme = {
   fontWeights,
   fontSizes,
   lineHeights,
-  fontFamilies,
 } as const;
 
 

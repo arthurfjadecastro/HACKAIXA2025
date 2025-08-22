@@ -1,12 +1,7 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, StyleSheet, FlatList, LayoutAnimation, Platform, UIManager } from 'react-native';
+import { View, TouchableOpacity, StyleSheet, FlatList, LayoutAnimation } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { Text } from '@/design-system/components';
-
-// Habilitar LayoutAnimation no Android
-if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
-}
 
 export interface Installment {
   index: number;           // 1..months

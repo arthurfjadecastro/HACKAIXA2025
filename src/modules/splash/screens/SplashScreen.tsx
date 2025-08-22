@@ -144,13 +144,13 @@ const SplashScreen: React.FC = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   logoContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // Ajustar posição para coincidir com a Home
-    marginTop: -50, // Move um pouco para cima para coincidir melhor
   },
   logoWrapper: {
     justifyContent: 'center',
