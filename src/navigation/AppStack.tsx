@@ -7,7 +7,7 @@ import HomeScreen from '@/modules/home/screens/HomeScreen';
 import ProductListScreen from '@/modules/products/screens/ProductList';
 import ProductSimulatorScreen from '@/modules/products/screens/ProductSimulator';
 import LoanConfigurationScreen from '@/modules/products/screens/LoanConfiguration';
-import SimulationTransitionScreen from '@/modules/products/screens/SimulationTransition';
+import SimulationLoadingScreen from '@/modules/simulationLoading/screens';
 import SimulationResultScreen from '@/modules/products/screens/SimulationResult';
 import RegisterProductsScreen from '@/modules/products/screens/RegisterProducts';
 import CreateProductScreen from '@/modules/products/screens/CreateProduct';
@@ -18,7 +18,7 @@ export type AppStackParamList = {
   ProductList: undefined;
   ProductSimulator: { productId?: string };
   LoanConfiguration: { productId: string; amount: string };
-  SimulationTransition: { productId: string; amount: string; months: number };
+  SimulationLoading: { productId: string; amount: string; months: number };
   SimulationResult: { productId: string; amount: string; months: number; result: any };
   RegisterProducts: undefined;
   CreateProduct: undefined;
@@ -80,12 +80,12 @@ const AppStackNavigator: React.FC = () => {
         }}
       />
       <Stack.Screen 
-        name="SimulationTransition" 
-        component={SimulationTransitionScreen}
+        name="SimulationLoading" 
+        component={SimulationLoadingScreen}
         options={{ 
-          title: 'Simulando...',
+          title: 'Carregando Simulação',
           headerShown: false,
-          gestureEnabled: false // Impede gesture de volta
+          gestureEnabled: false // Impede gesture de volta durante o loading
         }}
       />
       <Stack.Screen 

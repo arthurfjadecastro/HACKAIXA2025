@@ -156,7 +156,7 @@ const LoanConfiguration: React.FC = () => {
       quote 
     });
     
-    navigation.navigate('SimulationTransition', {
+    navigation.navigate('SimulationLoading', {
       productId,
       amount,
       months

@@ -106,7 +106,7 @@ const SimulationTransition: React.FC = () => {
     }, 15000);
 
     try {
-      const result = await simulateAPI();
+      await simulateAPI(); // Apenas valida os dados, o cálculo será feito na próxima tela
       
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
@@ -125,13 +125,12 @@ const SimulationTransition: React.FC = () => {
           duration_ms: Date.now() - startTimeRef.current 
         });
 
-        // Navegar após microanimação
+        // Navegar após microanimação para a nova tela de loading
         setTimeout(() => {
-          navigation.replace('SimulationResult', {
+          navigation.replace('SimulationLoading', {
             productId,
             amount,
-            months,
-            result
+            months
           });
         }, 500);
       }, remainingDwell);
