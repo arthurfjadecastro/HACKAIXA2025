@@ -9,6 +9,7 @@ import tjdftData from '../../data/consignado/convenios/tjdft_new.json';
 import inssData from '../../data/consignado/inss.json';
 import habitacaoSacData from '../../data/habitacao/sac.json';
 import habitacaoPriceData from '../../data/habitacao/price.json';
+import outroTemplateData from '../../data/outro/template_minimo.json';
 
 // Serviço para carregar dados dos arquivos JSON
 class ProductDataService {
@@ -82,6 +83,9 @@ class ProductDataService {
           break;
         case 'habitacao_price':
           product = habitacaoPriceData as unknown as ProductCategory;
+          break;
+        case 'outro_template':
+          product = outroTemplateData as unknown as ProductCategory;
           break;
         default:
           throw new Error(`Produto ${productId} não encontrado`);
@@ -221,6 +225,16 @@ class ProductDataService {
       }
     } catch (error) {
       console.error(`Erro ao carregar habitação ${sistemaAmortizacao}:`, error);
+      throw error;
+    }
+  }
+
+  // Método específico para carregar template de produto OUTRO
+  async loadOutroTemplate(): Promise<any> {
+    try {
+      return outroTemplateData;
+    } catch (error) {
+      console.error('Erro ao carregar template OUTRO:', error);
       throw error;
     }
   }

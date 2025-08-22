@@ -1,0 +1,85 @@
+{
+  "id_interno": "outro_template",
+  "nome_exibicao": "Template Genérico",
+  "categoria_macro": "OUTRO",
+  "subcategoria": "Serviço financeiro",
+
+  "status": "ATIVO",
+  "moeda": "BRL",
+  "localidade": "pt-BR",
+
+  "vigencia": {
+    "desde": "now",
+    "ate": null,
+    "versao_regra": "1.0.0"
+  },
+
+  "limites": {
+    "valor_min": 0.0,
+    "valor_max": 0.0,
+    "prazo_min_meses": 0,
+    "prazo_max_meses": 0,
+    "quantidade": { "min": 1, "max": 100 }
+  },
+
+  "precificacao": {
+    "modelo": ["TARIFA_FIXA"],
+    "unidade_juros": null,
+    "capitalizacao_base": null,
+    "sistema_amortizacao": "N/A",
+    "indexadores": []
+  },
+
+  "taxa_padrao": {
+    "aplicacao": "GERAL",
+    "taxa_am": null,
+    "atualizado_em": "now"
+  },
+
+  "usa_tabela_taxas": false,
+  "tabela_taxas": [],
+
+  "taxas_personalizadas": {
+    "percentual": null,
+    "valor_fixo": null,
+    "por_unidade": null,
+    "observacao": "Preencha apenas os campos aplicáveis; deixe null quando não usar."
+  },
+
+  "canais_permitidos": [
+    "AGENCIA",
+    "AG_DIGITAL"
+  ],
+
+  "elegibilidade": {
+    "tomadores": ["Pessoa Física"],
+    "faixa_etaria": { "min": 18, "max": 75 },
+    "validacoes_cadastrais": []
+  },
+
+  "operacao": {
+    "registro": "INTERNO",
+    "exige_validacao_remota": true,
+    "exige_validacao_presencial": false,
+    "exige_certificacao_digital": false,
+    "identificador_externo": null
+  },
+
+  "mensagens": {
+    "alertas_operacionais": [
+      "Defina ao menos um tipo de taxa em 'taxas_personalizadas' ou deixe todos como null se o produto não tiver tarifa."
+    ],
+    "exibir_por_que_essa_taxa": true
+  },
+
+  "observacoes": [
+    "Template genérico para categoria OUTRO.",
+    "Partes são selecionadas via pickers (categoria/subcategoria/canais) e outras inseridas pelo usuário (taxas e quantidades)."
+  ],
+
+  "auditoria": {
+    "fonte": "Cadastro OUTRO (usuario)",
+    "atualizado_em": "now",
+    "responsavel": "usuario"
+  }
+}

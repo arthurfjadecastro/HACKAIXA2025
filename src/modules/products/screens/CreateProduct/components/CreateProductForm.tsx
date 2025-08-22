@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
-import { Text } from '@/design-system/components';
+import { Text, InputField } from '@/design-system/components';
 import { FormData, FieldName } from '../types';
 
 interface CreateProductFormProps {
@@ -30,7 +30,7 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
           { value: 'CONSIGNADO', label: 'Consignado', description: 'Empréstimos com desconto em folha' },
           { value: 'HABITACAO', label: 'Habitação', description: 'Financiamentos imobiliários SAC', disabled: isHabitacaoAlreadyRegistered() },
           { value: 'CLT_SUSPENSO', label: 'CLT Suspenso', description: 'Suspenso conforme MP 1292', disabled: true },
-          { value: 'OUTRO', label: 'Outro', description: 'Configuração manual (em breve)', disabled: true }
+          { value: 'OUTRO', label: 'Outro', description: 'Produtos genéricos personalizáveis', disabled: false }
         ].map(option => (
           <TouchableOpacity
             key={option.value}
@@ -295,7 +295,119 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
         </View>
       )}
 
-      {/* Campos manuais serão implementados no futuro para opção "Outro" */}
+      {/* Campos manuais para categoria OUTRO */}
+      {formData.categoria === 'OUTRO' && (
+        <View style={formStyles.section}>
+          <Text style={formStyles.sectionTitle}>Configuração de Produto Genérico</Text>
+          <Text style={formStyles.sectionDescription}>
+            Preencha os campos obrigatórios para criar seu produto personalizado.
+          </Text>
+          
+          {/* Nome do Produto */}
+          <View style={formStyles.inputGroup}>
+            <InputField
+              label="Nome do Produto *"
+              placeholder="Ex: Cartão de Crédito Premium"
+              value={formData.name || ''}
+              onChangeText={(value: string) => updateField('name', value)}
+            />
+          </View>
+
+          {/* Subcategoria */}
+          <View style={formStyles.inputGroup}>
+            <InputField
+              label="Subcategoria"
+              placeholder="Ex: Serviço financeiro"
+              value={formData.subcategoria_outro || ''}
+              onChangeText={(value: string) => updateField('subcategoria_outro', value)}
+            />
+          </View>
+
+          {/* Prazos com validação 1-420 */}
+          <View style={formStyles.rowContainer}>
+            <View style={formStyles.halfWidth}>
+              <InputField
+                label="Prazo Mínimo (meses) *"
+                placeholder="1"
+                value={formData.prazo_min_meses?.toString() || ''}
+                onChangeText={(value: string) => {
+                  const numValue = parseInt(value) || 1;
+                  const validValue = Math.max(1, Math.min(420, numValue));
+                  updateField('prazo_min_meses', validValue);
+                }}
+                keyboardType="numeric"
+              />
+              <Text style={formStyles.fieldHint}>Mínimo: 1, Máximo: 420</Text>
+            </View>
+            <View style={formStyles.halfWidth}>
+              <InputField
+                label="Prazo Máximo (meses) *"
+                placeholder="420"
+                value={formData.prazo_max_meses?.toString() || ''}
+                onChangeText={(value: string) => {
+                  const numValue = parseInt(value) || 420;
+                  const validValue = Math.max(1, Math.min(420, numValue));
+                  updateField('prazo_max_meses', validValue);
+                }}
+                keyboardType="numeric"
+              />
+              <Text style={formStyles.fieldHint}>Mínimo: 1, Máximo: 420</Text>
+            </View>
+          </View>
+
+          {/* Taxa de Juros Anual */}
+          <View style={formStyles.inputGroup}>
+            <InputField
+              label="Taxa de Juros Anual (%)"
+              placeholder="Ex: 12.50"
+              value={formData.interestRate || ''}
+              onChangeText={(value: string) => updateField('interestRate', value)}
+              keyboardType="numeric"
+            />
+            <Text style={formStyles.fieldHint}>Taxa anual que será convertida automaticamente na simulação</Text>
+          </View>
+
+          {/* Elegibilidade */}
+          <View style={formStyles.section}>
+            <Text style={formStyles.sectionTitle}>Elegibilidade</Text>
+            
+            <View style={formStyles.rowContainer}>
+              <View style={formStyles.halfWidth}>
+                <InputField
+                  label="Idade Mínima"
+                  placeholder="18"
+                  value={formData.faixa_etaria_min?.toString() || ''}
+                  onChangeText={(value: string) => updateField('faixa_etaria_min', parseInt(value) || 18)}
+                  keyboardType="numeric"
+                />
+              </View>
+              <View style={formStyles.halfWidth}>
+                <InputField
+                  label="Idade Máxima"
+                  placeholder="75"
+                  value={formData.faixa_etaria_max?.toString() || ''}
+                  onChangeText={(value: string) => updateField('faixa_etaria_max', parseInt(value) || 75)}
+                  keyboardType="numeric"
+                />
+              </View>
+            </View>
+          </View>
+
+          {/* Normativo */}
+          <View style={formStyles.section}>
+            <Text style={formStyles.sectionTitle}>Normativo Aplicável</Text>
+            <View style={formStyles.normativoContainer}>
+              <Text style={formStyles.normativoText}>
+                {formData.normative}
+              </Text>
+              <Text style={formStyles.normativoDescription}>
+                Normativo aplicável para produtos genéricos da categoria OUTRO
+              </Text>
+            </View>
+          </View>
+        </View>
+      )}
+
       {/* Por enquanto, produtos específicos (CONSIGNADO/HABITACAO) são configurados automaticamente */}
     </View>
   );
@@ -498,6 +610,74 @@ const formStyles = StyleSheet.create({
   normativoDescription: {
     fontSize: 12,
     color: '#6366F1',
+    fontStyle: 'italic',
+  },
+
+  // Estilos específicos para formulário OUTRO
+  inputGroup: {
+    marginBottom: 16,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#374151',
+    marginBottom: 8,
+  },
+  inputContainer: {
+    backgroundColor: '#F9FAFB',
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    borderRadius: 8,
+    padding: 12,
+  },
+  input: {
+    fontSize: 14,
+    color: '#111827',
+  },
+  checkboxGroup: {
+    gap: 12,
+  },
+  checkboxItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  checkbox: {
+    width: 20,
+    height: 20,
+    borderWidth: 2,
+    borderColor: '#D1D5DB',
+    borderRadius: 4,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+  },
+  checkboxChecked: {
+    backgroundColor: '#005CA9',
+    borderColor: '#005CA9',
+  },
+  checkmark: {
+    color: '#FFFFFF',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  checkboxLabel: {
+    fontSize: 14,
+    color: '#374151',
+    flex: 1,
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    gap: 16,
+    marginBottom: 16,
+  },
+  halfWidth: {
+    flex: 1,
+  },
+  fieldHint: {
+    fontSize: 12,
+    color: '#6B7280',
+    marginTop: 4,
     fontStyle: 'italic',
   },
 });

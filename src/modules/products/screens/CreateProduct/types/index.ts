@@ -1,6 +1,6 @@
 export interface FormData {
   // Seleção de categoria/subtipo
-  categoria: 'CONSIGNADO' | 'HABITACAO' | '';
+  categoria: 'CONSIGNADO' | 'HABITACAO' | 'OUTRO' | '';
   subtipo: 'INSS' | 'CONVENIO' | 'CLT_SUSPENSO' | 'N/A' | '';
   convenio_id?: string;
   convenio_selected?: string; // Para seleção simplificada (militar, funcef, tjdft)
@@ -34,6 +34,25 @@ export interface FormData {
   entrada_min_percentual?: number;
   indexadores_permitidos?: Array<{id: string, descricao: string}>;
   seguros_obrigatorios?: Array<{id: string, descricao: string}>;
+  
+  // Campos específicos de OUTRO
+  subcategoria_outro?: string;
+  valor_min?: number;
+  valor_max?: number;
+  prazo_min_meses?: number;
+  prazo_max_meses?: number;
+  quantidade_min?: number;
+  quantidade_max?: number;
+  taxa_percentual?: number;
+  taxa_valor_fixo?: number;
+  taxa_por_unidade?: number;
+  taxa_observacao?: string;
+  canais_selecionados?: string[];
+  faixa_etaria_min?: number;
+  faixa_etaria_max?: number;
+  exige_validacao_remota_outro?: boolean;
+  exige_validacao_presencial_outro?: boolean;
+  exige_certificacao_digital_outro?: boolean;
   
   // Campos comuns
   observacoes?: string[];

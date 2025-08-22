@@ -7,6 +7,7 @@
     { "id": "consignado_convenio_tjdft", "path": "consignado/convenios/tjdft.json" },
     { "id": "consignado_clt_suspenso", "path": "consignado/clt_suspenso.json" },
     { "id": "habitacao_sac", "path": "habitacao/sac.json" },
-    { "id": "habitacao_price", "path": "habitacao/price.json" }
+    { "id": "habitacao_price", "path": "habitacao/price.json" },
+    { "id": "outro_template", "path": "outro/template_minimo.json" }
   ]
 }
