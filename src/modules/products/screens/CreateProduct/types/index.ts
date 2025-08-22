@@ -11,7 +11,7 @@ export interface FormData {
   maxTerm: string;
   normative: string;
   
-  // Campos preenchidos automaticamente
+  // Campos preenchidos automaticamente - Consignado
   prazo_minimo?: number;
   prazo_maximo?: number;
   margem_consignavel?: number;
@@ -27,6 +27,15 @@ export interface FormData {
   exige_validacao_remota?: boolean;
   exige_validacao_presencial?: boolean;
   exige_certificacao_digital?: boolean;
+  
+  // Campos específicos de Habitação
+  sistema_amortizacao?: 'SAC' | 'PRICE' | '';
+  ltv_max_percentual?: number;
+  entrada_min_percentual?: number;
+  indexadores_permitidos?: Array<{id: string, descricao: string}>;
+  seguros_obrigatorios?: Array<{id: string, descricao: string}>;
+  
+  // Campos comuns
   observacoes?: string[];
   fonte_dados?: string;
 }

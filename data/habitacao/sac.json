@@ -1,0 +1,41 @@
+{
+  "id": "habitacao_sac",
+  "categoria": "HABITACAO",
+  "sistema_amortizacao": "SAC",
+  "nome_exibicao": "Habitação — SAC",
+  "status_contratacao": "ATIVO",
+
+  "prazo": { "minimoMeses": 60, "maximoMeses": 420 },
+
+  "indexadores_permitidos": [
+    { "id": "TR", "descricao": "Taxa Referencial" },
+    { "id": "IPCA", "descricao": "Índice de Preços ao Consumidor Amplo" }
+  ],
+
+  "ltv_limites": {
+    "descricao": "Percentual máximo do valor do imóvel que pode ser financiado",
+    "financiamento_max_percentual": 70,
+    "entrada_min_percentual": 30
+  },
+
+  "seguros_obrigatorios": [
+    { "id": "MIP", "descricao": "Morte e Invalidez Permanente" },
+    { "id": "DFI", "descricao": "Danos Físicos ao Imóvel" }
+  ],
+
+  "tarifas_e_custos": {
+    "observacao": "Custos de seguros variam com idade, prazo e valor segurado; consultar cálculo no ato da simulação."
+  },
+
+  "condicoes_gerais": [
+    "Prestação inicial maior e decrescente ao longo do tempo (amortização constante).",
+    "Saldo devedor é atualizado pelo indexador escolhido (TR ou IPCA), conforme a modalidade."
+  ],
+
+  "portas_canais": ["AGENCIA", "AG_DIGITAL"],
+
+  "auditoria": {
+    "fonte_descritiva": "Página oficial CAIXA — Habitação; PDF de sistemas de amortização; FAQ sobre indexadores; notícias oficiais sobre percentuais de entrada.",
+    "atualizado_em": "2025-08-21T19:00:00-03:00"
+  }
+}

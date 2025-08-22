@@ -6,6 +6,7 @@
     { "id": "consignado_convenio_funcef", "path": "consignado/convenios/funcef.json" },
     { "id": "consignado_convenio_tjdft", "path": "consignado/convenios/tjdft.json" },
     { "id": "consignado_clt_suspenso", "path": "consignado/clt_suspenso.json" },
-    { "id": "habitacao_placeholder", "path": "habitacao/placeholder.json" }
+    { "id": "habitacao_sac", "path": "habitacao/sac.json" },
+    { "id": "habitacao_price", "path": "habitacao/price.json" }
   ]
 }

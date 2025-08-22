@@ -3,18 +3,19 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { Text } from '@/design-system/components';
 import { FormData, FieldName } from '../types';
-import { styles } from '../CreateProduct.styles';
 
 interface CreateProductFormProps {
   formData: FormData;
   updateField: (fieldName: FieldName, value: string | number | boolean | string[]) => void;
   isConvenioAlreadyRegistered: (convenioKey: string) => boolean;
+  isHabitacaoAlreadyRegistered: () => boolean;
 }
 
 export const CreateProductForm: React.FC<CreateProductFormProps> = ({
   formData,
   updateField,
   isConvenioAlreadyRegistered,
+  isHabitacaoAlreadyRegistered,
 }) => {
   
   const renderCategoriaSelector = () => (
@@ -27,7 +28,7 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
       <View style={formStyles.radioGroup}>
         {[
           { value: 'CONSIGNADO', label: 'Consignado', description: 'Empréstimos com desconto em folha' },
-          { value: 'HABITACAO', label: 'Habitação', description: 'Financiamentos imobiliários (em breve)' },
+          { value: 'HABITACAO', label: 'Habitação', description: 'Financiamentos imobiliários SAC', disabled: isHabitacaoAlreadyRegistered() },
           { value: 'CLT_SUSPENSO', label: 'CLT Suspenso', description: 'Suspenso conforme MP 1292', disabled: true },
           { value: 'OUTRO', label: 'Outro', description: 'Configuração manual (em breve)', disabled: true }
         ].map(option => (
@@ -47,10 +48,18 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
               )}
             </View>
             <View style={formStyles.radioContent}>
-              <Text style={option.disabled ? formStyles.radioLabelDisabled : formStyles.radioLabel}>
+              <Text style={option.disabled ? 
+                { ...formStyles.radioLabel, color: '#999', opacity: 0.6 } : 
+                formStyles.radioLabel
+              }>
                 {option.label}
+                {option.disabled && option.value === 'HABITACAO' && ' (Já cadastrado)'}
+                {option.disabled && option.value !== 'HABITACAO' && ' (Indisponível)'}
               </Text>
-              <Text style={option.disabled ? formStyles.radioDescriptionDisabled : formStyles.radioDescription}>
+              <Text style={option.disabled ? 
+                { ...formStyles.radioDescription, color: '#999', opacity: 0.6 } : 
+                formStyles.radioDescription
+              }>
                 {option.description}
               </Text>
             </View>
@@ -263,21 +272,24 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
   };
 
   return (
-    <View style={styles.form}>
+    <View>
       {renderCategoriaSelector()}
       {renderSubtipoSelector()}
       {renderConvenioSelector()}
       {renderAutoFilledSummary()}
 
       {/* Normativo Legal - Se foi preenchido automaticamente */}
-      {formData.categoria === 'CONSIGNADO' && formData.normative && (
+      {(formData.categoria === 'CONSIGNADO' || formData.categoria === 'HABITACAO') && formData.normative && (
         <View style={formStyles.section}>
           <Text style={formStyles.sectionTitle}>Normativo Legal</Text>
           
           <View style={formStyles.normativoContainer}>
             <Text style={formStyles.normativoText}>{formData.normative}</Text>
             <Text style={formStyles.normativoDescription}>
-              Normativo aplicável para produtos de crédito consignado
+              {formData.categoria === 'CONSIGNADO' 
+                ? 'Normativo aplicável para produtos de crédito consignado'
+                : 'Normativo aplicável para financiamento habitacional'
+              }
             </Text>
           </View>
         </View>

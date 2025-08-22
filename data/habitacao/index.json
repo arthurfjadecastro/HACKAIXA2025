@@ -1,0 +1,7 @@
+{
+  "version": "2025-08-21",
+  "modelos": [
+    { "id": "habitacao_sac", "path": "habitacao/sac.json" },
+    { "id": "habitacao_price", "path": "habitacao/price.json" }
+  ]
+}

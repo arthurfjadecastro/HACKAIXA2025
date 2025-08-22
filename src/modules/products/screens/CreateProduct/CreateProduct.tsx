@@ -15,6 +15,7 @@ const CreateProduct: React.FC = () => {
     handleSubmit,
     scrollViewRef,
     isConvenioAlreadyRegistered,
+    isHabitacaoAlreadyRegistered,
   } = useCreateProductForm();
 
   return (
@@ -32,6 +33,7 @@ const CreateProduct: React.FC = () => {
           formData={formData}
           updateField={updateField}
           isConvenioAlreadyRegistered={isConvenioAlreadyRegistered}
+          isHabitacaoAlreadyRegistered={isHabitacaoAlreadyRegistered}
         />
       </ScrollView>
 

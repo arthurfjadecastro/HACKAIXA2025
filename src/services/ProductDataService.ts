@@ -7,6 +7,8 @@ import militarData from '../../data/consignado/convenios/militar.json';
 import funcefData from '../../data/consignado/convenios/funcef_new.json';
 import tjdftData from '../../data/consignado/convenios/tjdft_new.json';
 import inssData from '../../data/consignado/inss.json';
+import habitacaoSacData from '../../data/habitacao/sac.json';
+import habitacaoPriceData from '../../data/habitacao/price.json';
 
 // Serviço para carregar dados dos arquivos JSON
 class ProductDataService {
@@ -63,6 +65,9 @@ class ProductDataService {
     try {
       // Mapeamento direto dos produtos disponíveis
       switch (productId) {
+        case 'consignado_inss':
+          product = inssData as unknown as ProductCategory;
+          break;
         case 'consignado_convenio_militar':
           product = militarData as unknown as ProductCategory;
           break;
@@ -71,6 +76,12 @@ class ProductDataService {
           break;
         case 'consignado_convenio_tjdft':
           product = tjdftData as unknown as ProductCategory;
+          break;
+        case 'habitacao_sac':
+          product = habitacaoSacData as unknown as ProductCategory;
+          break;
+        case 'habitacao_price':
+          product = habitacaoPriceData as unknown as ProductCategory;
           break;
         default:
           throw new Error(`Produto ${productId} não encontrado`);
@@ -193,6 +204,23 @@ class ProductDataService {
       }
     } catch (error) {
       console.error(`Erro ao carregar convênio ${convenioNome}:`, error);
+      throw error;
+    }
+  }
+
+  // Método específico para carregar dados de habitação por sistema
+  async loadHabitacao(sistemaAmortizacao: string): Promise<any> {
+    try {
+      switch (sistemaAmortizacao.toLowerCase()) {
+        case 'sac':
+          return habitacaoSacData;
+        case 'price':
+          return habitacaoPriceData;
+        default:
+          throw new Error(`Sistema de amortização ${sistemaAmortizacao} não encontrado`);
+      }
+    } catch (error) {
+      console.error(`Erro ao carregar habitação ${sistemaAmortizacao}:`, error);
       throw error;
     }
   }
