@@ -155,12 +155,30 @@ export const styles = StyleSheet.create({
   // Footer
   footer: {
     padding: spacing[4],
-    backgroundColor: colors.background.primary,
+    backgroundColor: '#FFFFFF', // Fundo branco para melhor contraste
     borderTopWidth: 1,
-    borderTopColor: colors.border.light,
+    borderTopColor: '#E0E0E0', // Borda mais visível
+    elevation: 8, // Sombra para destacar
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: -2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
   },
   saveButton: {
     width: '100%',
+    backgroundColor: '#F59E0B', // Laranja CAIXA para melhor visibilidade
+    borderRadius: 12,
+    elevation: 4, // Sombra no Android
+    shadowColor: '#000', // Sombra no iOS
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 3.84,
   },
   
   // Legacy (manter para compatibilidade)

@@ -71,7 +71,7 @@ const RegisterProducts: React.FC = () => {
           style={styles.backButton}
           testID="back-button"
         >
-          <Ionicons name="arrow-back" size={24} color="#195C5B" />
+          <Ionicons name="arrow-back" size={24} color="#005CA9" />
         </TouchableOpacity>
         
         <Text style={styles.headerTitle}>Produtos</Text>
@@ -81,7 +81,7 @@ const RegisterProducts: React.FC = () => {
           style={styles.addButton}
           testID="add-product-button"
         >
-          <Ionicons name="add" size={24} color="#195C5B" />
+          <Ionicons name="add" size={24} color="#005CA9" />
         </TouchableOpacity>
       </View>
 
