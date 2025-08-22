@@ -61,6 +61,7 @@ export const styles = StyleSheet.create({
   // Products
   productsContainer: {
     paddingVertical: spacing[4],
+    gap: spacing[4], // Adiciona espaçamento vertical entre os cards
   },
   
   // Botão Criar Novo Produto
@@ -234,11 +235,15 @@ export const styles = StyleSheet.create({
   // Produto info
   productInfo: {
     flex: 1,
+    flexDirection: 'row', // Organiza badge e conteúdo em linha
+    alignItems: 'center', // Alinha verticalmente
+    justifyContent: 'space-between', // Distribui espaço
   },
   productTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: spacing[2],
+    marginBottom: 4, // Margem reduzida
+    flex: 1, // Ocupa espaço disponível
   },
   productIcon: {
     marginRight: spacing[2],
@@ -250,6 +255,13 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   
+  // Row para badge e botão de deletar
+  actionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8, // Espaçamento entre badge e botão
+  },
+  
   // Selection indicator
   selectionIndicator: {
     position: 'absolute',
@@ -259,11 +271,13 @@ export const styles = StyleSheet.create({
   
   // Botão de deletar
   deleteButton: {
-    marginLeft: spacing[2],
-    padding: spacing[1],
-    borderRadius: 16,
-    backgroundColor: 'rgba(244, 67, 54, 0.1)',
+    marginLeft: 8, // Margem reduzida
+    padding: 6, // Padding menor para ficar mais sutil
+    borderRadius: 12, // Cantos mais suaves
+    backgroundColor: 'rgba(220, 38, 38, 0.08)', // Fundo vermelho muito sutil
     alignItems: 'center',
     justifyContent: 'center',
+    width: 28, // Largura fixa
+    height: 28, // Altura fixa para melhor alinhamento
   },
 });

@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 24,
     marginHorizontal: 16,
     overflow: 'hidden',
-    paddingVertical: 16,
+    paddingVertical: 32,
     paddingHorizontal: 16,
   },
   content: {

@@ -50,7 +50,9 @@ export const ProductsList: React.FC<ProductsListProps> = ({ products }) => {
               
               <View style={styles.detailRow}>
                 <Text style={styles.detailLabel}>Normativo:</Text>
-                <Text style={styles.detailValue}>{product.normativo}</Text>
+                <Text style={styles.detailValueLong} numberOfLines={2} ellipsizeMode="tail">
+                  {product.normativo}
+                </Text>
               </View>
             </View>
           </Card>
@@ -84,6 +86,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: colors.text.primary,
     flex: 1,
+    flexWrap: 'wrap', // Permite quebra de linha
+    lineHeight: 22, // Melhor espaçamento entre linhas
   },
   productDetails: {
     gap: spacing[2],
@@ -91,15 +95,31 @@ const styles = StyleSheet.create({
   detailRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
+    alignItems: 'flex-start', // Mudado para flex-start para melhor alinhamento
+    flexWrap: 'wrap', // Permite quebra de linha
+    marginBottom: 2, // Pequeno espaçamento entre linhas
   },
   detailLabel: {
     fontSize: 14,
     color: colors.text.secondary,
+    minWidth: 100, // Largura mínima para o label
+    marginRight: 8, // Espaçamento entre label e valor
   },
   detailValue: {
     fontSize: 14,
     color: colors.text.primary,
     fontWeight: '600',
+    flex: 1, // Ocupa o espaço restante
+    textAlign: 'right', // Alinha à direita
+    flexWrap: 'wrap', // Permite quebra de texto
+  },
+  detailValueLong: {
+    fontSize: 14,
+    color: colors.text.primary,
+    fontWeight: '600',
+    flex: 1, // Ocupa o espaço restante
+    textAlign: 'right', // Alinha à direita
+    flexWrap: 'wrap', // Permite quebra de texto
+    lineHeight: 18, // Line height menor para textos longos
   },
 });

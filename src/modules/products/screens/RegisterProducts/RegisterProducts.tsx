@@ -17,8 +17,8 @@ const RegisterProducts: React.FC = () => {
   const { products, toggleProductStatus } = useProductManagement();
   const { deleteProduct } = useDeleteProduct();
 
-  // Estado para controlar seleções dos produtos cadastrados
-  const [selectedProducts, setSelectedProducts] = useState<string[]>([]);
+  // Estado para controlar seleção de apenas um produto por vez
+  const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   
   // Lista de produtos cadastrados (sem template)
   const allItems = products.map(p => ({
@@ -26,7 +26,7 @@ const RegisterProducts: React.FC = () => {
     type: 'product' as const,
     icon: 'briefcase-outline',
     isTemplate: false,
-    selected: selectedProducts.includes(p.id)
+    selected: selectedProductId === p.id
   }));
 
   const handleGoBack = () => {
@@ -34,25 +34,22 @@ const RegisterProducts: React.FC = () => {
   };
 
   const handleToggleItem = (itemId: string) => {
-    setSelectedProducts(prev => 
-      prev.includes(itemId)
-        ? prev.filter(id => id !== itemId)
-        : [...prev, itemId]
-    );
+    // Se o item já está selecionado, desseleciona. Caso contrário, seleciona apenas este item
+    setSelectedProductId(prev => prev === itemId ? null : itemId);
   };
 
   const handleSaveProducts = async () => {
-    // Processar produtos cadastrados selecionados
-    for (const productId of selectedProducts) {
+    // Processar apenas o produto selecionado
+    if (selectedProductId) {
       try {
-        await toggleProductStatus(productId);
+        await toggleProductStatus(selectedProductId);
       } catch (error) {
         console.error('Erro ao processar produto:', error);
       }
     }
     
-    // Limpar seleções de produtos
-    setSelectedProducts([]);
+    // Limpar seleção
+    setSelectedProductId(null);
   };
 
   const handleCreateNewProduct = () => {
@@ -60,7 +57,13 @@ const RegisterProducts: React.FC = () => {
     navigation.navigate('CreateProduct');
   };
 
-  const selectedCount = selectedProducts.length;
+  const selectedCount = selectedProductId ? 1 : 0;
+  
+  // Encontrar o produto selecionado para determinar o texto do botão
+  const selectedProduct = selectedProductId ? products.find(p => p.id === selectedProductId) : null;
+  const buttonText = selectedProduct 
+    ? (selectedProduct.active ? 'Inativar Produto' : 'Ativar Produto')
+    : 'Selecione um produto';
 
   return (
     <View style={styles.container}>
@@ -113,12 +116,15 @@ const RegisterProducts: React.FC = () => {
                       <Ionicons 
                         name={item.icon as any} 
                         size={20} 
-                        color="#195C5B" 
+                        color="#005CA9" 
                         style={styles.productIcon}
                       />
                       <Text style={styles.productName}>{item.name}</Text>
                     </View>
-                    
+                  </View>
+                  
+                  {/* Badge de status e botão de deletar alinhados */}
+                  <View style={styles.actionRow}>
                     <View style={[
                       styles.statusBadge,
                       item.active ? styles.statusBadgeActive : styles.statusBadgeInactive
@@ -130,13 +136,12 @@ const RegisterProducts: React.FC = () => {
                         {item.active ? 'ATIVO' : 'INATIVO'}
                       </Text>
                     </View>
-                  </View>
-                  
-                  {/* Botão de deletar */}
-                  <TouchableOpacity
-                    style={styles.deleteButton}
-                    onPress={() => {
-                      Alert.alert(
+                    
+                    {/* Botão de deletar */}
+                    <TouchableOpacity
+                      style={styles.deleteButton}
+                      onPress={() => {
+                        Alert.alert(
                         'Excluir produto',
                         `Tem certeza que deseja excluir "${item.name}"?`,
                         [
@@ -151,11 +156,12 @@ const RegisterProducts: React.FC = () => {
                     }}
                     hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                   >
-                    <Ionicons name="trash-outline" size={20} color="#F44336" />
+                    <Ionicons name="trash-outline" size={18} color="#DC2626" />
                   </TouchableOpacity>
                 </View>
+              </View>
                 
-                <View style={styles.productDetails}>
+              <View style={styles.productDetails}>
                   <View style={styles.detailRow}>
                     <Text style={styles.detailLabel}>Juros</Text>
                     <Text style={styles.detailValue}>{item.juros}% a.a.</Text>
@@ -190,7 +196,7 @@ const RegisterProducts: React.FC = () => {
             variant="primary"
             style={styles.saveButton}
             testID="save-button"
-            title={`Salvar alterações (${selectedCount})`}
+            title={buttonText}
           />
         </View>
       )}
