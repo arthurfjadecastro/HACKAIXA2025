@@ -22,9 +22,7 @@ const SimulationLoadingScreen: React.FC = () => {
     const simulateCalculation = async () => {
       console.log('🧮 Iniciando cálculo da simulação...');
       
-      // Tempo total: permite que a animação complete pelo menos uma vez
-      // A animação tem 282 frames a 60fps = ~4.7 segundos
-      const calculationTime = 4000; // 4 segundos fixos
+      const calculationTime = 4000; // 4 segundos
       
       setTimeout(() => {
         console.log('✅ Cálculo da simulação concluído');
@@ -73,14 +71,13 @@ const SimulationLoadingScreen: React.FC = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <View style={styles.animationContainer}>
-          <SimulationLottieAnimation
-            isLoading={status === 'loading'}
-            onFinish={handleAnimationFinish}
-            size={280}
-            testID="simulation-loading-animation"
-          />
-        </View>
+        {/* Apenas a animação centralizada */}
+        <SimulationLottieAnimation
+          isLoading={status === 'loading'}
+          onFinish={handleAnimationFinish}
+          size={400} // Aumentado para ocupar mais da largura da tela
+          testID="simulation-loading-animation"
+        />
       </View>
     </SafeAreaView>
   );

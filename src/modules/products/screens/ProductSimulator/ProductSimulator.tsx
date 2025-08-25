@@ -112,7 +112,6 @@ const ProductSimulator: React.FC = () => {
               placeholder="0,00"
               placeholderTextColor="#CCCCCC"
               keyboardType="numeric"
-              textAlign="center"
             />
           </View>
         </View>

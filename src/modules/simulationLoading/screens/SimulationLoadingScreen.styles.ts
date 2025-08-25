@@ -3,15 +3,12 @@ import { StyleSheet } from 'react-native';
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F4F8FB', // Background consistente com o app
   },
   content: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  animationContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: 'center', // Centraliza verticalmente
+    alignItems: 'center', // Centraliza horizontalmente
+    paddingHorizontal: 0, // Remove padding para permitir ponta a ponta
   },
 });

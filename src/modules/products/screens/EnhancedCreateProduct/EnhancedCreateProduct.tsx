@@ -466,12 +466,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingHorizontal: 16,
     paddingVertical: 12,
-    backgroundColor: '#FFFFFF',
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
+    backgroundColor: '#F4F8FB', // Mudado para manter consistência
+    // Removido borderBottomWidth e borderBottomColor para consistência
   },
   backButton: {
-    padding: 8,
+    padding: 8, // Mantido em 8
+    marginLeft: -8, // Adiciona margem negativa para ficar mais à esquerda
   },
   headerTitle: {
     fontSize: 16,

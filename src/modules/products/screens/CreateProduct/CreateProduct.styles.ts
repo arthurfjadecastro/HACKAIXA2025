@@ -15,12 +15,12 @@ export const styles = StyleSheet.create({
     paddingTop: 16, // Padding top reduzido
     paddingBottom: 20, // Padding bottom aumentado para mais respiro
     backgroundColor: colors.surface.background,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border.light,
+    // Removido borderBottomWidth e borderBottomColor para consistência
     minHeight: 64, // Altura mínima para melhor proporção
   },
   backButton: {
-    padding: 8, // Padding reduzido
+    padding: 8, // Padding mantido em 8
+    marginLeft: -8, // Adiciona margem negativa para ficar mais à esquerda
     marginRight: 16, // Margem direita otimizada
     width: 40,
     height: 40,

@@ -17,7 +17,8 @@ export const styles = StyleSheet.create({
     backgroundColor: colors.background.primary,
   },
   backButton: {
-    padding: spacing[2],
+    padding: 8, // Padronizado para 8
+    marginLeft: -8, // Adiciona margem negativa para ficar mais à esquerda
     marginRight: spacing[3],
   },
   headerTitle: {

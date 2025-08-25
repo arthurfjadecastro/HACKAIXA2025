@@ -317,11 +317,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     backgroundColor: '#F4F8FB', // Mudado para branco gelo
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
+    // Removido borderBottomWidth e borderBottomColor para consistência
   },
   backButton: {
-    padding: 16,
+    padding: 8, // Reduzido de 16 para 8 para ficar mais próximo da borda
+    marginLeft: -8, // Adiciona margem negativa para compensar e ficar ainda mais à esquerda
   },
   headerTitle: {
     fontSize: 14,

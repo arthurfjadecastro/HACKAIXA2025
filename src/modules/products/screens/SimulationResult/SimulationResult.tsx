@@ -50,54 +50,64 @@ const SimulationResult: React.FC = () => {
 
   // Componente do header/resumo da simulação
   const renderHeader = () => (
-    <View style={styles.resultCard}>
-      <Text style={styles.successTitle}>✅ Simulação Concluída!</Text>
+    <View>
+      <View style={styles.resultCard}>
+        <View style={styles.successTitleContainer}>
+          <Ionicons name="checkmark-circle" size={24} color="#22C55E" style={styles.successIcon} />
+          <Text style={styles.successTitle}>Simulação Concluída!</Text>
+        </View>
+        
+        <View style={styles.summarySection}>
+          <Text style={styles.sectionTitle}>Resumo</Text>
+          
+          <View style={styles.summaryRow}>
+            <Text style={styles.label}>Valor do empréstimo:</Text>
+            <Text style={styles.value}>R$ {amount}</Text>
+          </View>
+          
+          <View style={styles.summaryRow}>
+            <Text style={styles.label}>Parcelas:</Text>
+            <Text style={styles.value}>{months}x de {formatCurrency(loanSchedule.monthlyInstallment)}</Text>
+          </View>
+          
+          <View style={styles.summaryRow}>
+            <Text style={styles.label}>Sistema de amortização:</Text>
+            <Text style={styles.value}>{result.amortizationType || 'Price'}</Text>
+          </View>
+          
+          <View style={styles.summaryRow}>
+            <Text style={styles.label}>Valor da parcela:</Text>
+            <Text style={StyleSheet.flatten([styles.value, styles.highlightValue])}>
+              {formatCurrency(loanSchedule.monthlyInstallment)}
+            </Text>
+          </View>
+          
+          <View style={styles.summaryRow}>
+            <Text style={styles.label}>Total a pagar:</Text>
+            <Text style={styles.value}>
+              {formatCurrency(loanSchedule.totalWithInterest)}
+            </Text>
+          </View>
+          
+          <View style={styles.summaryRow}>
+            <Text style={styles.label}>Total de juros:</Text>
+            <Text style={styles.value}>
+              {formatCurrency(loanSchedule.totalInterest)}
+            </Text>
+          </View>
+          
+          <View style={styles.summaryRow}>
+            <Text style={styles.label}>Taxa de juros:</Text>
+            <Text style={styles.value}>
+              {(result.rate).toFixed(2)}% a.m. ({(result.rateAnnual || ((Math.pow(1 + result.rate/100, 12) - 1) * 100)).toFixed(1)}% a.a. efetiva)
+            </Text>
+          </View>
+        </View>
+      </View>
       
-      <View style={styles.summarySection}>
-        <Text style={styles.sectionTitle}>Resumo</Text>
-        
-        <View style={styles.summaryRow}>
-          <Text style={styles.label}>Valor do empréstimo:</Text>
-          <Text style={styles.value}>R$ {amount}</Text>
-        </View>
-        
-        <View style={styles.summaryRow}>
-          <Text style={styles.label}>Parcelas:</Text>
-          <Text style={styles.value}>{months}x de {formatCurrency(loanSchedule.monthlyInstallment)}</Text>
-        </View>
-        
-        <View style={styles.summaryRow}>
-          <Text style={styles.label}>Sistema de amortização:</Text>
-          <Text style={styles.value}>{result.amortizationType || 'Price'}</Text>
-        </View>
-        
-        <View style={styles.summaryRow}>
-          <Text style={styles.label}>Valor da parcela:</Text>
-          <Text style={StyleSheet.flatten([styles.value, styles.highlightValue])}>
-            {formatCurrency(loanSchedule.monthlyInstallment)}
-          </Text>
-        </View>
-        
-        <View style={styles.summaryRow}>
-          <Text style={styles.label}>Total a pagar:</Text>
-          <Text style={styles.value}>
-            {formatCurrency(loanSchedule.totalWithInterest)}
-          </Text>
-        </View>
-        
-        <View style={styles.summaryRow}>
-          <Text style={styles.label}>Total de juros:</Text>
-          <Text style={styles.value}>
-            {formatCurrency(loanSchedule.totalInterest)}
-          </Text>
-        </View>
-        
-        <View style={styles.summaryRow}>
-          <Text style={styles.label}>Taxa de juros:</Text>
-          <Text style={styles.value}>
-            {(result.rate).toFixed(2)}% a.m. ({(result.rateAnnual || ((Math.pow(1 + result.rate/100, 12) - 1) * 100)).toFixed(1)}% a.a. efetiva)
-          </Text>
-        </View>
+      {/* Título "Parcelas" com espaçamento */}
+      <View style={styles.installmentsHeader}>
+        <Text style={styles.installmentsTitle}>Parcelas</Text>
       </View>
     </View>
   );
@@ -132,6 +142,7 @@ const SimulationResult: React.FC = () => {
         ListHeaderComponent={renderHeader}
         ListFooterComponent={renderFooter}
         contentContainerStyle={styles.contentContainer}
+        hideInternalHeader={true} // Esconde o header interno do ExpandPanel
       />
     </View>
   );
@@ -153,11 +164,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 12,
     backgroundColor: '#F4F8FB', // Mudado para branco gelo
-    borderBottomWidth: 1,
-    borderBottomColor: '#EEEEEE',
+    // Removido borderBottomWidth e borderBottomColor para consistência
   },
   backButton: {
-    padding: 16,
+    padding: 8, // Reduzido de 16 para 8 para ficar mais próximo da borda
+    marginLeft: -8, // Adiciona margem negativa para compensar e ficar ainda mais à esquerda
   },
   headerTitle: {
     fontSize: 16,
@@ -173,19 +184,21 @@ const styles = StyleSheet.create({
   // Content
   content: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 24, // Aumentado de 16 para 24 para mais espaço lateral
   },
   
   contentContainer: {
     paddingTop: 24,
     paddingBottom: 24,
+    paddingHorizontal: 8, // Adiciona mais espaço interno
   },
 
   // Result Card
   resultCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
-    padding: 24,
+    padding: 32, // Aumentado de 24 para 32 para mais espaço interno
+    marginHorizontal: 8, // Adiciona margem lateral
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -196,12 +209,21 @@ const styles = StyleSheet.create({
     elevation: 4,
   },
 
+  successTitleContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 24,
+  },
+
+  successIcon: {
+    marginRight: 8,
+  },
+
   successTitle: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#004AAD',
-    textAlign: 'center',
-    marginBottom: 24,
   },
 
   summarySection: {
@@ -240,9 +262,23 @@ const styles = StyleSheet.create({
     color: '#004AAD',
   },
 
+  // Seção de Parcelas
+  installmentsHeader: {
+    paddingHorizontal: 0, // Reduzido para 16px para alinhar exatamente com as parcelas
+    paddingTop: 32, // Espaço entre o card e o título
+    paddingBottom: 16, // Espaço entre o título e a primeira parcela
+  },
+
+  installmentsTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#1565C0', // Mudado para azul (mesma cor usada em outros títulos)
+    textAlign: 'left', // Alinhado à esquerda conforme solicitado
+  },
+
   // Footer
   footer: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 24, // Aumentado de 16 para 24 para consistência
     paddingVertical: 16,
     backgroundColor: '#F4F8FB', // Mudado para branco gelo
   },

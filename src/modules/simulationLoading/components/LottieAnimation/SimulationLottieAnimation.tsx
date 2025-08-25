@@ -58,7 +58,7 @@ const SimulationLottieAnimation: React.FC<Props> = ({
           onAnimationFinish={handleAnimationFinish}
           style={[styles.animation, { width: size, height: size }]}
           testID={testID}
-          resizeMode="contain"
+          resizeMode="contain" // Mudado para cover para melhor preenchimento
         />
       </View>
     );
@@ -79,6 +79,8 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     justifyContent: 'center',
     alignItems: 'center',
+    // Removido background, padding, sombras e border radius
+    // Apenas a animação limpa na tela
   },
   animation: {
     alignSelf: 'center',

@@ -24,6 +24,7 @@ export interface ExpandPanelProps {
   ListHeaderComponent?: React.ComponentType<any> | React.ReactElement | null;
   ListFooterComponent?: React.ComponentType<any> | React.ReactElement | null;
   contentContainerStyle?: any;
+  hideInternalHeader?: boolean; // Nova prop para esconder o header interno
 }
 
 const ExpandPanel: React.FC<ExpandPanelProps> = ({
@@ -37,7 +38,8 @@ const ExpandPanel: React.FC<ExpandPanelProps> = ({
   testID,
   ListHeaderComponent,
   ListFooterComponent,
-  contentContainerStyle
+  contentContainerStyle,
+  hideInternalHeader = false // Valor padrão false
 }) => {
   const [openItems, setOpenItems] = useState<Set<number>>(
     new Set(initiallyOpenIndex !== undefined ? [initiallyOpenIndex] : [])
@@ -170,7 +172,7 @@ const ExpandPanel: React.FC<ExpandPanelProps> = ({
         data={schedule}
         renderItem={renderInstallmentItem}
         keyExtractor={(item) => item.index.toString()}
-        ListHeaderComponent={ListHeaderComponent || InternalListHeaderComponent}
+        ListHeaderComponent={ListHeaderComponent || (hideInternalHeader ? null : InternalListHeaderComponent)}
         ListFooterComponent={ListFooterComponent}
         ListEmptyComponent={ListEmptyComponent}
         contentContainerStyle={contentContainerStyle}
@@ -219,7 +221,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: 16,
+    paddingHorizontal: 24, // Aumentado de 16 para 24 para mais espaço lateral
     paddingVertical: 16,
     minHeight: 48,
   },
@@ -251,7 +253,7 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   body: {
-    paddingHorizontal: 16,
+    paddingHorizontal: 24, // Aumentado de 16 para 24 para consistência
     paddingBottom: 16,
   },
   separator: {
