@@ -1,0 +1,1 @@
+export { OutroProductFields } from './OutroProductFields';
