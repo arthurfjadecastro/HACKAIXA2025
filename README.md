@@ -231,7 +231,7 @@ class ProductDataService {
   "id": "habitacao_sac",
   "categoria": "HABITACAO",
   "sistema_amortizacao": "SAC",
-  "nome_exibicao": "Habitação — SAC",
+  "nome_exibicao": "Habitação",
   "prazo": { "minimoMeses": 60, "maximoMeses": 420 },
   "ltv_limites": {
     "financiamento_max_percentual": 70,

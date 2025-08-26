@@ -2,7 +2,7 @@
   "id": "habitacao_price",
   "categoria": "HABITACAO",
   "sistema_amortizacao": "PRICE",
-  "nome_exibicao": "Habitação — Price",
+  "nome_exibicao": "Habitação",
   "status_contratacao": "ATIVO",
 
   "prazo": { "minimoMeses": 60, "maximoMeses": 420 },

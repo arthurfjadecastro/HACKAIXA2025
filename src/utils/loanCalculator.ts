@@ -6,6 +6,7 @@ export interface LoanCalculationInput {
   months: number;           // número de parcelas
   firstDueDate: Date;       // data da primeira parcela
   roundingMode?: 'half-up'; // modo de arredondamento
+  amortizationType?: 'PRICE' | 'SAC'; // tipo de amortização
 }
 
 export interface LoanCalculationResult {
@@ -16,9 +17,22 @@ export interface LoanCalculationResult {
 }
 
 /**
- * Calcula cronograma de empréstimo usando Tabela Price
+ * Calcula cronograma de empréstimo usando Tabela Price ou SAC
  */
 export function calculateLoanSchedule(input: LoanCalculationInput): LoanCalculationResult {
+  const { amortizationType = 'PRICE' } = input;
+  
+  if (amortizationType === 'SAC') {
+    return calculateSACSchedule(input);
+  } else {
+    return calculatePriceSchedule(input);
+  }
+}
+
+/**
+ * Calcula cronograma usando Tabela Price
+ */
+function calculatePriceSchedule(input: LoanCalculationInput): LoanCalculationResult {
   const { principal, rateMonthly, months, firstDueDate } = input;
   
   // Calcular parcela fixa (Tabela Price)
@@ -85,6 +99,75 @@ export function calculateLoanSchedule(input: LoanCalculationInput): LoanCalculat
     schedule,
     totalWithInterest: Math.round(totalInstallments * 100) / 100,
     monthlyInstallment: Math.round(monthlyInstallment * 100) / 100,
+    totalInterest: Math.round(totalInterest * 100) / 100,
+  };
+}
+
+/**
+ * Calcula cronograma usando SAC (Sistema de Amortização Constante)
+ */
+function calculateSACSchedule(input: LoanCalculationInput): LoanCalculationResult {
+  const { principal, rateMonthly, months, firstDueDate } = input;
+  
+  // No SAC, a amortização é constante
+  const constantAmortization = principal / months;
+  
+  const schedule: Installment[] = [];
+  let remainingBalance = principal;
+  let totalInterest = 0;
+
+  // Gerar cronograma mês a mês
+  for (let i = 1; i <= months; i++) {
+    // Calcular data de vencimento
+    const dueDate = new Date(firstDueDate);
+    dueDate.setMonth(dueDate.getMonth() + (i - 1));
+    
+    // Ajustar para último dia do mês se necessário
+    if (dueDate.getDate() !== firstDueDate.getDate()) {
+      dueDate.setDate(0); // Último dia do mês anterior
+      dueDate.setMonth(dueDate.getMonth() + 1); // Volta para o mês correto
+    }
+
+    // Calcular juros sobre o saldo devedor
+    const interest = remainingBalance * rateMonthly;
+    
+    // Amortização constante
+    const amortization = constantAmortization;
+    
+    // Parcela = juros + amortização
+    const installment = interest + amortization;
+
+    // Arredondar valores
+    const roundedInterest = Math.round(interest * 100) / 100;
+    const roundedAmortization = Math.round(amortization * 100) / 100;
+    const roundedInstallment = Math.round(installment * 100) / 100;
+
+    remainingBalance -= roundedAmortization;
+    totalInterest += roundedInterest;
+
+    // Garantir que saldo não fique negativo
+    if (remainingBalance < 0) {
+      remainingBalance = 0;
+    }
+
+    schedule.push({
+      index: i,
+      dueDate: dueDate.toISOString(),
+      installment: roundedInstallment,
+      interest: roundedInterest,
+      amortization: roundedAmortization,
+      remaining: Math.round(remainingBalance * 100) / 100,
+    });
+  }
+
+  // Calcular totais
+  const totalInstallments = schedule.reduce((sum, item) => sum + item.installment, 0);
+  const firstInstallment = schedule[0]?.installment || 0;
+
+  return {
+    schedule,
+    totalWithInterest: Math.round(totalInstallments * 100) / 100,
+    monthlyInstallment: Math.round(firstInstallment * 100) / 100, // No SAC, usa a primeira parcela como referência
     totalInterest: Math.round(totalInterest * 100) / 100,
   };
 }

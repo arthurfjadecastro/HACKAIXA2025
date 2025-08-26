@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     paddingVertical: padding.md,
   },
   disabled: {
-    opacity: 0.5,
+    opacity: 0.8, // Levemente transparente quando desabilitado
   },
   fullWidth: {
     width: '100%',
@@ -147,7 +147,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   textDisabled: {
-    opacity: 0.7,
+    opacity: 0.9,
   },
   icon: {
     marginRight: 8,

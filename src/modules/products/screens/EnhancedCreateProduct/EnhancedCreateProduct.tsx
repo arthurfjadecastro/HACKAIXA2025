@@ -204,7 +204,7 @@ const EnhancedCreateProduct: React.FC = () => {
       <View style={styles.radioGroup}>
         {[
           { value: 'CONSIGNADO', label: 'Consignado', description: 'Empréstimos com desconto em folha' },
-          { value: 'HABITACAO', label: 'Habitação', description: 'Financiamentos imobiliários (em breve)' }
+          { value: 'HABITACAO', label: 'Habitação', description: 'Financiamentos imobiliários' }
         ].map(option => (
           <TouchableOpacity
             key={option.value}

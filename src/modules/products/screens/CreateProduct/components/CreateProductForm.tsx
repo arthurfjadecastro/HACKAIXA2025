@@ -28,7 +28,7 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
       <View style={formStyles.radioGroup}>
         {[
           { value: 'CONSIGNADO', label: 'Consignado', description: 'Empréstimos com desconto em folha' },
-          { value: 'HABITACAO', label: 'Habitação', description: 'Financiamentos imobiliários SAC', disabled: isHabitacaoAlreadyRegistered() },
+          { value: 'HABITACAO', label: 'Habitação', description: 'Financiamentos imobiliários', disabled: isHabitacaoAlreadyRegistered() },
           { value: 'CLT_SUSPENSO', label: 'CLT Suspenso', description: 'Suspenso conforme MP 1292', disabled: true },
           { value: 'OUTRO', label: 'Outro', description: 'Produtos genéricos personalizáveis', disabled: false }
         ].map(option => (

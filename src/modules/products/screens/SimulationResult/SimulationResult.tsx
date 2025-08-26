@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
@@ -8,6 +8,7 @@ import { AppStackParamList } from '@/navigation/AppStack';
 import { Text, Button } from '@/design-system/components';
 import ExpandPanel from '@/components/ExpandPanel';
 import { calculateLoanSchedule } from '@/utils/loanCalculator';
+import { useProducts } from '@/hooks/useProducts';
 
 type RouteProps = RouteProp<AppStackParamList, 'SimulationResult'>;
 type NavigationProps = NativeStackNavigationProp<AppStackParamList>;
@@ -15,9 +16,30 @@ type NavigationProps = NativeStackNavigationProp<AppStackParamList>;
 const SimulationResult: React.FC = () => {
   const route = useRoute<RouteProps>();
   const navigation = useNavigation<NavigationProps>();
-  const { amount, months, result } = route.params;
+  const { productId, amount, months, result } = route.params;
+  const { products } = useProducts();
+  
+  // Verificar se é produto de habitação - verifica ID e nome do produto
+  const isHabitacao = useMemo(() => {
+    // Primeiro verifica se contém habitacao/hab no productId
+    if (productId?.toLowerCase().includes('habitacao') || productId?.toLowerCase().includes('hab')) {
+      return true;
+    }
+    
+    // Se não encontrou no ID, procura pelo nome do produto registrado
+    const registeredProduct = products.find(p => p.id === productId);
+    if (registeredProduct) {
+      const productName = registeredProduct.name.toLowerCase();
+      return productName.includes('habitação') || productName.includes('habitacao');
+    }
+    
+    return false;
+  }, [productId, products]);
+  
+  // Estado para alternar entre PRICE e SAC (apenas para habitação)
+  const [amortizationType, setAmortizationType] = useState<'PRICE' | 'SAC'>(result.amortizationType || 'PRICE');
 
-  // Calcular cronograma de parcelas
+  // Calcular cronograma de parcelas (PRICE e SAC para habitação)
   const loanSchedule = useMemo(() => {
     const numericAmount = parseFloat(amount.replace(/\./g, '').replace(',', '.'));
     const rateMonthly = result.rate / 100; // Converter % para decimal
@@ -27,13 +49,17 @@ const SimulationResult: React.FC = () => {
     firstDueDate.setMonth(firstDueDate.getMonth() + 1);
     firstDueDate.setDate(15);
     
+    // Para habitação, usar o tipo selecionado, senão usar o padrão
+    const typeToUse = isHabitacao ? amortizationType : (result.amortizationType || 'PRICE');
+    
     return calculateLoanSchedule({
       principal: numericAmount,
       rateMonthly,
       months,
       firstDueDate,
+      amortizationType: typeToUse,
     });
-  }, [amount, months, result]);
+  }, [amount, months, result, isHabitacao, amortizationType]);
 
   const handleBackPress = () => {
     navigation.navigate('ProductList');
@@ -67,18 +93,63 @@ const SimulationResult: React.FC = () => {
           
           <View style={styles.summaryRow}>
             <Text style={styles.label}>Parcelas:</Text>
-            <Text style={styles.value}>{months}x de {formatCurrency(loanSchedule.monthlyInstallment)}</Text>
+            <Text style={styles.value}>
+              {isHabitacao && amortizationType === 'SAC' 
+                ? `${months}x`
+                : `${months}x de ${formatCurrency(loanSchedule.monthlyInstallment)}`
+              }
+            </Text>
           </View>
           
           <View style={styles.summaryRow}>
             <Text style={styles.label}>Sistema de amortização:</Text>
-            <Text style={styles.value}>{result.amortizationType || 'Price'}</Text>
+            <Text style={styles.value}>{isHabitacao ? amortizationType : (result.amortizationType || 'Price')}</Text>
           </View>
+          
+          {/* Toggle PRICE/SAC apenas para habitação */}
+          {isHabitacao && (
+            <View style={styles.amortizationToggle}>
+              <Text style={styles.toggleLabel}>Comparar sistemas:</Text>
+              <View style={styles.toggleButtons}>
+                <TouchableOpacity
+                  style={[
+                    styles.toggleButton,
+                    amortizationType === 'PRICE' ? styles.toggleButtonActive : styles.toggleButtonInactive
+                  ]}
+                  onPress={() => setAmortizationType('PRICE')}
+                >
+                  <Text style={StyleSheet.flatten([
+                    styles.toggleButtonText,
+                    amortizationType === 'PRICE' ? styles.toggleButtonTextActive : styles.toggleButtonTextInactive
+                  ])}>
+                    PRICE
+                  </Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[
+                    styles.toggleButton,
+                    amortizationType === 'SAC' ? styles.toggleButtonActive : styles.toggleButtonInactive
+                  ]}
+                  onPress={() => setAmortizationType('SAC')}
+                >
+                  <Text style={StyleSheet.flatten([
+                    styles.toggleButtonText,
+                    amortizationType === 'SAC' ? styles.toggleButtonTextActive : styles.toggleButtonTextInactive
+                  ])}>
+                    SAC
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
           
           <View style={styles.summaryRow}>
             <Text style={styles.label}>Valor da parcela:</Text>
             <Text style={StyleSheet.flatten([styles.value, styles.highlightValue])}>
-              {formatCurrency(loanSchedule.monthlyInstallment)}
+              {isHabitacao && amortizationType === 'SAC' 
+                ? 'Parcela Decrescente'
+                : formatCurrency(loanSchedule.monthlyInstallment)
+              }
             </Text>
           </View>
           
@@ -288,5 +359,56 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     height: 56,
     justifyContent: 'center',
+  },
+
+  // Toggle PRICE/SAC para habitação
+  amortizationToggle: {
+    marginTop: 16,
+    paddingTop: 16,
+    borderTopWidth: 1,
+    borderTopColor: '#F0F0F0',
+  },
+
+  toggleLabel: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#333333',
+    marginBottom: 12,
+  },
+
+  toggleButtons: {
+    flexDirection: 'row',
+    backgroundColor: '#F8F9FA',
+    borderRadius: 8,
+    padding: 4,
+  },
+
+  toggleButton: {
+    flex: 1,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 6,
+    alignItems: 'center',
+  },
+
+  toggleButtonActive: {
+    backgroundColor: '#005CA9',
+  },
+
+  toggleButtonInactive: {
+    backgroundColor: 'transparent',
+  },
+
+  toggleButtonText: {
+    fontSize: 14,
+    fontWeight: '600',
+  },
+
+  toggleButtonTextActive: {
+    color: '#FFFFFF',
+  },
+
+  toggleButtonTextInactive: {
+    color: '#666666',
   },
 });

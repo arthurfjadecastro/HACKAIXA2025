@@ -200,7 +200,7 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
       let productName = '';
       
       if (formData.categoria === 'HABITACAO') {
-        productName = 'HABITACAO - SAC';
+        productName = 'Habitação';
       } else if (formData.categoria === 'OUTRO') {
         // Para OUTRO, usa o nome personalizado que o usuário digitou
         productName = formData.name || `OUTRO - ${formData.subcategoria_outro || 'Serviço Genérico'}`;

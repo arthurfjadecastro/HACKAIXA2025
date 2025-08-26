@@ -2,7 +2,7 @@
   "id": "habitacao_sac",
   "categoria": "HABITACAO",
   "sistema_amortizacao": "SAC",
-  "nome_exibicao": "Habitação — SAC",
+  "nome_exibicao": "Habitação",
   "status_contratacao": "ATIVO",
 
   "prazo": { "minimoMeses": 60, "maximoMeses": 420 },
