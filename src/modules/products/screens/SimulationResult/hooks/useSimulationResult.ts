@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import { useProducts } from '../../../hooks';
-import { calculateLoanSchedule } from '@/utils/loanCalculator';
+import { calculateLoanSchedule } from '@/services/simulations/calculator';
 import { RouteProps, NavigationProps, LoanSchedule } from '../types';
 
 interface UseSimulationResultReturn {

@@ -1,6 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Product, CreateProductRequest } from './productTypes';
-// import templateData from '@/data/products.json'; // Mantido para implementação futura
+import { Product, CreateProductRequest } from '../types/productTypes';
 
 const STORAGE_KEY = '@caixa:products';
 

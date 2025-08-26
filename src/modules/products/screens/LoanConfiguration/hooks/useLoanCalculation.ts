@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { QuoteData } from '../types';
-import { Product } from '@/services/products/productTypes';
+import { Product } from '@/services/products/types';
 
 interface UseLoanCalculationProps {
   product: Product | null;

@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { Keyboard } from 'react-native';
 import { CreateProductForm } from './CreateProductForm';
-import { FormData } from '../types';
+import { FormData } from '../../types';
 
 // Mock do Keyboard
 const mockKeyboardDismiss = jest.spyOn(Keyboard, 'dismiss').mockImplementation(() => {});

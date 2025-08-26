@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { productService } from '@/services/products/productService.mock';
+import { productService } from '@/services/products/api';
 import { useProductsContext } from '@/contexts/ProductsContext';
 
 export function useDeleteProduct() {

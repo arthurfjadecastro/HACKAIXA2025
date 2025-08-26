@@ -6,7 +6,7 @@ import { AppStackParamList } from '@/navigation/AppStack';
 
 import { Text, Button } from '@/design-system/components';
 import { useProducts } from '../../hooks';
-import ProductDataService from '@/services/ProductDataService';
+import ProductDataService from '@/services/products/data';
 
 // Importar componentes modulares
 import { 

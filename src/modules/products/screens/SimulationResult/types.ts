@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppStackParamList } from '@/navigation/AppStack';
-import { LoanCalculationResult } from '@/utils/loanCalculator';
+import { LoanCalculationResult } from '@/services/simulations/calculator';
 
 export type RouteProps = RouteProp<AppStackParamList, 'SimulationResult'>;
 export type NavigationProps = NativeStackNavigationProp<AppStackParamList>;

@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { Alert } from 'react-native';
-import { productService } from '@/services/products/productService.mock';
-import { CreateProductRequest, CreateProductResponse } from '@/services/products/productTypes';
+import { productService } from '@/services/products/api';
+import { CreateProductRequest, CreateProductResponse } from '@/services/products/types';
 import { useProductsContext } from '@/contexts/ProductsContext';
 
 interface UseCreateProductReturn {

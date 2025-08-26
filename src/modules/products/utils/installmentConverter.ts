@@ -1,4 +1,4 @@
-import { LoanInstallment } from '../../../utils/loanCalculator';
+import { LoanInstallment } from '@/services/simulations/calculator';
 import { Installment } from '../components';
 
 /**

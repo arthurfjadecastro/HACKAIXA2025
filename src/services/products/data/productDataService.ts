@@ -1,14 +1,14 @@
 import { ProductCategory, ProductIndex } from '@/types/products';
 
 // Imports diretos dos arquivos JSON
-import productsIndex from '../../data/products.index.json';
-import militarData from '../../data/consignado/convenios/militar.json';
-import funcefData from '../../data/consignado/convenios/funcef.json';
-import tjdftData from '../../data/consignado/convenios/tjdft.json';
-import inssData from '../../data/consignado/inss.json';
-import habitacaoSacData from '../../data/habitacao/sac.json';
-import habitacaoPriceData from '../../data/habitacao/price.json';
-import outroTemplateData from '../../data/outro/template_minimo.json';
+import productsIndex from '../../../../data/products.index.json';
+import militarData from '../../../../data/consignado/convenios/militar.json';
+import funcefData from '../../../../data/consignado/convenios/funcef.json';
+import tjdftData from '../../../../data/consignado/convenios/tjdft.json';
+import inssData from '../../../../data/consignado/inss.json';
+import habitacaoSacData from '../../../../data/habitacao/sac.json';
+import habitacaoPriceData from '../../../../data/habitacao/price.json';
+import outroTemplateData from '../../../../data/outro/template_minimo.json';
 
 // Serviço para carregar dados dos arquivos JSON
 class ProductDataService {

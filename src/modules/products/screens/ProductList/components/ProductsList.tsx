@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Ionicons } from '@expo/vector-icons';
-import { Product } from '@/services/products/productTypes';
+import { Product } from '@/services/products/types';
 import { Card } from '@/design-system/components';
 import { colors, spacing } from '@/design-system/tokens';
 import { AppStackParamList } from '@/navigation/AppStack';

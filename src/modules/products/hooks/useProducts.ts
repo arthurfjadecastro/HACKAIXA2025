@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
-import { productService } from '@/services/products/productService.mock';
-import { Product } from '@/services/products/productTypes';
+import { productService } from '@/services/products/api';
+import { Product } from '@/services/products/types';
 import { useProductsContext } from '@/contexts/ProductsContext';
 
 interface UseProductsReturn {

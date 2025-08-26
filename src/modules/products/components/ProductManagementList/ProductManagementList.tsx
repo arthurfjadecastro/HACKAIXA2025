@@ -4,7 +4,7 @@ import { Card } from '@/design-system/components';
 import { colors } from '@/design-system/tokens/colors';
 import { spacing } from '@/design-system/tokens/spacing';
 import { typography } from '@/design-system/tokens/typography';
-import { Product } from '@/services/products/productTypes';
+import { Product } from '@/services/products/types';
 
 interface ProductManagementListProps {
   products: Product[];

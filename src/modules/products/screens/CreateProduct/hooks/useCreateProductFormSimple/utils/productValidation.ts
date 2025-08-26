@@ -1,4 +1,4 @@
-import { Product } from '@/services/products/productTypes';
+import { Product } from '@/services/products/types';
 import { CONVENIO_MATCHES } from '../types';
 
 export const isConvenioAlreadyRegistered = (convenioKey: string, products: Product[]): boolean => {

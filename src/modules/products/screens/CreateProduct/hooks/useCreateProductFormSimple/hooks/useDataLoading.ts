@@ -1,4 +1,4 @@
-import ProductDataService from '@/services/ProductDataService';
+import ProductDataService from '@/services/products/data';
 import { FormData } from '../../../types';
 
 interface UseDataLoadingReturn {
