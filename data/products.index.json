@@ -1,11 +1,10 @@
 {
-  "version": "2025-08-21",
+  "version": "2025-08-26",
   "itens": [
     { "id": "consignado_inss", "path": "consignado/inss.json" },
     { "id": "consignado_convenio_militar", "path": "consignado/convenios/militar.json" },
     { "id": "consignado_convenio_funcef", "path": "consignado/convenios/funcef.json" },
     { "id": "consignado_convenio_tjdft", "path": "consignado/convenios/tjdft.json" },
-    { "id": "consignado_clt_suspenso", "path": "consignado/clt_suspenso.json" },
     { "id": "habitacao_sac", "path": "habitacao/sac.json" },
     { "id": "habitacao_price", "path": "habitacao/price.json" },
     { "id": "outro_template", "path": "outro/template_minimo.json" }

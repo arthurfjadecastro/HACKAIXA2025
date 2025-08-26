@@ -1,11 +1,10 @@
-import { ProductCategory, ProductIndex, CommonRules } from '@/types/products';
+import { ProductCategory, ProductIndex } from '@/types/products';
 
 // Imports diretos dos arquivos JSON
 import productsIndex from '../../data/products.index.json';
-import commonRules from '../../data/consignado/_common_rules.json';
 import militarData from '../../data/consignado/convenios/militar.json';
-import funcefData from '../../data/consignado/convenios/funcef_new.json';
-import tjdftData from '../../data/consignado/convenios/tjdft_new.json';
+import funcefData from '../../data/consignado/convenios/funcef.json';
+import tjdftData from '../../data/consignado/convenios/tjdft.json';
 import inssData from '../../data/consignado/inss.json';
 import habitacaoSacData from '../../data/habitacao/sac.json';
 import habitacaoPriceData from '../../data/habitacao/price.json';
@@ -15,7 +14,6 @@ import outroTemplateData from '../../data/outro/template_minimo.json';
 class ProductDataService {
   private static instance: ProductDataService;
   private productIndex: ProductIndex | null = null;
-  private commonRules: CommonRules | null = null;
   private productCache: Map<string, ProductCategory> = new Map();
 
   static getInstance(): ProductDataService {
@@ -34,20 +32,6 @@ class ProductDataService {
     try {
       this.productIndex = productsIndex as ProductIndex;
       return this.productIndex;
-    } catch (error) {
-      throw error;
-    }
-  }
-
-  // Carregar regras comuns
-  async loadCommonRules(): Promise<CommonRules> {
-    if (this.commonRules) {
-      return this.commonRules;
-    }
-
-    try {
-      this.commonRules = commonRules as CommonRules;
-      return this.commonRules;
     } catch (error) {
       throw error;
     }

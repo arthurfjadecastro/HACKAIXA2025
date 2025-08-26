@@ -6,9 +6,17 @@ export const styles = StyleSheet.create({
     backgroundColor: '#F4F8FB',
   },
   
+  scrollContainer: {
+    flex: 1,
+  },
+  
+  contentWrapper: {
+    flex: 1,
+  },
+  
   contentContainer: {
-    paddingTop: 24,
-    paddingBottom: 24,
+    paddingTop: 16, // Reduzido de 24 para 16
+    paddingBottom: 16, // Reduzido de 24 para 16  
     paddingHorizontal: 8,
   },
 });

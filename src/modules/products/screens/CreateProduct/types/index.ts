@@ -50,9 +50,6 @@ export interface FormData {
   canais_selecionados?: string[];
   faixa_etaria_min?: number;
   faixa_etaria_max?: number;
-  exige_validacao_remota_outro?: boolean;
-  exige_validacao_presencial_outro?: boolean;
-  exige_certificacao_digital_outro?: boolean;
   
   // Campos comuns
   observacoes?: string[];

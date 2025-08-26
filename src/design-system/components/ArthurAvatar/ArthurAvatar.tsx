@@ -24,7 +24,7 @@ const ArthurAvatar: React.FC<ArthurAvatarProps> = ({
       }, style]}
     >
       <Image 
-        source={require('../../assets/arthur.png')}
+        source={require('../../../../assets/arthur.png')}
         style={{ 
           width: size, 
           height: size,

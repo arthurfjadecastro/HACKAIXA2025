@@ -42,16 +42,6 @@ export interface ProductIndex {
   }[];
 }
 
-export interface CommonRules {
-  faixas_explicacao: {
-    [key: string]: string;
-  };
-  portabilidade: {
-    prospeccao: string;
-    retencao: string;
-  };
-}
-
 // Tipos para formulário de criação de produto
 export interface ProductFormData {
   // Seleção de categoria/subtipo

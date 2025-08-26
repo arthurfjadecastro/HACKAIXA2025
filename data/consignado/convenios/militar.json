@@ -7,35 +7,13 @@
   "status_contratacao": "ATIVO",
   "prazo": { "minimoMeses": 1, "maximoMeses": 96 },
   "margem_consignavel_max": 30,
-  "canais_permitidos": ["AGENCIA", "AG_DIGITAL"],
-  "exige_validacao": { "remota": true, "presencial": true, "certificacao_digital": false },
   "faixas": {
-    "A": {
-      "concessao_taxa_am": 1.56,
-      "renovacao_taxa_am": 1.56,
-      "condicoes_acesso": ["Agência/AgD (SIAPX, subsistema 08)", "Seguro prestamista"]
-    },
-    "B": {
-      "concessao_taxa_am": 1.61,
-      "renovacao_taxa_am": 1.61,
-      "condicoes_acesso": ["Crédito salário", "Open Finance", "Canais automatizados/lotérica quando previstos"]
-    },
-    "C": {
-      "concessao_taxa_am": 1.66,
-      "renovacao_taxa_am": 1.66,
-      "condicoes_acesso": ["Sem requisitos adicionais"]
-    }
-  },
-  "portabilidade": {
-    "prospeccao_taxa_am_intervalo": [1.36, 1.42],
-    "retencao": "PERSONALIZADA_MESA"
+    "A": { "concessao_taxa_am": 1.56, "renovacao_taxa_am": 1.56 },
+    "B": { "concessao_taxa_am": 1.61, "renovacao_taxa_am": 1.61 },
+    "C": { "concessao_taxa_am": 1.66, "renovacao_taxa_am": 1.66 }
   },
   "observacoes": [
     "Averbação online via ZetraSoft; pode exigir validação presencial.",
     "Manter parâmetros do convênio atualizados conforme aviso do portal."
-  ],
-  "auditoria": {
-    "fonte": "Portal convênio; 21/08/2025",
-    "atualizado_em": "2025-08-21T09:38:00-03:00"
-  }
+  ]
 }

@@ -2,7 +2,7 @@
 // import { View, StyleSheet } from 'react-native';
 
 // import { Text } from '@/design-system/components/Text/Text';
-// import ArthurAvatar from '@/components/ArthurAvatar';
+// import ArthurAvatar from '../ArthurAvatar';
 // import { spacing, colors } from '@/design-system/tokens';
 
 // interface WelcomeBannerProps {

@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   resultCard: {
     backgroundColor: '#FFFFFF',
     borderRadius: 12,
-    padding: 32,
+    padding: 20, // Reduzido de 32 para 20
     marginHorizontal: 8,
     shadowColor: '#000',
     shadowOffset: {
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 24,
+    marginBottom: 16, // Reduzido de 24 para 16
   },
 
   successIcon: {
@@ -133,44 +133,44 @@ const styles = StyleSheet.create({
   },
 
   successTitle: {
-    fontSize: 20,
+    fontSize: 18, // Reduzido de 20 para 18
     fontWeight: 'bold',
     color: '#004AAD',
   },
 
   summarySection: {
-    marginBottom: 16,
+    marginBottom: 12, // Reduzido de 16 para 12
   },
 
   sectionTitle: {
-    fontSize: 18,
+    fontSize: 16, // Reduzido de 18 para 16
     fontWeight: '600',
     color: '#333333',
-    marginBottom: 16,
+    marginBottom: 12, // Reduzido de 16 para 12
   },
 
   summaryRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingVertical: 8,
+    paddingVertical: 6, // Reduzido de 8 para 6
     borderBottomWidth: 1,
     borderBottomColor: '#F0F0F0',
   },
 
   label: {
-    fontSize: 14,
+    fontSize: 13, // Reduzido de 14 para 13
     color: '#757575',
   },
 
   value: {
-    fontSize: 14,
+    fontSize: 13, // Reduzido de 14 para 13
     fontWeight: '600',
     color: '#333333',
   },
 
   highlightValue: {
-    fontSize: 16,
+    fontSize: 14, // Reduzido de 16 para 14
     color: '#004AAD',
   },
 });

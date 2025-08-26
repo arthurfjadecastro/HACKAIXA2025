@@ -11,3 +11,6 @@ export { default as InputField } from './InputField';
 export { default as WelcomeBanner } from './WelcomeBanner';
 export { default as EmptyState } from './EmptyState';
 export { default as HeroHeader } from './HeroHeader';
+export { default as ArthurAvatar } from './ArthurAvatar';
+export { Accordion } from './Accordion';
+export type { AccordionItem, AccordionProps } from './Accordion';

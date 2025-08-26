@@ -13,7 +13,6 @@
   ],
 
   "ltv_limites": {
-    "descricao": "Percentual máximo do valor do imóvel que pode ser financiado",
     "financiamento_max_percentual": 70,
     "entrada_min_percentual": 30
   },
@@ -23,19 +22,8 @@
     { "id": "DFI", "descricao": "Danos Físicos ao Imóvel" }
   ],
 
-  "tarifas_e_custos": {
-    "observacao": "Custos de seguros variam com idade, prazo e valor segurado; consultar cálculo no ato da simulação."
-  },
-
   "condicoes_gerais": [
     "Prestação inicial maior e decrescente ao longo do tempo (amortização constante).",
     "Saldo devedor é atualizado pelo indexador escolhido (TR ou IPCA), conforme a modalidade."
-  ],
-
-  "portas_canais": ["AGENCIA", "AG_DIGITAL"],
-
-  "auditoria": {
-    "fonte_descritiva": "Página oficial CAIXA — Habitação; PDF de sistemas de amortização; FAQ sobre indexadores; notícias oficiais sobre percentuais de entrada.",
-    "atualizado_em": "2025-08-21T19:00:00-03:00"
-  }
+  ]
 }

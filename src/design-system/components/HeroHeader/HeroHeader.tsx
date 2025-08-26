@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text } from '../Text/Text';
-import ArthurAvatar from '@/components/ArthurAvatar';
+import ArthurAvatar from '../ArthurAvatar';
 import { colors } from '@/design-system/tokens';
 
 export type HeroHeaderProps = {

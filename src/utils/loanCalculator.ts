@@ -1,4 +1,12 @@
-import { Installment } from '@/components/ExpandPanel';
+// Interface local para cálculos internos
+export interface LoanInstallment {
+  index: number;           // 1..months
+  dueDate: string;         // ISO string
+  installment: number;     // parcela fixa (ajustada no último mês)
+  interest: number;        // juros do mês
+  amortization: number;    // parcela - juros
+  remaining: number;       // saldo após pagamento
+}
 
 export interface LoanCalculationInput {
   principal: number;        // valor do empréstimo
@@ -10,10 +18,11 @@ export interface LoanCalculationInput {
 }
 
 export interface LoanCalculationResult {
-  schedule: Installment[];
+  schedule: LoanInstallment[];
   totalWithInterest: number;
-  monthlyInstallment: number;
   totalInterest: number;
+  firstInstallment: number;
+  monthlyInstallment: number;
 }
 
 /**
@@ -39,7 +48,7 @@ function calculatePriceSchedule(input: LoanCalculationInput): LoanCalculationRes
   const monthlyInstallment = principal * (rateMonthly * Math.pow(1 + rateMonthly, months)) / 
                              (Math.pow(1 + rateMonthly, months) - 1);
 
-  const schedule: Installment[] = [];
+  const schedule: LoanInstallment[] = [];
   let remainingBalance = principal;
   let accumulatedAmortization = 0;
 
@@ -100,6 +109,7 @@ function calculatePriceSchedule(input: LoanCalculationInput): LoanCalculationRes
     totalWithInterest: Math.round(totalInstallments * 100) / 100,
     monthlyInstallment: Math.round(monthlyInstallment * 100) / 100,
     totalInterest: Math.round(totalInterest * 100) / 100,
+    firstInstallment: Math.round(monthlyInstallment * 100) / 100,
   };
 }
 
@@ -112,7 +122,7 @@ function calculateSACSchedule(input: LoanCalculationInput): LoanCalculationResul
   // No SAC, a amortização é constante
   const constantAmortization = principal / months;
   
-  const schedule: Installment[] = [];
+  const schedule: LoanInstallment[] = [];
   let remainingBalance = principal;
   let totalInterest = 0;
 
@@ -169,6 +179,7 @@ function calculateSACSchedule(input: LoanCalculationInput): LoanCalculationResul
     totalWithInterest: Math.round(totalInstallments * 100) / 100,
     monthlyInstallment: Math.round(firstInstallment * 100) / 100, // No SAC, usa a primeira parcela como referência
     totalInterest: Math.round(totalInterest * 100) / 100,
+    firstInstallment: Math.round(firstInstallment * 100) / 100,
   };
 }
 
