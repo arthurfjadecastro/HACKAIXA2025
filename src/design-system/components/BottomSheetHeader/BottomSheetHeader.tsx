@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
-import { Text } from '@/design-system/components/Text/Text';
+import { Text } from '../Text/Text';
 import { Icon, IconName } from '@/design-system/icons/Icon';
-import { colors, spacing } from '@/design-system/tokens';
+import { colors, spacing, radius } from '@/design-system/tokens';
 
 interface BottomSheetHeaderProps {
   title: string;
@@ -72,11 +72,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   closeButton: {
-    width: 40, // Diminuir um pouco
-    height: 40,
+    width: spacing[10], // 40px usando token
+    height: spacing[10],
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 20,
+    borderRadius: radius.pill, // radius para círculo
     backgroundColor: 'transparent',
   },
 });

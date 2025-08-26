@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 import { Icon } from '@/design-system/icons/Icon';
-import { colors, spacing } from '@/design-system/tokens';
+import { colors, spacing, radius, typography } from '@/design-system/tokens';
 
 interface InputFieldProps {
   label: string;
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing[2], // Reduzir para spacing[2] (8px) - espaçamento mínimo
   },
   label: {
-    fontSize: 16,
+    fontSize: typography.body1.fontSize,
     fontWeight: '600',
     color: colors.text.primary,
     marginBottom: spacing[2],
@@ -146,10 +146,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.border.medium,
-    borderRadius: 8,
+    borderRadius: radius.input,
     backgroundColor: colors.background.secondary,
-    paddingHorizontal: 16,
-    height: 48,
+    paddingHorizontal: spacing[4],
+    height: spacing[12], // 48px equivalente
   },
   inputContainerFocused: {
     borderColor: colors.primary.main,
@@ -164,21 +164,21 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 16,
+    fontSize: typography.body1.fontSize,
     color: colors.text.primary,
     paddingVertical: 0,
   },
   eyeButton: {
-    padding: 4,
-    marginLeft: 8,
-    width: 32,
-    height: 32,
+    padding: spacing[1],
+    marginLeft: spacing[2],
+    width: spacing[8], // 32px
+    height: spacing[8],
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: radius.button,
   },
   helperText: {
-    fontSize: 14,
+    fontSize: typography.caption.fontSize,
     color: colors.text.secondary,
     marginTop: spacing[1],
     lineHeight: 20,

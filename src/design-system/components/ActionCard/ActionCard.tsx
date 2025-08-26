@@ -1,9 +1,9 @@
 import React from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
-import { Text } from '@/design-system/components/Text/Text';
+import { Text } from '../Text/Text';
 import { Icon, IconName } from '@/design-system/icons/Icon';
-import { spacing, elevation } from '@/design-system/tokens';
+import { spacing, elevation, radius } from '@/design-system/tokens';
 
 interface ActionCardProps {
   icon: IconName;
@@ -43,7 +43,7 @@ const ActionCard: React.FC<ActionCardProps> = ({
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#F59E0B', // Laranja institucional CAIXA
-    borderRadius: 12, // radius.l = 12sp conforme especificação
+    borderRadius: radius.card, // usando token ao invés de hardcoded
     ...elevation.low,
     minHeight: 52, // Altura conforme especificação CAIXA
     justifyContent: 'center',

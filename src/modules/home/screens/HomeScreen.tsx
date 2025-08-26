@@ -4,8 +4,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { Text } from '@/design-system/components/Text/Text';
-import ActionCard from '@/design-system/components/ActionCard';
+import { Text, ActionCard } from '@/design-system/components';
 import LoginBottomSheet from '@/modules/home/components/LoginBottomSheet';
 import { spacing } from '@/design-system/tokens';
 import { AppStackParamList } from '@/navigation/AppStack';

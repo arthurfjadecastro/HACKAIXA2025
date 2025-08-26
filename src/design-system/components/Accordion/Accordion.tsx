@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, TouchableOpacity, StyleSheet, FlatList, LayoutAnimation } from 'react-native';
+import { colors, spacing, radius, elevation } from '@/design-system/tokens';
 
 export interface AccordionItem {
   id: string | number;
@@ -97,29 +98,25 @@ function Accordion<T extends AccordionItem>({
 
 const styles = StyleSheet.create({
   itemContainer: {
-    marginVertical: 3, // Reduzido de 4 para 3
-    borderRadius: 8,
-    backgroundColor: '#FFFFFF',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
+    marginVertical: spacing[1], // spacing.xs
+    borderRadius: radius.card,
+    backgroundColor: colors.background.card,
+    ...elevation.low,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 12, // Reduzido de 16 para 12
-    backgroundColor: '#F8F9FA',
-    borderTopLeftRadius: 8,
-    borderTopRightRadius: 8,
+    padding: spacing[3], // spacing.md
+    backgroundColor: colors.background.primary,
+    borderTopLeftRadius: radius.card,
+    borderTopRightRadius: radius.card,
   },
   content: {
-    padding: 12, // Reduzido de 16 para 12
-    backgroundColor: '#FFFFFF',
-    borderBottomLeftRadius: 8,
-    borderBottomRightRadius: 8,
+    padding: spacing[3], // spacing.md
+    backgroundColor: colors.background.card,
+    borderBottomLeftRadius: radius.card,
+    borderBottomRightRadius: radius.card,
   },
 });
 

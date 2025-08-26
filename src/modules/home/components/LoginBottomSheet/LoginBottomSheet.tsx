@@ -12,7 +12,7 @@ import BottomSheet from '@/design-system/components/BottomSheet';
 import BottomSheetHeader from '@/design-system/components/BottomSheetHeader';
 import Divider from '@/design-system/components/Divider';
 import InputField from '@/design-system/components/InputField';
-import { Button } from '@/design-system/components/Button/Button';
+import { Button } from '@/design-system/components';
 import { colors, spacing } from '@/design-system/tokens';
 import { AppStackParamList } from '@/navigation/AppStack';
 

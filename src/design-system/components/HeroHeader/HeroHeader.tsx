@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { Text } from '../Text/Text';
 import ArthurAvatar from '../ArthurAvatar';
-import { colors } from '@/design-system/tokens';
+import { colors, spacing, radius, typography, elevation } from '@/design-system/tokens';
 
 export type HeroHeaderProps = {
   name: string;
@@ -74,9 +74,9 @@ const styles = StyleSheet.create({
   // Hero Background
   heroWrapper: {
     position: 'relative',
-    height: 160, // Aumentando para 200dp para melhor proporção (era 184)
-    borderBottomLeftRadius: 48,
-    borderBottomRightRadius: 16,
+    height: 160, // 160px - mantendo valor específico do design
+    borderBottomLeftRadius: radius.container, // 20px equivale ao container
+    borderBottomRightRadius: radius.card,
     overflow: 'hidden',
   },
   
@@ -100,13 +100,13 @@ const styles = StyleSheet.create({
   heroContent: {
     position: 'absolute',
     bottom: 0, // Ancorar no bottom
-    left: 16,
-    right: 16,
-    paddingBottom: 44, // Aumentado de 22 para 28 para melhor respiro
+    left: spacing[4],
+    right: spacing[4],
+    paddingBottom: spacing[12], // 48px próximo aos 44px originais
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start', // Alinhamento horizontal do conteúdo
-    gap: 16, // Aumentado de 12 para 16dp para melhor espaçamento
+    gap: spacing[4], // 16px
   },
   
   // Avatar
@@ -125,19 +125,19 @@ const styles = StyleSheet.create({
   
   // Nome do usuário → Heading / semibold, cor branca
   userName: {
-    fontSize: 22, // Aumentado de 20 para 22 para melhor hierarquia
+    fontSize: typography.h3.fontSize, // ~22px
     fontWeight: '600', // semibold (corrigido)
-    lineHeight: 26, // Ajustado proporcionalmente
-    color: '#FFFFFF', // cor branca pura
-    marginBottom: 2, // Reduzido de 4 para 2 para melhor compactação
+    lineHeight: typography.h3.lineHeight,
+    color: colors.text.inverse, // cor branca pura
+    marginBottom: spacing[1], // 4px
     flexWrap: 'wrap', // Nome longo quebra em duas linhas
   },
   
   // Subtítulo → Body small / regular, branco com 80% de opacidade
   userRole: {
-    fontSize: 15, // Aumentado de 14 para 15 para melhor legibilidade
+    fontSize: typography.body2.fontSize, // ~15px
     fontWeight: '400', // regular
-    lineHeight: 18,
+    lineHeight: typography.body2.lineHeight,
     color: 'rgba(255, 255, 255, 0.8)', // branco com 80% de opacidade
   },
   
@@ -145,20 +145,13 @@ const styles = StyleSheet.create({
   floatingCard: {
     alignSelf: 'center', // Centralizar horizontalmente
     width: 'auto', // Usar auto para as margens funcionarem
-    marginTop: -26, // Aumentado overlap para -26 (era -22)
-    marginHorizontal: 18, // Reduzido de 16 para 18dp para melhor centralização
-    backgroundColor: '#FFFFFF',
-    borderRadius: 24, // borderRadius: 24 conforme especificação
-    paddingVertical: 20, // Aumentado de 18 para 20 para mais respiro interno
-    paddingHorizontal: 22, // Aumentado de 20 para 22 para mais respiro lateral
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 3, // Aumentado de 2 para 3 para mais profundidade
-    },
-    shadowOpacity: 0.12, // Aumentado de 0.1 para 0.12 para mais contraste
-    shadowRadius: 6, // Aumentado de 4 para 6 para sombra mais suave
-    elevation: 4, // Aumentado de 3 para 4 para melhor elevação no Android
+    marginTop: -26, // Mantendo valor específico do design
+    marginHorizontal: spacing[5], // 20px
+    backgroundColor: colors.background.secondary,
+    borderRadius: radius.container, // 20px
+    paddingVertical: spacing[5], // 20px
+    paddingHorizontal: spacing[6], // 24px próximo aos 22px originais
+    ...elevation.medium,
   },
 });
 

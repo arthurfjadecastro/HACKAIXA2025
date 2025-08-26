@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
-import { Text } from '@/design-system/components/Text/Text';
+import { Text } from '../Text/Text';
 import { Icon } from '@/design-system/icons';
 import { colors, spacing } from '@/design-system/tokens';
 

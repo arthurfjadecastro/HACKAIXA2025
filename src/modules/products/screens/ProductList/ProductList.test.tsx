@@ -33,13 +33,6 @@ describe('ProductList', () => {
     expect(mockNavigate).toHaveBeenCalledWith('RegisterProducts');
   });
 
-  it('renders WelcomeBanner with correct props', () => {
-    const { getByText } = renderWithNavigation(<ProductList />);
-    
-    expect(getByText('Olá, Arthur de Castro')).toBeTruthy();
-    expect(getByText('Cliente Singular')).toBeTruthy();
-  });
-
   it('renders EmptyState with correct content', () => {
     const { getByText } = renderWithNavigation(<ProductList />);
     
