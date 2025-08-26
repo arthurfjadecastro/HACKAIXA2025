@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Alert } from 'react-native';
 import { ProductFormData, ProductCategory } from '@/types/products';
-import ProductDataService from '@/services/ProductDataService';
+// import ProductDataService from '@/services/ProductDataService';
 
 export const useEnhancedCreateProduct = () => {
   const [formData, setFormData] = useState<ProductFormData>({
@@ -27,11 +27,11 @@ export const useEnhancedCreateProduct = () => {
     fonte_dados: 'Cadastro manual'
   });
 
-  const [availableConvenios, setAvailableConvenios] = useState<ProductCategory[]>([]);
+  const [availableConvenios] = useState<ProductCategory[]>([]);
   const [selectedConvenio, setSelectedConvenio] = useState<ProductCategory | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const productService = ProductDataService.getInstance();
+  // const productService = ProductDataService.getInstance();
 
   // Carregar convênios disponíveis
   useEffect(() => {

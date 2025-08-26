@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { ScrollView } from 'react-native';
-import { useProducts } from '@/hooks/useProducts';
+import { useProducts } from '../../../../hooks';
 
 import { INITIAL_FORM_DATA, UseSimpleFormReturn } from './types';
 import { FieldName } from '../../types';

@@ -3,7 +3,7 @@ import { render } from '@testing-library/react-native';
 import CreateProduct from './CreateProduct';
 
 // Mock do hook
-jest.mock('./hooks/useCreateProductForm', () => ({
+jest.mock('./hooks/useCreateProductFormSimple', () => ({
   useCreateProductForm: jest.fn(() => ({
     formData: { name: '', interestRate: '', maxTerm: '', normative: '' },
     errors: {},

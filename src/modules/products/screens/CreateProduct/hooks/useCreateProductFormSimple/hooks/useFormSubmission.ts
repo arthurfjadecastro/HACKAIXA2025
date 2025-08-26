@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { useCreateProduct } from '@/hooks/useCreateProduct';
+import { useCreateProduct } from '../../../../../hooks';
 import { FormData } from '../../../types';
 
 interface UseFormSubmissionReturn {

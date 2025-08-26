@@ -9,7 +9,7 @@ jest.mock('react-native', () => {
   RN.Animated.timing = jest.fn(() => ({
     start: jest.fn((callback) => callback && callback()),
   }));
-  RN.Animated.parallel = jest.fn((animations) => ({
+  RN.Animated.parallel = jest.fn((_animations) => ({
     start: jest.fn((callback) => callback && callback()),
   }));
   RN.Animated.spring = jest.fn(() => ({

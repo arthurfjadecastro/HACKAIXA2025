@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
 import { Alert } from 'react-native';
-import { useProducts } from '@/hooks/useProducts';
+import { useProducts } from './useProducts';
 import { productService } from '@/services/products/productService.mock';
 import { useProductsContext } from '@/contexts/ProductsContext';
 

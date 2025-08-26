@@ -8,7 +8,7 @@ import { Button, Skeleton, Text, HeroHeader } from '@/design-system/components';
 import { Icon } from '@/design-system/icons';
 import { spacing } from '@/design-system/tokens';
 import { AppStackParamList } from '@/navigation/AppStack';
-import { useProducts } from '@/hooks/useProducts';
+import { useProducts } from '../../hooks';
 import { ProductsList } from './components/ProductsList';
 
 type NavigationProps = NativeStackNavigationProp<AppStackParamList, 'ProductList'>;

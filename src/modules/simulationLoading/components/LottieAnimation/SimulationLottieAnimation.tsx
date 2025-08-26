@@ -18,7 +18,7 @@ const SimulationLottieAnimation: React.FC<Props> = ({
   testID = 'simulation-lottie-animation'
 }) => {
   const animationRef = useRef<LottieView>(null);
-  const [hasError, setHasError] = React.useState(false);
+  const [hasError] = React.useState(false);
 
   useEffect(() => {
     if (!isLoading && animationRef.current) {

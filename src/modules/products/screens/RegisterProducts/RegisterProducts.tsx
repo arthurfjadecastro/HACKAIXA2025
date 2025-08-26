@@ -8,7 +8,7 @@ import { Text, Button } from '@/design-system/components';
 import { AppStackParamList } from '@/navigation/AppStack';
 import { styles } from './RegisterProducts.styles';
 import { useProductManagement } from '@/modules/products/hooks/useProductManagement';
-import { useDeleteProduct } from '@/hooks/useDeleteProduct';
+import { useDeleteProduct } from '../../hooks';
 
 type NavigationProps = NativeStackNavigationProp<AppStackParamList>;
 

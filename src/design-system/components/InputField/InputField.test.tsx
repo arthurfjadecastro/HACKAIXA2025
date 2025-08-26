@@ -111,7 +111,7 @@ describe('InputField', () => {
 
   it('exposes focus, blur, and clear methods via ref', () => {
     const ref = createRef<TextInput>();
-    const { getByPlaceholderText } = render(
+    render(
       <InputField
         ref={ref}
         label="Test"

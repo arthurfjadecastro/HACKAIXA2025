@@ -5,7 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { AppStackParamList } from '@/navigation/AppStack';
 
 import { Text, Button } from '@/design-system/components';
-import { useProducts } from '@/hooks/useProducts';
+import { useProducts } from '../../hooks';
 import ProductDataService from '@/services/ProductDataService';
 
 // Importar componentes modulares

@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useRoute, useNavigation } from '@react-navigation/native';
-import { useProducts } from '@/hooks/useProducts';
+import { useProducts } from '../../../hooks';
 import { calculateLoanSchedule } from '@/utils/loanCalculator';
 import { RouteProps, NavigationProps, LoanSchedule } from '../types';
 

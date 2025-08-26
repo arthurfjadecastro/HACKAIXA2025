@@ -32,7 +32,7 @@ const HomeScreen: React.FC = () => {
     setShowLoginBottomSheet(true);
   };
 
-  const handleLogin = (username: string, password: string) => {
+  const handleLogin = (_username: string, _password: string) => {
     setShowLoginBottomSheet(false);
     
     setTimeout(() => {

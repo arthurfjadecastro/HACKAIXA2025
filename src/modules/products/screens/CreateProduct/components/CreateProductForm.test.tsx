@@ -2,7 +2,7 @@ import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import { Keyboard } from 'react-native';
 import { CreateProductForm } from './CreateProductForm';
-import { FormData, FormErrors } from '../types';
+import { FormData } from '../types';
 
 // Mock do Keyboard
 const mockKeyboardDismiss = jest.spyOn(Keyboard, 'dismiss').mockImplementation(() => {});
@@ -12,19 +12,19 @@ describe('CreateProductForm', () => {
   const mockHandleBlur = jest.fn();
 
   const defaultFormData: FormData = {
+    categoria: '',
+    subtipo: '',
     name: '',
     interestRate: '',
     maxTerm: '',
     normative: '',
   };
 
-  const defaultErrors: FormErrors = {};
-
   const defaultProps = {
     formData: defaultFormData,
-    errors: defaultErrors,
     updateField: mockUpdateField,
-    handleBlur: mockHandleBlur,
+    isConvenioAlreadyRegistered: jest.fn(() => false),
+    isHabitacaoAlreadyRegistered: jest.fn(() => false),
   };
 
   beforeEach(() => {
@@ -88,6 +88,8 @@ describe('CreateProductForm', () => {
 
   it('displays form data values', () => {
     const formDataWithValues: FormData = {
+      categoria: 'OUTRO',
+      subtipo: 'N/A',
       name: 'Produto Teste',
       interestRate: '5.5',
       maxTerm: '12',
@@ -104,21 +106,7 @@ describe('CreateProductForm', () => {
     expect(getByDisplayValue('Normativo Teste')).toBeTruthy();
   });
 
-  it('displays error messages when provided', () => {
-    const errorsWithMessages: FormErrors = {
-      name: 'Nome é obrigatório',
-      interestRate: 'Taxa inválida',
-    };
-
-    const { getByText } = render(
-      <CreateProductForm {...defaultProps} errors={errorsWithMessages} />
-    );
-    
-    expect(getByText('Nome é obrigatório')).toBeTruthy();
-    expect(getByText('Taxa inválida')).toBeTruthy();
-  });
-
-  it('calls handleBlur for all fields when they lose focus', () => {
+  it('calls updateField when form fields change', () => {
     const { getByPlaceholderText } = render(<CreateProductForm {...defaultProps} />);
     
     // Test all blur handlers
