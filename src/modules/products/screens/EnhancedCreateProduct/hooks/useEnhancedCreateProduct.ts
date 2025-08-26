@@ -22,9 +22,7 @@ export const useEnhancedCreateProduct = () => {
     exige_validacao_remota: true,
     exige_validacao_presencial: false,
     exige_certificacao_digital: false,
-    observacoes: [],
-    data_atualizacao: new Date().toISOString(),
-    fonte_dados: 'Cadastro manual'
+    observacoes: []
   });
 
   const [availableConvenios] = useState<ProductCategory[]>([]);

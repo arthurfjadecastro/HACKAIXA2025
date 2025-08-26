@@ -23,15 +23,7 @@ export interface ProductCategory {
       condicoes_acesso: string[];
     };
   };
-  portabilidade?: {
-    prospeccao_taxa_am_intervalo?: [number, number];
-    retencao: string;
-  } | null;
   observacoes: string[];
-  auditoria: {
-    fonte: string;
-    atualizado_em: string;
-  };
 }
 
 export interface ProductIndex {
@@ -67,10 +59,6 @@ export interface ProductFormData {
   taxa_faixa_c_concessao: number;
   taxa_faixa_c_renovacao: number;
   
-  // Portabilidade
-  portabilidade_prospeccao_min?: number;
-  portabilidade_prospeccao_max?: number;
-  
   // Validações
   exige_validacao_remota: boolean;
   exige_validacao_presencial: boolean;
@@ -78,21 +66,4 @@ export interface ProductFormData {
   
   // Observações específicas do convênio
   observacoes: string[];
-  
-  // Auditoria
-  data_atualizacao: string;
-  fonte_dados: string;
-}
-
-export interface SimulationResult {
-  installment: number;
-  total: number;
-  rate: number;
-  months: number;
-  amount: number;
-  faixa_aplicada: 'A' | 'B' | 'C';
-  canal_utilizado: string;
-  margem_consumida_percentual: number;
-  observacoes_convenio: string[];
-  condicoes_aplicadas: string[];
 }
