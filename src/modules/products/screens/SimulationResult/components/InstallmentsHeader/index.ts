@@ -1,0 +1,1 @@
+export { InstallmentsHeader } from './InstallmentsHeader';
