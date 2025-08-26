@@ -3,7 +3,7 @@ import { View, TouchableOpacity, StyleSheet } from 'react-native';
 
 import { Text } from '../Text/Text';
 import { Icon, IconName } from '@/design-system/icons/Icon';
-import { spacing, elevation, radius } from '@/design-system/tokens';
+import { spacing, elevation, radius, typography } from '@/design-system/tokens';
 
 interface ActionCardProps {
   icon: IconName;
@@ -58,9 +58,7 @@ const styles = StyleSheet.create({
     gap: spacing[2], // 8sp de gap conforme especificação
   },
   title: {
-    fontSize: 16, // font.button 16sp conforme especificação
-    fontWeight: '600', // Semibold
-    fontFamily: 'Caixa-Std-Semibold', // Fonte institucional
+    ...typography.button, // Usando token de tipografia completo
     color: '#FFFFFF', // #FFFFFF 100% conforme especificação
     textAlign: 'center',
   },

@@ -7,7 +7,7 @@ import {
   TextStyle,
   ActivityIndicator
 } from 'react-native';
-import { colors, padding, radius } from '@/design-system/tokens';
+import { colors, padding, radius, typography } from '@/design-system/tokens';
 import { Icon, IconName } from '@/design-system/icons/Icon';
 
 interface ButtonProps {
@@ -125,8 +125,8 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   text: {
+    ...typography.button, // Usando token de tipografia completo
     textAlign: 'center',
-    fontWeight: '600',
   },
   text_primary: {
     color: colors.text.inverse,

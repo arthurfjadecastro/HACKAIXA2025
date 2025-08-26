@@ -125,9 +125,7 @@ const styles = StyleSheet.create({
   
   // Nome do usuário → Heading / semibold, cor branca
   userName: {
-    fontSize: typography.h3.fontSize, // ~22px
-    fontWeight: '600', // semibold (corrigido)
-    lineHeight: typography.h3.lineHeight,
+    ...typography.h3, // Usando token de tipografia
     color: colors.text.inverse, // cor branca pura
     marginBottom: spacing[1], // 4px
     flexWrap: 'wrap', // Nome longo quebra em duas linhas
@@ -135,9 +133,7 @@ const styles = StyleSheet.create({
   
   // Subtítulo → Body small / regular, branco com 80% de opacidade
   userRole: {
-    fontSize: typography.body2.fontSize, // ~15px
-    fontWeight: '400', // regular
-    lineHeight: typography.body2.lineHeight,
+    ...typography.body2, // Usando token de tipografia
     color: 'rgba(255, 255, 255, 0.8)', // branco com 80% de opacidade
   },
   

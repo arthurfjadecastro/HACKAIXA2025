@@ -136,8 +136,9 @@ const styles = StyleSheet.create({
     marginBottom: spacing[2], // Reduzir para spacing[2] (8px) - espaçamento mínimo
   },
   label: {
-    fontSize: typography.body1.fontSize,
-    fontWeight: '600',
+    ...typography.body1, // Usando token de tipografia
+    fontWeight: '600', // SemiBold para labels
+    fontFamily: typography.h5.fontFamily, // CAIXAStd-SemiBold
     color: colors.text.primary,
     marginBottom: spacing[2],
   },
@@ -164,7 +165,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: typography.body1.fontSize,
+    ...typography.body1, // Usando token de tipografia completo
     color: colors.text.primary,
     paddingVertical: 0,
   },
@@ -178,10 +179,9 @@ const styles = StyleSheet.create({
     borderRadius: radius.button,
   },
   helperText: {
-    fontSize: typography.caption.fontSize,
+    ...typography.caption, // Usando token de tipografia
     color: colors.text.secondary,
     marginTop: spacing[1],
-    lineHeight: 20,
   },
   errorText: {
     color: colors.status.error,

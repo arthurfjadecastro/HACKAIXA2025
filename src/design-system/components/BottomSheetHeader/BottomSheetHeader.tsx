@@ -3,7 +3,7 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { Text } from '../Text/Text';
 import { Icon, IconName } from '@/design-system/icons/Icon';
-import { colors, spacing, radius } from '@/design-system/tokens';
+import { colors, spacing, radius, typography } from '@/design-system/tokens';
 
 interface BottomSheetHeaderProps {
   title: string;
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   title: {
-    fontWeight: '500', // Diminuir peso da fonte
+    ...typography.h4, // Usando token de tipografia completo
     flex: 1,
   },
   closeButton: {

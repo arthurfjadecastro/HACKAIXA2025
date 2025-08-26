@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 
 import { Text } from '../Text/Text';
 import { Icon } from '@/design-system/icons';
-import { colors, spacing } from '@/design-system/tokens';
+import { colors, spacing, typography } from '@/design-system/tokens';
 
 interface EmptyStateProps {
   icon: string;
@@ -53,15 +53,14 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   title: {
+    ...typography.h2, // Usando token de tipografia
     textAlign: 'center',
-    fontWeight: '600',
     marginBottom: spacing[3], // spacing/md
-    lineHeight: 28,
   },
   subtitle: {
+    ...typography.body1, // Usando token de tipografia
     textAlign: 'center',
     opacity: 0.8,
-    lineHeight: 20,
   },
 });
 
