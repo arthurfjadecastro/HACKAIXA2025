@@ -94,19 +94,6 @@ export interface ProductFormData {
   fonte_dados: string;
 }
 
-// Tipos para simulação
-export interface SimulationFormData {
-  categoria: 'CONSIGNADO' | 'HABITACAO';
-  subtipo?: 'INSS' | 'CONVENIO' | 'CLT_SUSPENSO';
-  convenio_id?: string;
-  product_id: string;
-  amount: string;
-  months: number;
-  canal: string;
-  faixa_aplicada?: 'A' | 'B' | 'C';
-  tipo_operacao: 'CONCESSAO' | 'RENOVACAO' | 'PROSPECCAO' | 'RETENCAO';
-}
-
 export interface SimulationResult {
   installment: number;
   total: number;
