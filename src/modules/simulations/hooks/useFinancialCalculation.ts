@@ -77,17 +77,15 @@ export const useFinancialCalculation = (params: FinancialCalculationParams) => {
       } else {
         // Outro produto - usar dados cadastrados
         productData = await productService.loadOutroTemplate();
-        rateMonthly = registeredProduct.juros > 10 
-          ? (registeredProduct.juros / 100) / 12 
-          : registeredProduct.juros / 100;
+        // Taxa já é mensal, só converter para decimal
+        rateMonthly = registeredProduct.juros / 100;
         amortizationType = 'PRICE'; // Sempre Price para outros
       }
     } catch (error) {
       console.warn('Erro ao carregar dados do produto, usando dados básicos:', error);
       // Fallback para dados básicos do produto registrado
-      rateMonthly = registeredProduct.juros > 10 
-        ? (registeredProduct.juros / 100) / 12 
-        : registeredProduct.juros / 100;
+      // Taxa já é mensal, só converter para decimal
+      rateMonthly = registeredProduct.juros / 100;
     }
 
     // Data da primeira parcela (15 do próximo mês)

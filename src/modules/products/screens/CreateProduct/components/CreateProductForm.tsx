@@ -53,8 +53,8 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
                 formStyles.radioLabel
               }>
                 {option.label}
-                {option.disabled && option.value === 'HABITACAO' && ' (Já cadastrado)'}
-                {option.disabled && option.value !== 'HABITACAO' && ' (Indisponível)'}
+                {option.disabled && option.value === 'HABITACAO' ? ' (Já cadastrado)' : ''}
+                {option.disabled && option.value !== 'HABITACAO' ? ' (Indisponível)' : ''}
               </Text>
               <Text style={option.disabled ? 
                 { ...formStyles.radioDescription, color: '#999', opacity: 0.6 } : 
@@ -72,6 +72,14 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
   const renderSubtipoSelector = () => {
     if (formData.categoria !== 'CONSIGNADO') return null;
 
+    // Lista de todos os convênios disponíveis no sistema
+    const todosConvenios = ['militar', 'funcef', 'tjdft'];
+    
+    // Verifica se todos os convênios já estão cadastrados
+    const todosConveniosCadastrados = todosConvenios.every(convenio => 
+      isConvenioAlreadyRegistered(convenio)
+    );
+
     return (
       <View style={formStyles.section}>
         <Text style={formStyles.sectionTitle}>Subtipo Consignado</Text>
@@ -82,10 +90,17 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
         <View style={formStyles.radioGroup}>
           {[
             { value: 'INSS', label: 'INSS', description: 'Aposentados e pensionistas do INSS' },
-            { value: 'CONVENIO', label: 'Convênio', description: 'Servidores públicos e militares' }
+            { 
+              value: 'CONVENIO', 
+              label: 'Convênio', 
+              description: todosConveniosCadastrados 
+                ? 'Todos os convênios já estão cadastrados' 
+                : 'Servidores públicos e militares' 
+            }
           ].map(option => {
             const isSelected = formData.subtipo === option.value;
             const isAlreadyRegistered = option.value === 'INSS' ? isConvenioAlreadyRegistered('inss') : false;
+            const isDisabled = option.value === 'CONVENIO' ? todosConveniosCadastrados : isAlreadyRegistered;
             
             return (
               <TouchableOpacity
@@ -93,10 +108,10 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
                 style={[
                   formStyles.radioOption,
                   isSelected && formStyles.radioOptionSelected,
-                  isAlreadyRegistered && formStyles.radioOptionDisabled
+                  isDisabled && formStyles.radioOptionDisabled
                 ]}
-                onPress={() => !isAlreadyRegistered && updateField('subtipo', option.value)}
-                disabled={isAlreadyRegistered}
+                onPress={() => !isDisabled && updateField('subtipo', option.value)}
+                disabled={isDisabled}
               >
                 <View style={formStyles.radioButton}>
                   {isSelected && (
@@ -104,14 +119,15 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
                   )}
                 </View>
                 <View style={formStyles.radioContent}>
-                  <Text style={isAlreadyRegistered ? 
+                  <Text style={isDisabled ? 
                     { ...formStyles.radioLabel, color: '#999', opacity: 0.6 } : 
                     formStyles.radioLabel
                   }>
                     {option.label}
-                    {isAlreadyRegistered && ' (Já cadastrado)'}
+                    {isAlreadyRegistered ? ' (Já cadastrado)' : ''}
+                    {option.value === 'CONVENIO' && todosConveniosCadastrados ? ' (Todos cadastrados)' : ''}
                   </Text>
-                  <Text style={isAlreadyRegistered ? 
+                  <Text style={isDisabled ? 
                     { ...formStyles.radioDescription, color: '#999', opacity: 0.6 } : 
                     formStyles.radioDescription
                   }>
@@ -182,7 +198,7 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
                 <View style={formStyles.radioContent}>
                   <Text style={isAlreadyRegistered ? formStyles.radioLabelDisabled : formStyles.radioLabel}>
                     {convenio.nome}
-                    {isAlreadyRegistered && ' (Já cadastrado)'}
+                    {isAlreadyRegistered ? ' (Já cadastrado)' : ''}
                   </Text>
                   <Text style={isAlreadyRegistered ? formStyles.radioDescriptionDisabled : formStyles.radioDescription}>
                     {convenio.descricao}
@@ -220,14 +236,14 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
             <View style={formStyles.highlightedInfoRow}>
               <Text style={formStyles.highlightedInfoLabel}>Prazo:</Text>
               <Text style={formStyles.highlightedInfoValue}>
-                {formData.prazo_minimo} - {formData.prazo_maximo} meses
+                {(formData.prazo_minimo || 0)} - {(formData.prazo_maximo || 0)} meses
               </Text>
             </View>
             
             <View style={formStyles.highlightedInfoRow}>
               <Text style={formStyles.highlightedInfoLabel}>Margem Consignável:</Text>
               <Text style={formStyles.highlightedInfoValue}>
-                {formData.margem_consignavel}%
+                {(formData.margem_consignavel || 0)}%
               </Text>
             </View>
           </View>
@@ -239,21 +255,21 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
             <View style={formStyles.autoFilledRow}>
               <Text style={formStyles.autoFilledLabel}>Faixa A:</Text>
               <Text style={formStyles.autoFilledValue}>
-                {formData.taxa_faixa_a_concessao}% / {formData.taxa_faixa_a_renovacao}%
+                {(formData.taxa_faixa_a_concessao || 0)}% / {(formData.taxa_faixa_a_renovacao || 0)}%
               </Text>
             </View>
 
             <View style={formStyles.autoFilledRow}>
               <Text style={formStyles.autoFilledLabel}>Faixa B:</Text>
               <Text style={formStyles.autoFilledValue}>
-                {formData.taxa_faixa_b_concessao}% / {formData.taxa_faixa_b_renovacao}%
+                {(formData.taxa_faixa_b_concessao || 0)}% / {(formData.taxa_faixa_b_renovacao || 0)}%
               </Text>
             </View>
 
             <View style={formStyles.autoFilledRow}>
               <Text style={formStyles.autoFilledLabel}>Faixa C:</Text>
               <Text style={formStyles.autoFilledValue}>
-                {formData.taxa_faixa_c_concessao}% / {formData.taxa_faixa_c_renovacao}%
+                {(formData.taxa_faixa_c_concessao || 0)}% / {(formData.taxa_faixa_c_renovacao || 0)}%
               </Text>
             </View>
           </View>
@@ -263,7 +279,7 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
           <View style={formStyles.observacoesContainer}>
             <Text style={formStyles.observacoesTitle}>Observações do Convênio:</Text>
             {formData.observacoes.map((obs, index) => (
-              <Text key={index} style={formStyles.observacaoItem}>• {obs}</Text>
+              <Text key={index} style={formStyles.observacaoItem}>• {obs || ''}</Text>
             ))}
           </View>
         )}
@@ -332,11 +348,15 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
                 value={formData.prazo_min_meses?.toString() || ''}
                 onChangeText={(value: string) => {
                   if (value === '') {
-                    // Permite limpar o campo - usa 0 como valor temporário
-                    updateField('prazo_min_meses', 0);
+                    // Campo vazio - permite limpeza
+                    updateField('prazo_min_meses', '');
                   } else {
-                    const numValue = parseInt(value) || 0;
-                    updateField('prazo_min_meses', numValue);
+                    // Permite apenas números
+                    const cleanValue = value.replace(/[^0-9]/g, '');
+                    if (cleanValue !== '') {
+                      const numValue = parseInt(cleanValue);
+                      updateField('prazo_min_meses', numValue);
+                    }
                   }
                 }}
                 keyboardType="numeric"
@@ -351,39 +371,48 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
                 placeholder="420"
                 value={formData.prazo_max_meses?.toString() || ''}
                 onChangeText={(value: string) => {
-                  const numValue = Math.max(2, parseInt(value) || 2);
-                  updateField('prazo_max_meses', numValue);
+                  if (value === '') {
+                    // Campo vazio - usa string vazia para permitir limpeza
+                    updateField('prazo_max_meses', '');
+                  } else {
+                    // Permite apenas números
+                    const cleanValue = value.replace(/[^0-9]/g, '');
+                    if (cleanValue !== '') {
+                      const numValue = parseInt(cleanValue);
+                      updateField('prazo_max_meses', numValue);
+                    }
+                  }
                 }}
                 keyboardType="numeric"
               />
               <Text style={formStyles.fieldHint}>
-                Mínimo: 2 meses
+                Padrão: 420 meses (35 anos)
               </Text>
             </View>
           </View>
 
           {/* Avisos de validação */}
-          {formData.categoria === 'OUTRO' && formData.prazo_min_meses !== undefined && formData.prazo_min_meses <= 0 && (
+          {formData.categoria === 'OUTRO' && formData.prazo_min_meses !== undefined && formData.prazo_min_meses <= 0 ? (
             <View style={formStyles.warningContainer}>
               <Text style={formStyles.warningText}>
                 ⚠️ O prazo mínimo deve ser maior que 0
               </Text>
             </View>
-          )}
+          ) : null}
           
-          {formData.prazo_min_meses && formData.prazo_max_meses && 
-           formData.prazo_min_meses >= formData.prazo_max_meses && (
+          {(formData.prazo_min_meses !== undefined && formData.prazo_max_meses !== undefined && 
+           formData.prazo_min_meses >= formData.prazo_max_meses) ? (
             <View style={formStyles.warningContainer}>
               <Text style={formStyles.warningText}>
                 ⚠️ O prazo máximo deve ser maior que o mínimo
               </Text>
             </View>
-          )}
+          ) : null}
 
           {/* Taxa de Juros Anual com tratamento de vírgula/ponto */}
           <View style={formStyles.inputGroup}>
             <InputField
-              label="Taxa de Juros Anual (%)"
+              label="Taxa de Juros Mensal (% a.m.)"
               placeholder="Ex: 12,50 ou 12.50"
               value={formData.interestRate || ''}
               onChangeText={(value: string) => {
@@ -401,42 +430,18 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
               keyboardType="numeric"
             />
             <Text style={formStyles.fieldHint}>
-              Aceita vírgula ou ponto como separador decimal
+              Taxa mensal - aceita vírgula ou ponto como separador decimal
             </Text>
           </View>
 
-          {/* Elegibilidade */}
-          <View style={formStyles.section}>
-            <Text style={formStyles.sectionTitle}>Elegibilidade</Text>
-            
-            <View style={formStyles.rowContainer}>
-              <View style={formStyles.halfWidth}>
-                <InputField
-                  label="Idade Mínima"
-                  placeholder="18"
-                  value={formData.faixa_etaria_min?.toString() || ''}
-                  onChangeText={(value: string) => updateField('faixa_etaria_min', parseInt(value) || 18)}
-                  keyboardType="numeric"
-                />
-              </View>
-              <View style={formStyles.halfWidth}>
-                <InputField
-                  label="Idade Máxima"
-                  placeholder="75"
-                  value={formData.faixa_etaria_max?.toString() || ''}
-                  onChangeText={(value: string) => updateField('faixa_etaria_max', parseInt(value) || 75)}
-                  keyboardType="numeric"
-                />
-              </View>
-            </View>
-          </View>
+    
 
           {/* Normativo */}
           <View style={formStyles.section}>
             <Text style={formStyles.sectionTitle}>Normativo Aplicável</Text>
             <View style={formStyles.normativoContainer}>
               <Text style={formStyles.normativoText}>
-                {formData.normative}
+                {formData.normative || 'Normativo aplicável para produtos genéricos da categoria OUTRO'}
               </Text>
               <Text style={formStyles.normativoDescription}>
                 Normativo aplicável para produtos genéricos da categoria OUTRO

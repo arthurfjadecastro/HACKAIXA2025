@@ -90,7 +90,8 @@ const LoanConfiguration: React.FC = () => {
             
             const minMonths = registeredProduct.prazoMinimo || 1;
             const maxMonths = registeredProduct.prazoMaximo || 420;
-            const rate = registeredProduct.juros > 10 ? (registeredProduct.juros / 100) / 12 : registeredProduct.juros / 100;
+            // Taxa já é mensal, só converter para decimal
+            const rate = registeredProduct.juros / 100;
             
             console.log('📊 Aplicando configurações para produto OUTRO:', {
               minMonths,
@@ -137,8 +138,8 @@ const LoanConfiguration: React.FC = () => {
             if (detailedData.faixas?.A?.concessao_taxa_am) {
               rate = detailedData.faixas.A.concessao_taxa_am / 100;
             } else if (registeredProduct.juros) {
-              // Se o juros for > 10, assumimos que é percentual anual, senão é mensal
-              rate = registeredProduct.juros > 10 ? (registeredProduct.juros / 100) / 12 : registeredProduct.juros / 100;
+              // Taxa já é mensal, só converter para decimal
+              rate = registeredProduct.juros / 100;
             }
             setProductRateAm(rate);
             
