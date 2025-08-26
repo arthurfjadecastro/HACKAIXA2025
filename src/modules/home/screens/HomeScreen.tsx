@@ -34,7 +34,6 @@ const HomeScreen: React.FC = () => {
   };
 
   const handleLogin = (username: string, password: string) => {
-    console.log('Login attempt:', { username, passwordLength: password.length });
     setShowLoginBottomSheet(false);
     
     setTimeout(() => {

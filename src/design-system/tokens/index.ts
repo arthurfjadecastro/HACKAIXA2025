@@ -11,8 +11,6 @@ export { spacing, padding, margin, gap } from '@/design-system/tokens/spacing';
 export { borderRadius, radius } from '@/design-system/tokens/radius';
 export { shadows } from '@/design-system/tokens/shadows';
 export { elevation } from '@/design-system/tokens/elevation';
-
-
 export const theme = {
   colors,
   typography,
@@ -28,6 +26,4 @@ export const theme = {
   fontSizes,
   lineHeights,
 } as const;
-
-
 export type Theme = typeof theme;

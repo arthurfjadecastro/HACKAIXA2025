@@ -42,7 +42,6 @@ export const useCreateProductForm = (): UseFormReturn & {
       const convenios = await productService.getActiveConvenios();
       setAvailableConvenios(convenios);
     } catch (error) {
-      console.error('Erro ao carregar convênios:', error);
     }
   };
 
@@ -181,7 +180,6 @@ export const useCreateProductForm = (): UseFormReturn & {
         autoFillFromConvenio(convenio);
       }
     } catch (error) {
-      console.error('Erro ao carregar dados do convênio:', error);
     }
   };
 
@@ -207,7 +205,6 @@ export const useCreateProductForm = (): UseFormReturn & {
         }));
       }
     } catch (error) {
-      console.error('Erro ao carregar dados do convênio:', error);
     }
   };
 

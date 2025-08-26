@@ -25,11 +25,9 @@ export const useCreateProduct = (): UseCreateProductReturn => {
       setLoading(true);
       setError(null);
       
-      console.log('🚀 Criando produto:', data);
       
       const newProduct = await productService.createProduct(data);
       
-      console.log('✅ Produto criado com sucesso:', newProduct);
       
       // Feedback visual de sucesso
       Alert.alert(
@@ -48,7 +46,6 @@ export const useCreateProduct = (): UseCreateProductReturn => {
       
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Erro ao criar produto';
-      console.error('❌ Erro ao criar produto:', errorMessage);
       
       setError(errorMessage);
       

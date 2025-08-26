@@ -78,7 +78,6 @@ const SplashScreen: React.FC = () => {
   };
 
   const handleLottieFailure = () => {
-    console.warn('Lottie animation failed to load, falling back to simple animation');
 
     
     setUseLottie(false);

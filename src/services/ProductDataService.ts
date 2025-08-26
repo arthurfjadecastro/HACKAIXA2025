@@ -35,7 +35,6 @@ class ProductDataService {
       this.productIndex = productsIndex as ProductIndex;
       return this.productIndex;
     } catch (error) {
-      console.error('Erro ao carregar índice de produtos:', error);
       throw error;
     }
   }
@@ -50,7 +49,6 @@ class ProductDataService {
       this.commonRules = commonRules as CommonRules;
       return this.commonRules;
     } catch (error) {
-      console.error('Erro ao carregar regras comuns:', error);
       throw error;
     }
   }
@@ -94,7 +92,6 @@ class ProductDataService {
       this.productCache.set(productId, product);
       return product;
     } catch (error) {
-      console.error(`Erro ao carregar produto ${productId}:`, error);
       throw error;
     }
   }
@@ -111,7 +108,6 @@ class ProductDataService {
           products.push(product);
         }
       } catch (error) {
-        console.warn(`Erro ao carregar produto ${item.id}:`, error);
       }
     }
 
@@ -207,7 +203,6 @@ class ProductDataService {
           throw new Error(`Convênio ${convenioNome} não encontrado`);
       }
     } catch (error) {
-      console.error(`Erro ao carregar convênio ${convenioNome}:`, error);
       throw error;
     }
   }
@@ -224,7 +219,6 @@ class ProductDataService {
           throw new Error(`Sistema de amortização ${sistemaAmortizacao} não encontrado`);
       }
     } catch (error) {
-      console.error(`Erro ao carregar habitação ${sistemaAmortizacao}:`, error);
       throw error;
     }
   }
@@ -234,7 +228,6 @@ class ProductDataService {
     try {
       return outroTemplateData;
     } catch (error) {
-      console.error('Erro ao carregar template OUTRO:', error);
       throw error;
     }
   }

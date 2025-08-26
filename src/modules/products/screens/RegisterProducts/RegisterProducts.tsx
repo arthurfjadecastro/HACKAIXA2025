@@ -44,7 +44,6 @@ const RegisterProducts: React.FC = () => {
       try {
         await toggleProductStatus(selectedProductId);
       } catch (error) {
-        console.error('Erro ao processar produto:', error);
       }
     }
     

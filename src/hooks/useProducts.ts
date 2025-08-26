@@ -20,15 +20,12 @@ export const useProducts = (): UseProductsReturn => {
   const fetchProducts = useCallback(async () => {
     try {
       setError(null);
-      console.log('🔄 Carregando lista de produtos...');
       
       const loadedProducts = await productService.getStoredProducts();
       setProducts(loadedProducts);
       
-      console.log(`✅ ${loadedProducts.length} produtos carregados`);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Erro ao carregar produtos';
-      console.error('❌ Erro ao carregar produtos:', errorMessage);
       setError(errorMessage);
     } finally {
       setLoading(false);

@@ -28,12 +28,9 @@ const SimulationLoadingScreen: React.FC = () => {
   // Simula o processamento da simulação
   useEffect(() => {
     const simulateCalculation = async () => {
-      console.log('🧮 Iniciando cálculo da simulação...');
-      
       const calculationTime = 4000; // 4 segundos
       
       setTimeout(() => {
-        console.log('✅ Cálculo da simulação concluído');
         setStatus('success');
       }, calculationTime);
     };
@@ -42,13 +39,10 @@ const SimulationLoadingScreen: React.FC = () => {
   }, []);
 
   const handleAnimationFinish = async () => {
-    console.log('🎬 Animação finalizada - Status atual:', status);
-    
     try {
       // Usar o cálculo financeiro correto
       const calculatedResult = await calculation;
       
-      console.log('🚀 Navegando para resultado da simulação com dados corretos:', calculatedResult);
       navigation.navigate('SimulationResult', {
         productId: route.params?.productId,
         amount: route.params?.amount,
@@ -56,8 +50,6 @@ const SimulationLoadingScreen: React.FC = () => {
         result: calculatedResult,
       });
     } catch (error) {
-      console.error('❌ Erro no cálculo da simulação:', error);
-      
       // Fallback com valores básicos em caso de erro
       const numericAmount = parseFloat(route.params?.amount?.replace(/\./g, '').replace(',', '.') || '0');
       const months = route.params?.months || 96;

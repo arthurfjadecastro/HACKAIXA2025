@@ -46,16 +46,7 @@ const LoanConfiguration: React.FC = () => {
         const registeredProduct = products.find(p => p.id === productId);
         
         if (registeredProduct) {
-          console.log('✅ Produto encontrado na lista:', registeredProduct.name);
-          console.log('📝 Nome do produto registrado:', registeredProduct.name);
-          console.log('🔍 DEBUG - Dados completos do produto registrado:', {
-            id: registeredProduct.id,
-            name: registeredProduct.name,
-            categoria: registeredProduct.categoria,
-            prazoMinimo: registeredProduct.prazoMinimo,
-            prazoMaximo: registeredProduct.prazoMaximo,
-            juros: registeredProduct.juros
-          });
+        
           
           // Busca os dados completos baseado no productId
           let detailedData = null;
@@ -75,29 +66,19 @@ const LoanConfiguration: React.FC = () => {
                      productNameLower.includes('habitacao') || 
                      productNameLower.includes('habitação')) {
             // Para habitação, carrega os dados do SAC por padrão (ambos têm os mesmos limites de prazo)
-            console.log('🏠 Detectado produto de habitação, carregando dados...');
+            
             detailedData = await productService.loadHabitacao('sac');
           } else if (productId.includes('outro') || productNameLower.includes('outro') || 
                      registeredProduct.categoria === 'OUTRO') {
             // Para produtos OUTRO, usar dados específicos do produto registrado
-            console.log('🔧 Detectado produto OUTRO, usando dados específicos:', registeredProduct.name);
-            console.log('🔍 DEBUG - Verificando valores salvos:', {
-              prazoMinimo: registeredProduct.prazoMinimo,
-              prazoMaximo: registeredProduct.prazoMaximo,
-              categoria: registeredProduct.categoria,
-              configuracoes: registeredProduct.configuracoes
-            });
+           
             
             const minMonths = registeredProduct.prazoMinimo || 1;
             const maxMonths = registeredProduct.prazoMaximo || 420;
             // Taxa já é mensal, só converter para decimal
             const rate = registeredProduct.juros / 100;
             
-            console.log('📊 Aplicando configurações para produto OUTRO:', {
-              minMonths,
-              maxMonths,
-              rate: (rate * 100).toFixed(2) + '% a.m.'
-            });
+      
             
             setProductMaxMonths(maxMonths);
             setProductMinMonths(minMonths);
@@ -107,28 +88,20 @@ const LoanConfiguration: React.FC = () => {
             const initialMonths = Math.max(minMonths, Math.min(maxMonths, minMonths));
             setMonths(initialMonths);
             setInputValue(initialMonths.toString());
-            
-            console.log(`📊 Configurações do produto OUTRO específico:
-              - Prazo: ${minMonths} a ${maxMonths} meses
-              - Taxa: ${(rate * 100).toFixed(2)}% a.m.
-              - Inicializando com: ${initialMonths} meses`);
+         
             
             // Sai do if sem ir para o fallback
             return;
           }
           
           if (detailedData) {
-            console.log('✅ Dados detalhados carregados:', detailedData.nome_exibicao);
+           
             
             // Define limites de prazo SEMPRE a partir do JSON (sem fallback que sobrescreva)
             const maxMonths = detailedData.prazo?.maximoMeses || registeredProduct.prazoMaximo || 96;
             const minMonths = detailedData.prazo?.minimoMeses || 60; // Para habitação, usa 60 como fallback
             
-            console.log(`🔍 DEBUG - Limites de prazo carregados:
-              - JSON minimoMeses: ${detailedData.prazo?.minimoMeses}
-              - JSON maximoMeses: ${detailedData.prazo?.maximoMeses}
-              - Final minMonths: ${minMonths}
-              - Final maxMonths: ${maxMonths}`);
+            
             
             setProductMaxMonths(maxMonths);
             setProductMinMonths(minMonths);
@@ -148,12 +121,9 @@ const LoanConfiguration: React.FC = () => {
             setMonths(initialMonths);
             setInputValue(initialMonths.toString());
             
-            console.log(`📊 Configurações do produto:
-              - Prazo: ${minMonths} a ${maxMonths} meses
-              - Taxa: ${(rate * 100).toFixed(2)}% a.m.
-              - Inicializando com: ${initialMonths} meses`);
+          
           } else {
-            console.warn('⚠️ Não foi possível determinar o tipo do produto');
+         
             // Usa dados básicos do produto registrado com limites mais conservadores
             const maxMonths = registeredProduct.prazoMaximo || 96;
             // Para produtos OUTRO, usa o prazoMinimo salvo, senão usa 1 como padrão
@@ -170,10 +140,7 @@ const LoanConfiguration: React.FC = () => {
             setMonths(initialMonths);
             setInputValue(initialMonths.toString());
             
-            console.log(`📊 Configurações do produto (fallback):
-              - Prazo: ${minMonths} a ${maxMonths} meses
-              - Taxa: ${(rate * 100).toFixed(2)}% a.m.
-              - Inicializando com: ${initialMonths} meses`);
+         
           }
         } else {
           console.warn('⚠️ Produto não encontrado na lista de cadastrados');
@@ -219,10 +186,7 @@ const LoanConfiguration: React.FC = () => {
     };
   }, [validationTimeout]);
 
-  // Debug do showValidationWarning
-  useEffect(() => {
-    console.log(`🎨 showValidationWarning changed to: ${showValidationWarning}`);
-  }, [showValidationWarning]);
+
 
   const handleBackPress = () => {
     navigation.goBack();
@@ -233,12 +197,7 @@ const LoanConfiguration: React.FC = () => {
   };
 
   const handleContinue = () => {
-    console.log('Continuar com configuração:', { 
-      productId, 
-      amount, 
-      months, 
-      quote 
-    });
+    
     
     navigation.navigate('SimulationLoading', {
       productId,
@@ -255,7 +214,6 @@ const LoanConfiguration: React.FC = () => {
     const numericValue = parseInt(value);
     if (!isNaN(numericValue)) {
       const isOutOfRange = numericValue < productMinMonths || numericValue > productMaxMonths;
-      console.log(`🔍 Validation Debug: value=${value}, min=${productMinMonths}, max=${productMaxMonths}, isOutOfRange=${isOutOfRange}`);
       setShowValidationWarning(isOutOfRange);
       
       // Atualiza o state interno se for um número válido
@@ -264,11 +222,11 @@ const LoanConfiguration: React.FC = () => {
       }
     } else if (value === '') {
       // Campo vazio - não mostra warning imediatamente
-      console.log('🔍 Empty field, removing warning');
+     
       setShowValidationWarning(false);
     } else {
       // Valor inválido (não numérico)
-      console.log('🔍 Invalid numeric value, showing warning');
+     
       setShowValidationWarning(true);
     }
     

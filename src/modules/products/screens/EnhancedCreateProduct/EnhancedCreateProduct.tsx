@@ -52,7 +52,6 @@ const EnhancedCreateProduct: React.FC = () => {
       const convenios = await productService.getActiveConvenios();
       setAvailableConvenios(convenios);
     } catch (error) {
-      console.error('Erro ao carregar convênios:', error);
     }
   };
 
@@ -175,7 +174,6 @@ const EnhancedCreateProduct: React.FC = () => {
     setLoading(true);
     try {
       // Aqui integraria com a API para salvar o produto
-      console.log('Dados do produto:', formData);
       
       Alert.alert(
         'Sucesso',

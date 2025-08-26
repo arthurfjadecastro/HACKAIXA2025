@@ -16,7 +16,6 @@ export const ProductsProvider: React.FC<ProductsProviderProps> = ({ children }) 
 
   const triggerRefresh = useCallback(() => {
     setRefreshTrigger(prev => prev + 1);
-    console.log('🔄 Trigger global de refresh acionado');
   }, []);
 
   return (

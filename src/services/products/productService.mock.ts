@@ -8,7 +8,6 @@ export const productService = {
   // Utilitário para limpar storage (apenas para debug)
   async clearStorage(): Promise<void> {
     await AsyncStorage.removeItem(STORAGE_KEY);
-    console.log('🧹 Storage limpo!');
   },
 
   // Utilitário para carregar produtos cadastrados
@@ -31,7 +30,6 @@ export const productService = {
       
       return products;
     } catch (error) {
-      console.error('❌ Erro ao carregar produtos do storage:', error);
       return [];
     }
   },

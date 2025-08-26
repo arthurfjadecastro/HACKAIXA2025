@@ -91,7 +91,6 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
         }));
       }
     } catch (error) {
-      console.error('Erro ao carregar dados do convênio:', error);
     }
   };
 
@@ -115,7 +114,6 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
         }));
       }
     } catch (error) {
-      console.error('Erro ao carregar dados de habitação:', error);
     }
   };
 
@@ -149,7 +147,6 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
         }));
       }
     } catch (error) {
-      console.error('Erro ao carregar template OUTRO:', error);
     }
   };
 
@@ -231,7 +228,6 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
       await createProduct(productData);
       navigation.goBack();
     } catch (error) {
-      console.error('Erro ao criar produto:', error);
     }
   };
 

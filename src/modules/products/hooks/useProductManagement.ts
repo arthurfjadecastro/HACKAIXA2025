@@ -30,7 +30,6 @@ export const useProductManagement = () => {
         `Produto ${!product.active ? 'ativado' : 'desativado'} com sucesso!`
       );
     } catch (error) {
-      console.error('Erro ao atualizar produto:', error);
       Alert.alert('Erro', 'Não foi possível atualizar o produto. Tente novamente.');
     } finally {
       setToggleLoading(null);

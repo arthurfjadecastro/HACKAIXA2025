@@ -19,14 +19,12 @@ const ProductSimulator: React.FC = () => {
   const [amount, setAmount] = useState<string>('');
   const [error, setError] = useState<string>('');
   
-  console.log('ProductSimulator - ProductId recebido:', productId);
 
   const handleBackPress = () => {
     navigation.goBack();
   };
 
   const handleContinue = () => {
-    console.log('Continuar com valor:', amount);
     if (productId && amount) {
       navigation.navigate('LoanConfiguration', { 
         productId, 

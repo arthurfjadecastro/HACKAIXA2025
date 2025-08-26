@@ -23,7 +23,6 @@ const SimulationLottieAnimation: React.FC<Props> = ({
   useEffect(() => {
     if (!isLoading && animationRef.current) {
       // Para o loop e reproduz uma vez até o final
-      console.log('🔄 Parando loop, reproduzindo animação até o final...');
       animationRef.current.play?.();
     } else if (isLoading && animationRef.current) {
       // Reinicia o loop quando volta a carregar
@@ -32,7 +31,6 @@ const SimulationLottieAnimation: React.FC<Props> = ({
   }, [isLoading]);
 
   const handleAnimationFinish = () => {
-    console.log('🎬 Animação de simulação finalizada');
     // Sempre chama onFinish quando a animação termina
     // Independente do estado de isLoading
     onFinish?.();
@@ -63,7 +61,6 @@ const SimulationLottieAnimation: React.FC<Props> = ({
       </View>
     );
   } catch (error) {
-    console.warn('⚠️ Erro ao renderizar animação de simulação:', error);
     // Em caso de erro, renderiza o fallback diretamente
     return (
       <LoadingFallback 

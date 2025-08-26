@@ -82,7 +82,6 @@ export const useFinancialCalculation = (params: FinancialCalculationParams) => {
         amortizationType = 'PRICE'; // Sempre Price para outros
       }
     } catch (error) {
-      console.warn('Erro ao carregar dados do produto, usando dados básicos:', error);
       // Fallback para dados básicos do produto registrado
       // Taxa já é mensal, só converter para decimal
       rateMonthly = registeredProduct.juros / 100;

@@ -83,7 +83,6 @@ const SimulationTransition: React.FC = () => {
 
   // Executar simulação
   const executeSimulation = async () => {
-    console.log('📊 Telemetria: simulation_request_started', { 
       requestId, 
       productId, 
       amount, 
@@ -98,7 +97,6 @@ const SimulationTransition: React.FC = () => {
     timeoutRef.current = setTimeout(() => {
       setState('error');
       stopStatusRotation();
-      console.log('❌ Telemetria: simulation_request_failed', { 
         requestId, 
         duration_ms: Date.now() - startTimeRef.current,
         reason: 'timeout' 
@@ -120,7 +118,6 @@ const SimulationTransition: React.FC = () => {
         stopStatusRotation();
         setState('success');
         
-        console.log('✅ Telemetria: simulation_request_succeeded', { 
           requestId, 
           duration_ms: Date.now() - startTimeRef.current 
         });
@@ -143,7 +140,6 @@ const SimulationTransition: React.FC = () => {
       stopStatusRotation();
       setState('error');
       
-      console.log('❌ Telemetria: simulation_request_failed', { 
         requestId, 
         duration_ms: Date.now() - startTimeRef.current,
         error: error instanceof Error ? error.message : 'Unknown error'
@@ -166,7 +162,6 @@ const SimulationTransition: React.FC = () => {
             text: 'Sim, voltar',
             style: 'destructive',
             onPress: () => {
-              console.log('🚫 Telemetria: simulation_request_aborted', { 
                 requestId, 
                 reason: 'back_press' 
               });
