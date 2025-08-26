@@ -9,10 +9,10 @@ interface ResultSummaryProps {
   amount: string;
   months: number;
   result: {
-    rate: number;
+    rate?: number;
     rateAnnual?: number;
     amortizationType?: 'PRICE' | 'SAC';
-  };
+  } | null | undefined;
   loanSchedule: LoanSchedule;
   isHabitacao: boolean;
   amortizationType: 'PRICE' | 'SAC';
@@ -58,7 +58,7 @@ export const ResultSummary: React.FC<ResultSummaryProps> = ({
         <View style={styles.summaryRow}>
           <Text style={styles.label}>Sistema de amortização:</Text>
           <Text style={styles.value}>
-            {isHabitacao ? amortizationType : (result.amortizationType || 'Price')}
+            {isHabitacao ? amortizationType : (result?.amortizationType || 'Price')}
           </Text>
         </View>
         
@@ -97,7 +97,7 @@ export const ResultSummary: React.FC<ResultSummaryProps> = ({
         <View style={styles.summaryRow}>
           <Text style={styles.label}>Taxa de juros:</Text>
           <Text style={styles.value}>
-            {(result.rate).toFixed(2)}% a.m. ({(result.rateAnnual || ((Math.pow(1 + result.rate/100, 12) - 1) * 100)).toFixed(1)}% a.a. efetiva)
+            {result?.rate ? (result.rate).toFixed(2) : '2.00'}% a.m. ({result?.rateAnnual ? result.rateAnnual.toFixed(1) : ((Math.pow(1 + (result?.rate || 2)/100, 12) - 1) * 100).toFixed(1)}% a.a. efetiva)
           </Text>
         </View>
       </View>

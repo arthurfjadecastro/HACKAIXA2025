@@ -34,7 +34,9 @@ const SimulationLoadingScreen: React.FC = () => {
         totalAmount: monthlyInstallment * months,
         totalInterest: (monthlyInstallment * months) - amount,
         amount,
-        months
+        months,
+        rate: monthlyRate * 100, // Convertendo para porcentagem
+        rateAnnual: ((Math.pow(1 + monthlyRate, 12) - 1) * 100) // Taxa anual efetiva
       };
       
       setTimeout(() => {

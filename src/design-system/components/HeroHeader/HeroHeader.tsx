@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Text } from '@/design-system/components';
+import { Text } from '../Text/Text';
 import ArthurAvatar from '@/components/ArthurAvatar';
 import { colors } from '@/design-system/tokens';
 

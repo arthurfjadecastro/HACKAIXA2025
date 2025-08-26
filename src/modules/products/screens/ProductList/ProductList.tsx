@@ -4,7 +4,8 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import { Button, HeroHeader, Skeleton } from '@/design-system/components';
+import { Button, Skeleton } from '@/design-system/components';
+import HeroHeader from '@/design-system/components/HeroHeader/HeroHeader';
 import { Text } from '@/design-system/components/Text/Text';
 import { Icon } from '@/design-system/icons';
 import { spacing } from '@/design-system/tokens';
