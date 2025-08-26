@@ -5,19 +5,50 @@ import { Product, CreateProductRequest } from './productTypes';
 const STORAGE_KEY = '@caixa:products';
 
 export const productService = {
+  // Utilitário para limpar storage (apenas para debug)
+  async clearStorage(): Promise<void> {
+    await AsyncStorage.removeItem(STORAGE_KEY);
+    console.log('🧹 Storage limpo!');
+  },
+
   // Utilitário para carregar produtos cadastrados
   async getStoredProducts(): Promise<Product[]> {
     try {
       const stored = await AsyncStorage.getItem(STORAGE_KEY);
-      return stored ? JSON.parse(stored) : [];
-    } catch {
+      const rawProducts = stored ? JSON.parse(stored) : [];
+      
+      // Converter null de volta para undefined para manter consistência com a interface
+      const products = rawProducts.map((product: any) => {
+        const converted = {
+          ...product,
+          prazoMinimo: product.prazoMinimo === null ? undefined : product.prazoMinimo,
+          categoria: product.categoria === null ? undefined : product.categoria,
+          configuracoes: product.configuracoes === null ? undefined : product.configuracoes,
+        };
+        
+        return converted;
+      });
+      
+      return products;
+    } catch (error) {
+      console.error('❌ Erro ao carregar produtos do storage:', error);
       return [];
     }
   },
 
   // Utilitário para salvar produtos no storage
   async saveProducts(products: Product[]): Promise<void> {
-    await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+    // Garantir que campos opcionais sejam preservados mesmo se undefined
+    const productsWithOptionalFields = products.map(product => ({
+      ...product,
+      // Preserva campos opcionais mesmo se undefined
+      prazoMinimo: product.prazoMinimo !== undefined ? product.prazoMinimo : null,
+      categoria: product.categoria !== undefined ? product.categoria : null,
+      configuracoes: product.configuracoes !== undefined ? product.configuracoes : null,
+    }));
+    
+    const jsonString = JSON.stringify(productsWithOptionalFields);
+    await AsyncStorage.setItem(STORAGE_KEY, jsonString);
   },
 
   // READ - Listar produtos cadastrados
@@ -71,6 +102,17 @@ export const productService = {
       updatedAt: new Date().toISOString(),
     };
 
+    // Adiciona campos opcionais se existirem
+    if (data.prazoMinimo !== undefined) {
+      newProduct.prazoMinimo = data.prazoMinimo;
+    }
+    if (data.categoria !== undefined) {
+      newProduct.categoria = data.categoria;
+    }
+    if (data.configuracoes !== undefined) {
+      newProduct.configuracoes = data.configuracoes;
+    }
+
     // Salvar produto
     const products = await this.getStoredProducts();
     const updatedProducts = [...products, newProduct];
@@ -94,6 +136,7 @@ export const productService = {
     if (!currentProduct) {
       throw new Error('Produto não encontrado');
     }
+    
     const updatedProduct: Product = {
       id: currentProduct.id,
       name: updatedData.name ?? currentProduct.name,
@@ -104,6 +147,21 @@ export const productService = {
       createdAt: currentProduct.createdAt,
       updatedAt: new Date().toISOString(),
     };
+    
+    // Preservar campos opcionais
+    const finalPrazoMinimo = updatedData.prazoMinimo ?? currentProduct.prazoMinimo;
+    const finalCategoria = updatedData.categoria ?? currentProduct.categoria;
+    const finalConfiguracoes = updatedData.configuracoes ?? currentProduct.configuracoes;
+    
+    if (finalPrazoMinimo !== undefined) {
+      updatedProduct.prazoMinimo = finalPrazoMinimo;
+    }
+    if (finalCategoria !== undefined) {
+      updatedProduct.categoria = finalCategoria;
+    }
+    if (finalConfiguracoes !== undefined) {
+      updatedProduct.configuracoes = finalConfiguracoes;
+    }
     
     products[productIndex] = updatedProduct;
     await this.saveProducts(products);

@@ -323,7 +323,7 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
             />
           </View>
 
-          {/* Prazos com validação 1-420 */}
+          {/* Prazos com validação simples */}
           <View style={formStyles.rowContainer}>
             <View style={formStyles.halfWidth}>
               <InputField
@@ -331,13 +331,19 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
                 placeholder="1"
                 value={formData.prazo_min_meses?.toString() || ''}
                 onChangeText={(value: string) => {
-                  const numValue = parseInt(value) || 1;
-                  const validValue = Math.max(1, Math.min(420, numValue));
-                  updateField('prazo_min_meses', validValue);
+                  if (value === '') {
+                    // Permite limpar o campo - usa 0 como valor temporário
+                    updateField('prazo_min_meses', 0);
+                  } else {
+                    const numValue = parseInt(value) || 0;
+                    updateField('prazo_min_meses', numValue);
+                  }
                 }}
                 keyboardType="numeric"
               />
-              <Text style={formStyles.fieldHint}>Mínimo: 1, Máximo: 420</Text>
+              <Text style={formStyles.fieldHint}>
+                Mínimo: 1 mês
+              </Text>
             </View>
             <View style={formStyles.halfWidth}>
               <InputField
@@ -345,26 +351,58 @@ export const CreateProductForm: React.FC<CreateProductFormProps> = ({
                 placeholder="420"
                 value={formData.prazo_max_meses?.toString() || ''}
                 onChangeText={(value: string) => {
-                  const numValue = parseInt(value) || 420;
-                  const validValue = Math.max(1, Math.min(420, numValue));
-                  updateField('prazo_max_meses', validValue);
+                  const numValue = Math.max(2, parseInt(value) || 2);
+                  updateField('prazo_max_meses', numValue);
                 }}
                 keyboardType="numeric"
               />
-              <Text style={formStyles.fieldHint}>Mínimo: 1, Máximo: 420</Text>
+              <Text style={formStyles.fieldHint}>
+                Mínimo: 2 meses
+              </Text>
             </View>
           </View>
 
-          {/* Taxa de Juros Anual */}
+          {/* Avisos de validação */}
+          {formData.categoria === 'OUTRO' && formData.prazo_min_meses !== undefined && formData.prazo_min_meses <= 0 && (
+            <View style={formStyles.warningContainer}>
+              <Text style={formStyles.warningText}>
+                ⚠️ O prazo mínimo deve ser maior que 0
+              </Text>
+            </View>
+          )}
+          
+          {formData.prazo_min_meses && formData.prazo_max_meses && 
+           formData.prazo_min_meses >= formData.prazo_max_meses && (
+            <View style={formStyles.warningContainer}>
+              <Text style={formStyles.warningText}>
+                ⚠️ O prazo máximo deve ser maior que o mínimo
+              </Text>
+            </View>
+          )}
+
+          {/* Taxa de Juros Anual com tratamento de vírgula/ponto */}
           <View style={formStyles.inputGroup}>
             <InputField
               label="Taxa de Juros Anual (%)"
-              placeholder="Ex: 12.50"
+              placeholder="Ex: 12,50 ou 12.50"
               value={formData.interestRate || ''}
-              onChangeText={(value: string) => updateField('interestRate', value)}
+              onChangeText={(value: string) => {
+                // Converte vírgula para ponto e mantém apenas números e ponto
+                const cleanValue = value.replace(',', '.').replace(/[^0-9.]/g, '');
+                
+                // Evita múltiplos pontos
+                const parts = cleanValue.split('.');
+                const finalValue = parts.length > 2 
+                  ? parts[0] + '.' + parts.slice(1).join('')
+                  : cleanValue;
+                
+                updateField('interestRate', finalValue);
+              }}
               keyboardType="numeric"
             />
-            <Text style={formStyles.fieldHint}>Taxa anual que será convertida automaticamente na simulação</Text>
+            <Text style={formStyles.fieldHint}>
+              Aceita vírgula ou ponto como separador decimal
+            </Text>
           </View>
 
           {/* Elegibilidade */}
@@ -693,5 +731,19 @@ const formStyles = StyleSheet.create({
     color: '#6B7280',
     marginTop: 4,
     fontStyle: 'italic',
+  },
+  warningContainer: {
+    backgroundColor: '#FEF2F2',
+    borderWidth: 1,
+    borderColor: '#FECACA',
+    borderRadius: 8,
+    padding: 12,
+    marginBottom: 16,
+  },
+  warningText: {
+    fontSize: 14,
+    color: '#DC2626',
+    fontWeight: '500',
+    textAlign: 'center',
   },
 });

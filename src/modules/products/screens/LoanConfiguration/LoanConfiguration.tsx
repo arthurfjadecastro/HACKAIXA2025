@@ -48,6 +48,14 @@ const LoanConfiguration: React.FC = () => {
         if (registeredProduct) {
           console.log('✅ Produto encontrado na lista:', registeredProduct.name);
           console.log('📝 Nome do produto registrado:', registeredProduct.name);
+          console.log('🔍 DEBUG - Dados completos do produto registrado:', {
+            id: registeredProduct.id,
+            name: registeredProduct.name,
+            categoria: registeredProduct.categoria,
+            prazoMinimo: registeredProduct.prazoMinimo,
+            prazoMaximo: registeredProduct.prazoMaximo,
+            juros: registeredProduct.juros
+          });
           
           // Busca os dados completos baseado no productId
           let detailedData = null;
@@ -69,8 +77,43 @@ const LoanConfiguration: React.FC = () => {
             // Para habitação, carrega os dados do SAC por padrão (ambos têm os mesmos limites de prazo)
             console.log('🏠 Detectado produto de habitação, carregando dados...');
             detailedData = await productService.loadHabitacao('sac');
-          } else if (productId.includes('outro') || productNameLower.includes('outro')) {
-            detailedData = await productService.loadOutroTemplate();
+          } else if (productId.includes('outro') || productNameLower.includes('outro') || 
+                     registeredProduct.categoria === 'OUTRO') {
+            // Para produtos OUTRO, usar dados específicos do produto registrado
+            console.log('🔧 Detectado produto OUTRO, usando dados específicos:', registeredProduct.name);
+            console.log('🔍 DEBUG - Verificando valores salvos:', {
+              prazoMinimo: registeredProduct.prazoMinimo,
+              prazoMaximo: registeredProduct.prazoMaximo,
+              categoria: registeredProduct.categoria,
+              configuracoes: registeredProduct.configuracoes
+            });
+            
+            const minMonths = registeredProduct.prazoMinimo || 1;
+            const maxMonths = registeredProduct.prazoMaximo || 420;
+            const rate = registeredProduct.juros > 10 ? (registeredProduct.juros / 100) / 12 : registeredProduct.juros / 100;
+            
+            console.log('📊 Aplicando configurações para produto OUTRO:', {
+              minMonths,
+              maxMonths,
+              rate: (rate * 100).toFixed(2) + '% a.m.'
+            });
+            
+            setProductMaxMonths(maxMonths);
+            setProductMinMonths(minMonths);
+            setProductRateAm(rate);
+            
+            // Inicializa com valor dentro do intervalo
+            const initialMonths = Math.max(minMonths, Math.min(maxMonths, minMonths));
+            setMonths(initialMonths);
+            setInputValue(initialMonths.toString());
+            
+            console.log(`📊 Configurações do produto OUTRO específico:
+              - Prazo: ${minMonths} a ${maxMonths} meses
+              - Taxa: ${(rate * 100).toFixed(2)}% a.m.
+              - Inicializando com: ${initialMonths} meses`);
+            
+            // Sai do if sem ir para o fallback
+            return;
           }
           
           if (detailedData) {
@@ -112,7 +155,8 @@ const LoanConfiguration: React.FC = () => {
             console.warn('⚠️ Não foi possível determinar o tipo do produto');
             // Usa dados básicos do produto registrado com limites mais conservadores
             const maxMonths = registeredProduct.prazoMaximo || 96;
-            const minMonths = 1; // Mínimo padrão para produtos não identificados
+            // Para produtos OUTRO, usa o prazoMinimo salvo, senão usa 1 como padrão
+            const minMonths = registeredProduct.prazoMinimo || 1;
             
             setProductMaxMonths(maxMonths);
             setProductMinMonths(minMonths);

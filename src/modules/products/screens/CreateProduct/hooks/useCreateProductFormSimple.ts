@@ -15,7 +15,10 @@ const initialFormData: FormData = {
   maxTerm: '',
   normative: '',
   observacoes: [],
-  fonte_dados: 'Cadastro automático'
+  fonte_dados: 'Cadastro automático',
+  // Valores padrão para campos de OUTRO
+  prazo_min_meses: 1,
+  prazo_max_meses: 420
 };
 
 interface UseSimpleFormReturn {
@@ -208,7 +211,7 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
         productName = `${formData.categoria} - ${formData.subtipo}${formData.convenio_selected ? ` - ${formData.convenio_selected}` : ''}`;
       }
       
-      const productData = {
+      const productData: any = {
         name: productName,
         juros: formData.categoria === 'HABITACAO' ? 1.0 : 
                formData.categoria === 'OUTRO' ? (parseFloat(formData.interestRate) || 1.0) :
@@ -219,6 +222,11 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
         subtipo: formData.categoria === 'HABITACAO' ? 'SAC' : (formData.categoria === 'OUTRO' ? 'GENERICO' : formData.subtipo),
         configuracoes: formData
       };
+
+      // Adiciona prazoMinimo apenas se for categoria OUTRO e valor válido
+      if (formData.categoria === 'OUTRO' && formData.prazo_min_meses && formData.prazo_min_meses > 0) {
+        productData.prazoMinimo = formData.prazo_min_meses;
+      }
 
       await createProduct(productData);
       navigation.goBack();
@@ -231,7 +239,9 @@ export const useCreateProductForm = (): UseSimpleFormReturn => {
   const isFormValid = Boolean(
     formData.categoria && 
     (formData.categoria === 'HABITACAO' || // Habitação não precisa de subtipo
-     formData.categoria === 'OUTRO' || // OUTRO não precisa de subtipo
+     (formData.categoria === 'OUTRO' && 
+      formData.prazo_min_meses && formData.prazo_min_meses > 0 && 
+      formData.prazo_max_meses && formData.prazo_max_meses > formData.prazo_min_meses) || // OUTRO precisa de prazos válidos
      (formData.subtipo && 
       (formData.subtipo !== 'CONVENIO' || formData.convenio_selected)))
   );
