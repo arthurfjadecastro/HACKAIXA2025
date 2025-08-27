@@ -4,7 +4,7 @@
 
 ## 🎬 Demonstração da Implementação
 
-![Demo do App](./assets/hackaixa.mp4)
+![Demo do App](./assets/hackaixa.gif)
 
 > **Demo em ação:** Simulação completa de empréstimos consignados com cálculos dinâmicos PRICE/SAC, validações em tempo real e interface nativa otimizada.
 
