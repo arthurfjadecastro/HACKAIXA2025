@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SimulationResult Styles should match snapshot 1`] = `
+{
+  "container": {
+    "backgroundColor": "#F4F8FB",
+    "flex": 1,
+  },
+  "contentContainer": {
+    "paddingBottom": 16,
+    "paddingHorizontal": 8,
+    "paddingTop": 16,
+  },
+  "contentWrapper": {
+    "flex": 1,
+  },
+  "scrollContainer": {
+    "flex": 1,
+  },
+}
+`;

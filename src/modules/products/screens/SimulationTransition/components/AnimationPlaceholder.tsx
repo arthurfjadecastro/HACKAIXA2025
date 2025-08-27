@@ -67,7 +67,7 @@ export const AnimationPlaceholder: React.FC<AnimationPlaceholderProps> = ({ stat
   });
 
   return (
-    <View style={styles.container}>
+    <View style={styles.container} testID="animation-container">
       <Animated.View 
         style={[
           styles.circle,
@@ -76,8 +76,9 @@ export const AnimationPlaceholder: React.FC<AnimationPlaceholderProps> = ({ stat
             transform: [{ rotate: rotation }],
           }
         ]}
+        testID="animated-circle"
       >
-        <View style={styles.innerCircle} />
+        <View style={styles.innerCircle} testID="inner-circle" />
       </Animated.View>
     </View>
   );

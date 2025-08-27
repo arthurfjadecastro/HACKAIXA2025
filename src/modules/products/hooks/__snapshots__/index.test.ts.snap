@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Products Hooks Index should match snapshot 1`] = `
+[
+  "useCreateProduct",
+  "useDeleteProduct",
+  "useProductManagement",
+  "useProducts",
+]
+`;

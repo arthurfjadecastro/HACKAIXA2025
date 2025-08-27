@@ -1,0 +1,64 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ResultSummary.styles should have consistent style structure 1`] = `
+{
+  "highlightValue": {
+    "color": "#004AAD",
+    "fontSize": 16,
+  },
+  "label": {
+    "color": "#757575",
+    "fontSize": 14,
+  },
+  "resultCard": {
+    "backgroundColor": "#FFFFFF",
+    "borderRadius": 12,
+    "elevation": 4,
+    "marginHorizontal": 8,
+    "padding": 32,
+    "shadowColor": "#000",
+    "shadowOffset": {
+      "height": 2,
+      "width": 0,
+    },
+    "shadowOpacity": 0.1,
+    "shadowRadius": 8,
+  },
+  "sectionTitle": {
+    "color": "#333333",
+    "fontSize": 18,
+    "fontWeight": "600",
+    "marginBottom": 16,
+  },
+  "successIcon": {
+    "marginRight": 8,
+  },
+  "successTitle": {
+    "color": "#004AAD",
+    "fontSize": 20,
+    "fontWeight": "bold",
+  },
+  "successTitleContainer": {
+    "alignItems": "center",
+    "flexDirection": "row",
+    "justifyContent": "center",
+    "marginBottom": 24,
+  },
+  "summaryRow": {
+    "alignItems": "center",
+    "borderBottomColor": "#F0F0F0",
+    "borderBottomWidth": 1,
+    "flexDirection": "row",
+    "justifyContent": "space-between",
+    "paddingVertical": 8,
+  },
+  "summarySection": {
+    "marginBottom": 16,
+  },
+  "value": {
+    "color": "#333333",
+    "fontSize": 14,
+    "fontWeight": "600",
+  },
+}
+`;

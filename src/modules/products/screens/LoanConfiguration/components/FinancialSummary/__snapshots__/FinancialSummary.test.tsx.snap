@@ -1,0 +1,189 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FinancialSummary should match snapshot with quote 1`] = `
+[
+  <View
+    style={
+      {
+        "padding": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "fontSize": 14,
+        }
+      }
+    >
+      de
+    </Text>
+    <Text
+      style={
+        {
+          "fontSize": 24,
+        }
+      }
+    >
+      R$ 2.500,00
+    </Text>
+  </View>,
+  <View
+    style={
+      {
+        "padding": 15,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      >
+        Total a pagar
+      </Text>
+      <Text
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      >
+        R$ 60.000,00
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      >
+        Juros
+      </Text>
+      <Text
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      >
+        2.50
+        % a.m. (
+        34.5
+        % a.a. efetiva)
+      </Text>
+    </View>
+  </View>,
+]
+`;
+
+exports[`FinancialSummary should match snapshot without quote 1`] = `
+[
+  <View
+    style={
+      {
+        "padding": 10,
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "fontSize": 14,
+        }
+      }
+    >
+      de
+    </Text>
+    <Text
+      style={
+        {
+          "fontSize": 24,
+        }
+      }
+    >
+      R$ 0,00
+    </Text>
+  </View>,
+  <View
+    style={
+      {
+        "padding": 15,
+      }
+    }
+  >
+    <View
+      style={
+        {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      >
+        Total a pagar
+      </Text>
+      <Text
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      >
+        R$ 0,00
+      </Text>
+    </View>
+    <View
+      style={
+        {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      >
+        Juros
+      </Text>
+      <Text
+        style={
+          {
+            "fontSize": 16,
+          }
+        }
+      >
+        2.50
+        % a.m. (
+        34.5
+        % a.a. efetiva)
+      </Text>
+    </View>
+  </View>,
+]
+`;

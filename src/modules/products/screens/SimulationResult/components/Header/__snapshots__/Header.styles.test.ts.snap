@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header.styles should have consistent style structure 1`] = `
+{
+  "backButton": {
+    "marginLeft": -8,
+    "padding": 8,
+  },
+  "header": {
+    "alignItems": "center",
+    "backgroundColor": "#F4F8FB",
+    "flexDirection": "row",
+    "justifyContent": "space-between",
+    "paddingHorizontal": 16,
+    "paddingVertical": 12,
+  },
+  "headerSpacer": {
+    "width": 48,
+  },
+  "headerTitle": {
+    "color": "#333333",
+    "flex": 1,
+    "fontSize": 16,
+    "fontWeight": "600",
+    "textAlign": "center",
+  },
+}
+`;

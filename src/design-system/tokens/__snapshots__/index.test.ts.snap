@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Design System Tokens Index should match snapshot 1`] = `
+[
+  "borderRadius",
+  "colors",
+  "elevation",
+  "fontSizes",
+  "fontWeights",
+  "gap",
+  "lineHeights",
+  "margin",
+  "padding",
+  "radius",
+  "shadows",
+  "spacing",
+  "theme",
+  "typography",
+]
+`;

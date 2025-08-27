@@ -48,11 +48,13 @@ describe('CreateProduct', () => {
     expect(lastCall[0]).toEqual(
       expect.objectContaining({
         formData: expect.any(Object),
-        errors: expect.any(Object),
         updateField: expect.any(Function),
-        handleBlur: expect.any(Function),
       })
     );
+    
+    // Verificar que as props específicas estão presentes
+    expect(lastCall[0]).toHaveProperty('isConvenioAlreadyRegistered');
+    expect(lastCall[0]).toHaveProperty('isHabitacaoAlreadyRegistered');
   });
 
   it('passes correct props to CreateProductFooter', () => {

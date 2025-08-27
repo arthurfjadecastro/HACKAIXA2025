@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SimulationLoadingScreen Styles should match snapshot 1`] = `
+{
+  "container": {
+    "backgroundColor": "#F4F8FB",
+    "flex": 1,
+  },
+  "content": {
+    "alignItems": "center",
+    "flex": 1,
+    "justifyContent": "center",
+    "paddingHorizontal": 0,
+  },
+}
+`;

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstallmentsHeader should match snapshot 1`] = `
+<View
+  style={
+    {
+      "paddingBottom": 16,
+      "paddingHorizontal": 0,
+      "paddingTop": 32,
+    }
+  }
+>
+  <Text
+    style={
+      {
+        "color": "#1565C0",
+        "fontSize": 18,
+        "fontWeight": "800",
+        "textAlign": "left",
+      }
+    }
+  >
+    Parcelas
+  </Text>
+</View>
+`;

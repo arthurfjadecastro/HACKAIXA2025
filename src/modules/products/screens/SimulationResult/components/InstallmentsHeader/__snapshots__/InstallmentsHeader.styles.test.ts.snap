@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstallmentsHeader Styles should match snapshot 1`] = `
+{
+  "installmentsHeader": {
+    "paddingBottom": 16,
+    "paddingHorizontal": 0,
+    "paddingTop": 32,
+  },
+  "installmentsTitle": {
+    "color": "#1565C0",
+    "fontSize": 18,
+    "fontWeight": "800",
+    "textAlign": "left",
+  },
+}
+`;

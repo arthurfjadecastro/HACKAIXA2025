@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Simulations Calculator Index should match snapshot 1`] = `
+[
+  "calculateLoanSchedule",
+  "convertMonthlyToYearlyRate",
+  "convertYearlyToMonthlyRate",
+]
+`;

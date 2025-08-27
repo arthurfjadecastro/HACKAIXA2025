@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SimulationTransition Types should match snapshot 1`] = `
+{
+  "NavigationProps": "object",
+  "SimulationParams": "interface",
+  "SimulationResult": "interface",
+  "SimulationState": "union",
+}
+`;

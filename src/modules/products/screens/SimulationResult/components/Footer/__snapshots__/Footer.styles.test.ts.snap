@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer.styles should have consistent style structure 1`] = `
+{
+  "footer": {
+    "backgroundColor": "#F4F8FB",
+    "paddingHorizontal": 24,
+    "paddingVertical": 16,
+  },
+  "newSimulationButton": {
+    "backgroundColor": "#F7931E",
+    "borderRadius": 8,
+    "height": 56,
+    "justifyContent": "center",
+  },
+}
+`;

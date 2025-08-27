@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AmortizationToggle.styles should have consistent style structure 1`] = `
+{
+  "amortizationToggle": {
+    "borderTopColor": "#F0F0F0",
+    "borderTopWidth": 1,
+    "marginTop": 12,
+    "paddingTop": 12,
+  },
+  "toggleButton": {
+    "alignItems": "center",
+    "borderRadius": 6,
+    "flex": 1,
+    "paddingHorizontal": 14,
+    "paddingVertical": 10,
+  },
+  "toggleButtonActive": {
+    "backgroundColor": "#005CA9",
+  },
+  "toggleButtonInactive": {
+    "backgroundColor": "transparent",
+  },
+  "toggleButtonText": {
+    "fontSize": 13,
+    "fontWeight": "600",
+  },
+  "toggleButtonTextActive": {
+    "color": "#FFFFFF",
+  },
+  "toggleButtonTextInactive": {
+    "color": "#666666",
+  },
+  "toggleButtons": {
+    "backgroundColor": "#F8F9FA",
+    "borderRadius": 8,
+    "flexDirection": "row",
+    "padding": 3,
+  },
+  "toggleLabel": {
+    "color": "#333333",
+    "fontSize": 13,
+    "fontWeight": "600",
+    "marginBottom": 8,
+  },
+}
+`;

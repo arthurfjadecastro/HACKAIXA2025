@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">84.21% </span>
+                <span class="strong">89.47% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>16/19</span>
+                <span class='fraction'>17/19</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">75% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>5/8</span>
+                <span class='fraction'>6/8</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">83.33% </span>
+                <span class="strong">88.88% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>15/18</span>
+                <span class='fraction'>16/18</span>
             </div>
         
             
@@ -284,7 +284,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -301,34 +301,32 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">79x</span>
-<span class="cline-any cline-yes">79x</span>
-<span class="cline-any cline-yes">79x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-yes">120x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">79x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">79x</span>
+<span class="cline-any cline-yes">120x</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">79x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">79x</span>
-<span class="cline-any cline-yes">7x</span>
-<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">79x</span>
+<span class="cline-any cline-yes">120x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">79x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">120x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">120x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -387,7 +385,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -455,7 +455,7 @@ import {
 } from 'react-native';
 &nbsp;
 import { Icon } from '@/design-system/icons/Icon';
-import { colors, spacing } from '@/design-system/tokens';
+import { colors, spacing, radius, typography } from '@/design-system/tokens';
 &nbsp;
 interface InputFieldProps {
   label: string;
@@ -497,7 +497,7 @@ const InputField = forwardRef&lt;TextInput, InputFieldProps&gt;(({
   const inputRef = useRef&lt;TextInput&gt;(null);
 &nbsp;
   useImperativeHandle(ref, () =&gt; ({
-    focus: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >inputRef.current?.focus(),</span>
+    focus: () =&gt; inputRef.current?.focus(),
     blur: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >inputRef.current?.blur(),</span>
     clear: <span class="fstat-no" title="function not covered" >()</span> =&gt; <span class="cstat-no" title="statement not covered" >inputRef.current?.clear(),</span>
   } as TextInput));
@@ -583,8 +583,9 @@ const styles = StyleSheet.create({
     marginBottom: spacing[2], // Reduzir para spacing[2] (8px) - espaçamento mínimo
   },
   label: {
-    fontSize: 16,
-    fontWeight: '600',
+    ...typography.body1, // Usando token de tipografia
+    fontWeight: '600', // SemiBold para labels
+    fontFamily: typography.h5.fontFamily, // CAIXAStd-SemiBold
     color: colors.text.primary,
     marginBottom: spacing[2],
   },
@@ -593,10 +594,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: colors.border.medium,
-    borderRadius: 8,
+    borderRadius: radius.input,
     backgroundColor: colors.background.secondary,
-    paddingHorizontal: 16,
-    height: 48,
+    paddingHorizontal: spacing[4],
+    height: spacing[12], // 48px equivalente
   },
   inputContainerFocused: {
     borderColor: colors.primary.main,
@@ -611,24 +612,23 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    fontSize: 16,
+    ...typography.body1, // Usando token de tipografia completo
     color: colors.text.primary,
     paddingVertical: 0,
   },
   eyeButton: {
-    padding: 4,
-    marginLeft: 8,
-    width: 32,
-    height: 32,
+    padding: spacing[1],
+    marginLeft: spacing[2],
+    width: spacing[8], // 32px
+    height: spacing[8],
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 16,
+    borderRadius: radius.button,
   },
   helperText: {
-    fontSize: 14,
+    ...typography.caption, // Usando token de tipografia
     color: colors.text.secondary,
     marginTop: spacing[1],
-    lineHeight: 20,
   },
   errorText: {
     color: colors.status.error,
@@ -643,7 +643,7 @@ export default InputField;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-08-21T01:12:10.032Z
+                at 2025-08-27T17:59:10.632Z
             </div>
         <script src="../../../prettify.js"></script>
         <script>

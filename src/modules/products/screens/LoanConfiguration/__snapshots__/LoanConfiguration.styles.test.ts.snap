@@ -1,0 +1,152 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoanConfiguration Styles should match snapshot 1`] = `
+{
+  "amountRow": {
+    "alignItems": "center",
+    "flexDirection": "row",
+    "justifyContent": "space-between",
+  },
+  "amountSummary": {
+    "marginBottom": 24,
+  },
+  "amountValue": {
+    "color": "#12161C",
+    "fontSize": 24,
+    "fontWeight": "bold",
+  },
+  "backButton": {
+    "padding": 16,
+  },
+  "container": {
+    "backgroundColor": "#F4F8FB",
+    "flex": 1,
+  },
+  "content": {
+    "flex": 1,
+    "paddingHorizontal": 16,
+  },
+  "contentContainer": {
+    "paddingBottom": 24,
+    "paddingTop": 24,
+  },
+  "continueButton": {
+    "backgroundColor": "#F7931E",
+    "borderRadius": 8,
+    "height": 56,
+    "justifyContent": "center",
+  },
+  "controlButton": {
+    "alignItems": "center",
+    "backgroundColor": "#F5F5F5",
+    "borderRadius": 20,
+    "height": 40,
+    "justifyContent": "center",
+    "marginHorizontal": 16,
+    "width": 40,
+  },
+  "controlButtonDisabled": {
+    "backgroundColor": "#F0F0F0",
+  },
+  "controlsRow": {
+    "alignItems": "center",
+    "flexDirection": "row",
+    "justifyContent": "center",
+    "marginBottom": 8,
+  },
+  "editButton": {
+    "backgroundColor": "#F5F5F5",
+    "borderRadius": 6,
+    "padding": 8,
+  },
+  "financialSummary": {
+    "backgroundColor": "#F8F9FA",
+    "borderRadius": 8,
+    "marginBottom": 24,
+    "padding": 16,
+  },
+  "footer": {
+    "backgroundColor": "#FFFFFF",
+    "paddingHorizontal": 16,
+    "paddingVertical": 16,
+  },
+  "header": {
+    "alignItems": "center",
+    "backgroundColor": "#FFFFFF",
+    "borderBottomColor": "#EEEEEE",
+    "borderBottomWidth": 1,
+    "flexDirection": "row",
+    "justifyContent": "space-between",
+    "paddingHorizontal": 16,
+    "paddingVertical": 12,
+  },
+  "headerSpacer": {
+    "width": 0,
+  },
+  "headerTitle": {
+    "color": "#757575",
+    "flex": 1,
+    "fontSize": 14,
+    "fontWeight": "400",
+    "marginRight": 16,
+    "textAlign": "right",
+  },
+  "helperText": {
+    "color": "#BDBDBD",
+    "fontSize": 12,
+  },
+  "installmentAmount": {
+    "color": "#1565C0",
+    "fontSize": 28,
+    "fontWeight": "bold",
+  },
+  "installmentLabel": {
+    "color": "#666666",
+    "fontSize": 16,
+    "marginBottom": 4,
+  },
+  "installmentSelector": {
+    "marginBottom": 24,
+  },
+  "installmentValue": {
+    "alignItems": "center",
+    "marginBottom": 24,
+  },
+  "limitsHelper": {
+    "alignItems": "center",
+    "marginTop": 8,
+  },
+  "monthsInput": {
+    "borderColor": "#E0E0E0",
+    "borderRadius": 8,
+    "borderWidth": 1,
+    "color": "#12161C",
+    "fontSize": 16,
+    "fontWeight": "600",
+    "height": 40,
+    "textAlign": "center",
+    "width": 80,
+  },
+  "sectionLabel": {
+    "color": "#12161C",
+    "fontSize": 16,
+    "fontWeight": "600",
+    "marginBottom": 12,
+  },
+  "summaryLabel": {
+    "color": "#666666",
+    "fontSize": 14,
+  },
+  "summaryRow": {
+    "alignItems": "center",
+    "flexDirection": "row",
+    "justifyContent": "space-between",
+    "marginBottom": 8,
+  },
+  "summaryValue": {
+    "color": "#12161C",
+    "fontSize": 14,
+    "fontWeight": "600",
+  },
+}
+`;

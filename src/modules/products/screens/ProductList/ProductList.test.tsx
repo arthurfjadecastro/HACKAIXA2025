@@ -1,5 +1,6 @@
-import { renderWithNavigation } from '@/navigation/test-utils';
-import { fireEvent } from '@testing-library/react-native';
+import React from 'react';
+import { render, fireEvent } from '@testing-library/react-native';
+import { TestWrapper } from '@/utils/test-utils';
 import ProductList from './ProductList';
 
 const mockNavigate = jest.fn();
@@ -16,16 +17,24 @@ describe('ProductList', () => {
   });
 
   it('renders screen components', () => {
-    const { getByText } = renderWithNavigation(<ProductList />);
+    const { getByText } = render(
+      <TestWrapper>
+        <ProductList />
+      </TestWrapper>
+    );
     
     expect(getByText('Olá, Arthur de Castro')).toBeTruthy();
     expect(getByText('Cliente Singular')).toBeTruthy();
-    expect(getByText('Você ainda não tem produtos cadastrados. Cadastre o primeiro e comece a simular agora.')).toBeTruthy();
+    expect(getByText('Escolha um produto e simule seu empréstimo de forma rápida e clara.')).toBeTruthy();
     expect(getByText('Cadastrar produto')).toBeTruthy();
   });
 
   it('navigates to RegisterProducts when button is pressed', () => {
-    const { getByText } = renderWithNavigation(<ProductList />);
+    const { getByText } = render(
+      <TestWrapper>
+        <ProductList />
+      </TestWrapper>
+    );
     
     const button = getByText('Cadastrar produto');
     fireEvent.press(button);
@@ -33,10 +42,14 @@ describe('ProductList', () => {
     expect(mockNavigate).toHaveBeenCalledWith('RegisterProducts');
   });
 
-  it('renders EmptyState with correct content', () => {
-    const { getByText } = renderWithNavigation(<ProductList />);
+  it('renders main content and navigation', () => {
+    const { getByText } = render(
+      <TestWrapper>
+        <ProductList />
+      </TestWrapper>
+    );
     
-    expect(getByText('Você ainda não tem produtos cadastrados. Cadastre o primeiro e comece a simular agora.')).toBeTruthy();
-    expect(getByText('É rápido e leva menos de 1 minuto.')).toBeTruthy();
+    expect(getByText('Escolha um produto e simule seu empréstimo de forma rápida e clara.')).toBeTruthy();
+    expect(getByText('Cadastrar produto')).toBeTruthy();
   });
 });
