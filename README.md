@@ -2,6 +2,12 @@
 
 > App **React Native + Expo** para **simulação** e **cadastro** de produtos financeiros, com foco em **empréstimos consignados** (PRICE/SAC), UX consistente e **Design System** próprio.
 
+## 🎬 Demonstração da Implementação
+
+![Demo do App](./assets/hackaixa.mp4)
+
+> **Demo em ação:** Simulação completa de empréstimos consignados com cálculos dinâmicos PRICE/SAC, validações em tempo real e interface nativa otimizada.
+
 ## Protótipo implementado
 Algumas modificações em tempo de desenvolvimento foram adaptadas mediante necessidade de usabilidade.
 ![Início](./assets/splash.png)
